@@ -8,9 +8,9 @@
  */
 
 import React, {Component} from 'react';
-import codePush from "react-native-code-push";
 import {Platform, StyleSheet} from 'react-native';
 import {View, TextInput, Text, Button} from 'react-native-ui-lib';
+import codePush from "react-native-code-push";
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -37,7 +37,8 @@ class App extends Component<Props> {
   }
 }
 
-App = codePush(App)
+let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME };
+export default codePush(codePushOptions)(App)
 
 const styles = StyleSheet.create({
   container: {
