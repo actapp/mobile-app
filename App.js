@@ -7,9 +7,9 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet} from 'react-native';
-import {View, TextInput, Text, Button} from 'react-native-ui-lib';
+import React, { Component } from 'react';
+import { Platform, StyleSheet } from 'react-native';
+import { View, TextInput, Text, Button } from 'react-native-ui-lib';
 import codePush from "react-native-code-push";
 
 const instructions = Platform.select({
@@ -25,15 +25,26 @@ class App extends Component<Props> {
   render() {
     return (
       <View flex paddingH-25 paddingT-120>
-      <Text blue50 text20>Welcome</Text>
-      <TextInput text50 placeholder="username" dark10/>
-      <TextInput text50 placeholder="password" secureTextEntry dark10/>
-      <View marginT-100 center>
-        <Button text70 white background-orange30 label="Login"/>
-        <Button link text70 orange30 label="Sign Up" marginT-20/>
+        <Text blue50 text20>Welcome</Text>
+        <TextInput text50 placeholder="username" dark10 />
+        <TextInput text50 placeholder="password" secureTextEntry dark10 />
+        <View marginT-100 center>
+          <Button text70 white background-orange30 label="Login" />
+          <Button link text70 orange30 label="Sign Up" marginT-20 />
+        </View>
+
+        <TouchableOpacity onPress={this.onButtonPress}>
+          <Text>Check for updates</Text>
+        </TouchableOpacity>
       </View>
-    </View>
     );
+  }
+
+  onButtonPress() {
+    codePush.sync({
+      updateDialog: true,
+      installMode: codePush.InstallMode.IMMEDIATE
+    });
   }
 }
 
