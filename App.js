@@ -8,6 +8,7 @@
  */
 
 import React, {Component} from 'react';
+import codePush from "react-native-code-push";
 import {Platform, StyleSheet} from 'react-native';
 import {View, TextInput, Text, Button} from 'react-native-ui-lib';
 
@@ -19,7 +20,8 @@ const instructions = Platform.select({
 });
 
 type Props = {};
-export default class App extends Component<Props> {
+
+class App extends Component<Props> {
   render() {
     return (
       <View flex paddingH-25 paddingT-120>
@@ -34,6 +36,8 @@ export default class App extends Component<Props> {
     );
   }
 }
+
+App = codePush(App)
 
 const styles = StyleSheet.create({
   container: {
