@@ -21,7 +21,7 @@ const instructions = Platform.select({
 
 type Props = {};
 
-class App extends Component<Props> {
+export default class App extends Component<Props> {
   render() {
     return (
       <View flex paddingH-25 paddingT-120>
@@ -33,9 +33,7 @@ class App extends Component<Props> {
           <Button link text70 orange30 label="Sign Up" marginT-20 />
         </View>
 
-        <TouchableOpacity onPress={this.onButtonPress}>
-          <Text>Check for updates</Text>
-        </TouchableOpacity>
+        <Button onPress={this.onButtonPress} label="Check for updates"/>
       </View>
     );
   }
@@ -49,7 +47,7 @@ class App extends Component<Props> {
 }
 
 let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME };
-export default codePush(codePushOptions)(App)
+App = codePush(codePushOptions)(App)
 
 const styles = StyleSheet.create({
   container: {
