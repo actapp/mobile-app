@@ -8,7 +8,8 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
+import {View, TextInput, Text, Button} from 'react-native-ui-lib';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -21,11 +22,15 @@ type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+      <View flex paddingH-25 paddingT-120>
+      <Text blue50 text20>Welcome</Text>
+      <TextInput text50 placeholder="username" dark10/>
+      <TextInput text50 placeholder="password" secureTextEntry dark10/>
+      <View marginT-100 center>
+        <Button text70 white background-orange30 label="Login"/>
+        <Button link text70 orange30 label="Sign Up" marginT-20/>
       </View>
+    </View>
     );
   }
 }
