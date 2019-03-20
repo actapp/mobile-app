@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Alert, ScrollView, StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import { Button, Icon, Container, Text } from 'native-base';
+import Analytics from 'appcenter-analytics';
+import * as AnalyticsConstants from '../AnalyticsConstants';
 
 function renderNavBar(onBack, onNext) {
     const buttons = []
@@ -34,16 +36,20 @@ function createBackButton(onPress) {
     )
 }
 
-function confirmStepCompleted(navToNext) {
+function confirm(title, msg, onYes, onNo) {
     Alert.alert(
-        'Confirm',
-        'Did you complete the questions?',
+        title,
+        msg,
         [
             {
                 text: 'No',
                 style: 'cancel',
+                onPress: onNo
             },
-            { text: 'Yes', onPress: () => { navToNext() } },
+            {
+                text: 'Yes',
+                onPress: () => { onYes() }
+            },
         ],
         { cancelable: false },
     );
@@ -55,7 +61,7 @@ function createNextButton(navToNext) {
             light
             iconRight
             bordered
-            onPress={() => { confirmStepCompleted(navToNext) }}
+            onPress={navToNext}
             style={{ color: 'white' }}
             key={navToNext}>
             <Text>NEXT</Text>
@@ -109,6 +115,34 @@ function renderShareStep(contentObj, navBar) {
     )
 }
 
+function createNextFunc(step, navigation) {
+    if (step.nextKey == null) {
+        return null
+    }
+
+    return () => {
+        confirm('Confirm', 'Did you ask all the questions?', () => {
+            navigation.navigate(step.nextKey)
+            Analytics.trackEvent(AnalyticsConstants.EVENT_STEP_COMPLETED, { [AnalyticsConstants.PARAM_STEP_KEY]: step.key })
+        })
+    }
+}
+
+function onCompleted(navigation, acceptedChrist) {
+    navigation.navigate('Home')
+    Analytics.trackEvent(AnalyticsConstants.EVENT_SHARE_COMPLETED, { [AnalyticsConstants.PARAM_ACCEPTED_CHRIST]: acceptedChrist })
+}
+
+function createCompleteFunc(step, navigation) {
+    return () => {
+        confirm('Complete', 'Did your friend accept Christ?', () => {
+            onCompleted(navigation, true)
+        }, () => {
+            onCompleted(navigation, false)
+        })
+    }
+}
+
 function renderStep(content) {
     return (
         class Step extends React.Component {
@@ -117,10 +151,10 @@ function renderStep(content) {
             }
 
             render() {
-                let nextFunc = null;
-
-                if(content.nextKey != null) {
-                    nextFunc = () => { this.props.navigation.navigate(content.nextKey) }
+                let nextFunc = createNextFunc(content, this.props.navigation)
+                if (nextFunc == null) {
+                    // No next function; assume this must be the last step
+                    nextFunc = createCompleteFunc(content, this.props.navigation)
                 }
 
                 return renderShareStep(content,

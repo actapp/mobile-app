@@ -8,13 +8,16 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, StatusBar } from 'react-native';
 import { View, Text } from 'react-native-ui-lib';
 import codePush from "react-native-code-push";
 import { Typography, Colors } from 'react-native-ui-lib';
-import { Button, Icon } from 'native-base';
+import { Container, Header, Button, Icon } from 'native-base';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import { renderStep } from './share/ShareStep';
+import * as colors from './native-base-theme/variables/commonColor';
+import Analytics from 'appcenter-analytics';
+import * as AnalyticsConstants from './AnalyticsConstants';
 
 const steps = require('./share/content/steps.json')
 
@@ -30,24 +33,29 @@ class App extends Component<Props> {
 
   render() {
     return (
-      <View flex paddingH-25 paddingT-120 style={styles.container}>
-        <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>ACT</Text>
-        <Text text10 style={{ fontSize: 18, color: '#ffffff', marginBottom: 20 }}>Share Jesus without fear</Text>
+      <Container>
+        <Header androidStatusBarColor={colors.brandDark} style={{ display: 'none' }} />
 
-        <Button
-          primary
-          rounded
-          iconRight
-          style={{ flex: 0.2, flexDirection: 'row', alignSelf: 'center' }}
-          onPress={
-            () => {
-              this.props.navigation.navigate(steps[0].key)
-            }
-          }>
-          <Text style={{ color: 'white', marginLeft: 20 }}>SHARE</Text>
-          <Icon name='arrow-forward' style={{ marginLeft: 10 }} />
-        </Button>
-      </View>
+        <View flex paddingH-25 paddingT-120 style={styles.container}>
+          <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>ACT</Text>
+          <Text text10 style={{ fontSize: 18, color: '#ffffff', marginBottom: 20 }}>Share Jesus without fear</Text>
+
+          <Button
+            primary
+            rounded
+            iconRight
+            style={{ flex: 0.2, flexDirection: 'row', alignSelf: 'center' }}
+            onPress={
+              () => {
+                this.props.navigation.navigate(steps[0].key)
+                Analytics.trackEvent(AnalyticsConstants.EVENT_SHARE_STARTED)
+              }
+            }>
+            <Text style={{ color: 'white', marginLeft: 20 }}>SHARE</Text>
+            <Icon name='arrow-forward' style={{ marginLeft: 10 }} />
+          </Button>
+        </View>
+      </Container>
     );
   }
 
