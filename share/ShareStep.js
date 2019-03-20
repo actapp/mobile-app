@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { Alert, ScrollView, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import { View, Text, Button } from 'react-native-ui-lib';
+import { View } from 'react-native-ui-lib';
+import { Button, Icon, Container, Text } from 'native-base';
+
+const step1 = require('./content/step1.json')
+const step2 = require('./content/step2.json')
 
 class ShareStep extends React.Component {
     static propTypes = {
@@ -19,10 +23,10 @@ class ShareStep extends React.Component {
 function renderNavBar(onBack, onNext) {
     const buttons = []
     if (onBack != null) {
-        buttons.push(createNavButton("Back", onBack))
+        buttons.push(createBackButton(onBack))
     }
     if (onNext != null) {
-        buttons.push(createNavButton("Next", onNext))
+        buttons.push(createNextButton(onNext))
     }
 
     return (
@@ -32,34 +36,103 @@ function renderNavBar(onBack, onNext) {
     )
 }
 
-function createNavButton(text, onPress) {
+function createBackButton(onPress) {
     return (
-        <TouchableOpacity
+        <Button
+            light
+            iconLeft
+            bordered
             onPress={onPress}
-            style={styles.navButton}
+            style={{ color: 'white' }}
             key={onPress}>
-            <Text style={styles.navButtonText}>{text}</Text>
-        </TouchableOpacity>
+            <Icon name='arrow-back' />
+            <Text>BACK</Text>
+        </Button>
     )
 }
 
-function renderShareStep(text, navBar) {
-    return (
-        <View flex padding-10 style={styles.stepContainer}>
-            <Text text10 style={styles.stepText}>{text}</Text>
+function confirmStepCompleted(navToNext) {
+    Alert.alert(
+        'Confirm',
+        'Did you complete the questions?',
+        [
+          {
+            text: 'No',
+            style: 'cancel',
+          },
+          {text: 'Yes', onPress: () => { navToNext() }},
+        ],
+        {cancelable: false},
+      );
+}
 
-            {navBar}
-        </View>
+function createNextButton(navToNext) {
+    return (
+        <Button
+            light
+            iconRight
+            bordered
+            onPress={() => { confirmStepCompleted(navToNext) }}
+            style={{ color: 'white' }}
+            key={navToNext}>
+            <Text>NEXT</Text>
+            <Icon name='arrow-forward' />
+        </Button>
+    )
+}
+
+function renderComment(contentObj) {
+    return (
+        <Text style={{ ...styles.stepText, marginTop: 20, fontFamily: 'sans-serif-light', fontSize: 14, fontStyle: 'italic' }}>
+            {contentObj.comments}
+        </Text>
+    )
+}
+
+function renderShareLine(id, text) {
+    return (
+        <Text key={id} style={{ ...styles.stepText, fontFamily: 'sans-serif-light' }}>
+            {text}
+        </Text>
+    )
+}
+
+function renderShareContent(contentObj) {
+    const lines = []
+
+    for (let i = 0; i < contentObj.lineItems.length; i++) {
+        lines.push(
+            renderShareLine(i, contentObj.lineItems[i])
+        )
+    }
+
+    return (
+        <ScrollView>
+            {lines}
+
+            {renderComment(contentObj)}
+        </ScrollView>
+    )
+}
+
+function renderShareStep(contentObj, navBar) {
+    return (
+        <Container>
+            <View flex style={styles.stepContainer}>
+                {renderShareContent(contentObj)}
+                {navBar}
+            </View>
+        </Container>
     )
 }
 
 class ShareStep1 extends React.Component {
-    state = {
-        text: "Hello"
-    }
+    static navigationOptions = {
+        title: step1.title
+    };
 
     render() {
-        return renderShareStep(this.state.text,
+        return renderShareStep(step1,
             renderNavBar(
                 () => this.props.navigation.goBack(),
                 () => {
@@ -69,12 +142,12 @@ class ShareStep1 extends React.Component {
 }
 
 class ShareStep2 extends React.Component {
-    state = {
-        text: "Hello 2"
-    }
+    static navigationOptions = {
+        title: step2.title
+    };
 
     render() {
-        return renderShareStep(this.state.text,
+        return renderShareStep(step2,
             renderNavBar(() => this.props.navigation.goBack(), null))
     }
 }
@@ -85,6 +158,9 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         backgroundColor: '#000000',
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingTop: 15
     },
     navContainer: {
         width: '100%',
@@ -107,10 +183,9 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     stepText: {
-        width: '100%',
-        height: '80%',
+        marginBottom: 20,
         color: '#ffffff',
-        fontSize: 24
+        fontSize: 18
     }
 })
 

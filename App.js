@@ -9,10 +9,10 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet } from 'react-native';
-import { View, TextInput, Text, Button } from 'react-native-ui-lib';
+import { View, Text } from 'react-native-ui-lib';
 import codePush from "react-native-code-push";
 import { Typography, Colors } from 'react-native-ui-lib';
-import Icon from "react-native-vector-icons/Ionicons";
+import { Button, Icon } from 'native-base';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import { ShareStep1, ShareStep2 } from './share/ShareStep';
 
@@ -22,20 +22,28 @@ class App extends Component<Props> {
   state = {
   }
 
+  static navigationOptions = {
+    header: null
+  }
+
   render() {
     return (
       <View flex paddingH-25 paddingT-120 style={styles.container}>
-        <Text white center text10 style={{ fontSize: 48 }}>ACT</Text>
-        <Text white center text10 marginB-20 style={{ fontSize: 18 }}>Share Jesus without fear</Text>
+        <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>ACT</Text>
+        <Text text10 style={{ fontSize: 18, color: '#ffffff', marginBottom: 20 }}>Share Jesus without fear</Text>
 
         <Button
+          primary
+          rounded
+          iconRight
+          style={{ flex: 0.2, flexDirection: 'row', alignSelf: 'center' }}
           onPress={
             () => {
               this.props.navigation.navigate('ShareStep1')
             }
-          }
-          style={styles.buttonBarButton}>
-          <Text>Share</Text>
+          }>
+          <Text style={{ color: 'white', marginLeft: 20 }}>SHARE</Text>
+          <Icon name='arrow-forward' style={{ marginLeft: 10 }} />
         </Button>
       </View>
     );
@@ -91,6 +99,18 @@ export const AppNavigator = createStackNavigator({
   ShareStep2: {
     screen: ShareStep2
   }
-});
+},
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#000',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: '100',
+      },
+    }
+  }
+);
 
 export default createAppContainer(AppNavigator);

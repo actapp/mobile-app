@@ -11,6 +11,7 @@
     "appcenter": "^1.12.2",
     "appcenter-analytics": "^1.12.2",
     "appcenter-crashes": "^1.12.2",
+    "native-base": "^2.12.1",
     "react": "16.6.3",
     "react-native": "0.58.6",
     "react-native-cli": "^2.0.1",
