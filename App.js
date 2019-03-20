@@ -14,7 +14,9 @@ import codePush from "react-native-code-push";
 import { Typography, Colors } from 'react-native-ui-lib';
 import { Button, Icon } from 'native-base';
 import { createStackNavigator, createAppContainer } from "react-navigation";
-import { ShareStep1, ShareStep2 } from './share/ShareStep';
+import { renderStep } from './share/ShareStep';
+
+const steps = require('./share/content/steps.json')
 
 type Props = {}
 
@@ -39,7 +41,7 @@ class App extends Component<Props> {
           style={{ flex: 0.2, flexDirection: 'row', alignSelf: 'center' }}
           onPress={
             () => {
-              this.props.navigation.navigate('ShareStep1')
+              this.props.navigation.navigate(steps[0].key)
             }
           }>
           <Text style={{ color: 'white', marginLeft: 20 }}>SHARE</Text>
@@ -89,16 +91,16 @@ const styles = StyleSheet.create({
   }
 });
 
+const stepScreens = {}
+for (let i = 0; i < steps.length; i++) {
+  stepScreens[steps[i].key] = renderStep(steps[i])
+}
+
 export const AppNavigator = createStackNavigator({
   Home: {
     screen: App
   },
-  ShareStep1: {
-    screen: ShareStep1
-  },
-  ShareStep2: {
-    screen: ShareStep2
-  }
+  ...stepScreens
 },
   {
     defaultNavigationOptions: {
@@ -109,6 +111,7 @@ export const AppNavigator = createStackNavigator({
       headerTitleStyle: {
         fontWeight: '100',
       },
+      headerLeft: null
     }
   }
 );

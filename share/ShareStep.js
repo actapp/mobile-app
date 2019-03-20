@@ -1,24 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, ScrollView, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
 import { View } from 'react-native-ui-lib';
 import { Button, Icon, Container, Text } from 'native-base';
-
-const step1 = require('./content/step1.json')
-const step2 = require('./content/step2.json')
-
-class ShareStep extends React.Component {
-    static propTypes = {
-        onBackPress: PropTypes.func,
-        onForwardPress: PropTypes.func,
-        text: PropTypes.string
-    }
-
-    render() {
-        const { text, onBackPress, onForwardPress } = this.props
-
-    }
-}
 
 function renderNavBar(onBack, onNext) {
     const buttons = []
@@ -56,14 +39,14 @@ function confirmStepCompleted(navToNext) {
         'Confirm',
         'Did you complete the questions?',
         [
-          {
-            text: 'No',
-            style: 'cancel',
-          },
-          {text: 'Yes', onPress: () => { navToNext() }},
+            {
+                text: 'No',
+                style: 'cancel',
+            },
+            { text: 'Yes', onPress: () => { navToNext() } },
         ],
-        {cancelable: false},
-      );
+        { cancelable: false },
+    );
 }
 
 function createNextButton(navToNext) {
@@ -126,30 +109,25 @@ function renderShareStep(contentObj, navBar) {
     )
 }
 
-class ShareStep1 extends React.Component {
-    static navigationOptions = {
-        title: step1.title
-    };
+function renderStep(content) {
+    return (
+        class Step extends React.Component {
+            static navigationOptions = {
+                title: content.title
+            }
 
-    render() {
-        return renderShareStep(step1,
-            renderNavBar(
-                () => this.props.navigation.goBack(),
-                () => {
-                    this.props.navigation.navigate('ShareStep2')
-                }))
-    }
-}
+            render() {
+                let nextFunc = null;
 
-class ShareStep2 extends React.Component {
-    static navigationOptions = {
-        title: step2.title
-    };
+                if(content.nextKey != null) {
+                    nextFunc = () => { this.props.navigation.navigate(content.nextKey) }
+                }
 
-    render() {
-        return renderShareStep(step2,
-            renderNavBar(() => this.props.navigation.goBack(), null))
-    }
+                return renderShareStep(content,
+                    renderNavBar(() => this.props.navigation.goBack(), nextFunc))
+            }
+        }
+    )
 }
 
 const styles = StyleSheet.create({
@@ -189,4 +167,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export { ShareStep1, ShareStep2 };
+export { renderStep };
