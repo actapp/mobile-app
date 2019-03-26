@@ -40,7 +40,7 @@ class App extends Component<Props> {
         <Header androidStatusBarColor={colors.brandDark} style={{ display: 'none' }} />
 
         <View flex paddingH-25 paddingT-120 style={styles.container}>
-          <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>ACT1</Text>
+          <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>ACT</Text>
           <Text text10 style={{ fontSize: 18, color: '#ffffff', marginBottom: 20 }}>Share Jesus without fear</Text>
 
           <Button
