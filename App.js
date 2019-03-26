@@ -18,8 +18,11 @@ import { renderStep } from './share/ShareStep';
 import * as colors from './native-base-theme/variables/commonColor';
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from './AnalyticsConstants';
+import firebase from 'react-native-firebase';
 
 const steps = require('./share/content/steps.json')
+
+console.log(firebase.database().app.name); 
 
 type Props = {}
 
@@ -37,7 +40,7 @@ class App extends Component<Props> {
         <Header androidStatusBarColor={colors.brandDark} style={{ display: 'none' }} />
 
         <View flex paddingH-25 paddingT-120 style={styles.container}>
-          <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>ACT</Text>
+          <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>ACT1</Text>
           <Text text10 style={{ fontSize: 18, color: '#ffffff', marginBottom: 20 }}>Share Jesus without fear</Text>
 
           <Button
