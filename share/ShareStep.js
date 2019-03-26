@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Alert, ScrollView, StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import { Button, Icon, Container, Text } from 'native-base';
+import CardDeck from '../components/CardDeck';
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from '../AnalyticsConstants';
 
@@ -106,12 +107,19 @@ function renderShareContent(contentObj) {
 
 function renderShareStep(contentObj, navBar) {
     return (
-        <Container>
+        // <Container>
             <View flex style={styles.stepContainer}>
-                {renderShareContent(contentObj)}
+                <CardDeck
+                    textItems={contentObj.lineItems}
+                    completeText='Completed'
+                    onDeckCompleted={() => { }
+
+                    } 
+                    style={{ flex: 1, width: '80%'}}/>
+
                 {navBar}
             </View>
-        </Container>
+        // </Container>
     )
 }
 
@@ -144,6 +152,15 @@ function createCompleteFunc(step, navigation) {
 }
 
 function renderStep(content) {
+    // let nextFunc = createNextFunc(content, this.props.navigation)
+    // if (nextFunc == null) {
+    //     // No next function; assume this must be the last step
+    //     nextFunc = createCompleteFunc(content, this.props.navigation)
+    // }
+
+    // return renderShareStep(content,
+    //     renderNavBar(() => this.props.navigation.goBack(), nextFunc))
+
     return (
         class Step extends React.Component {
             static navigationOptions = {
@@ -166,13 +183,15 @@ function renderStep(content) {
 
 const styles = StyleSheet.create({
     stepContainer: {
-        flex: 1,
+        flex: 10,
+        width: '100%',
         justifyContent: 'flex-start',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         backgroundColor: '#000000',
         paddingLeft: 15,
         paddingRight: 15,
-        paddingTop: 15
+        paddingTop: 15,
+        flexWrap: 'wrap'
     },
     navContainer: {
         width: '100%',
