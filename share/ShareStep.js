@@ -3,6 +3,7 @@ import { Alert, ScrollView, StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import { Button, Icon, Container, Text } from 'native-base';
 import CardDeck from '../components/CardDeck';
+import { PlatformFonts } from '../Styles';
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from '../AnalyticsConstants';
 
@@ -73,7 +74,7 @@ function createNextButton(navToNext) {
 
 function renderComment(contentObj) {
     return (
-        <Text style={{ ...styles.stepText, marginTop: 20, fontFamily: 'sans-serif-light', fontSize: 14, fontStyle: 'italic' }}>
+        <Text style={{ ...styles.stepText, marginTop: 20, fontFamily: PlatformFonts.light, fontSize: 14, fontStyle: 'italic' }}>
             {contentObj.comments}
         </Text>
     )
@@ -81,7 +82,7 @@ function renderComment(contentObj) {
 
 function renderShareLine(id, text) {
     return (
-        <Text key={id} style={{ ...styles.stepText, fontFamily: 'sans-serif-light' }}>
+        <Text key={id} style={{ ...styles.stepText, fontFamily: PlatformFonts.light }}>
             {text}
         </Text>
     )
@@ -107,18 +108,24 @@ function renderShareContent(contentObj) {
 
 function renderShareStep(contentObj, navBar) {
     return (
-        // <Container>
+        <Container>
             <View flex style={styles.stepContainer}>
-                <CardDeck
-                    textItems={contentObj.lineItems}
-                    completeText='Completed'
-                    onDeckCompleted={() => { }
-
-                    } 
-                    style={{ flex: 1, width: '80%'}}/>
-
+                {renderShareContent(contentObj)}
                 {navBar}
             </View>
+        </Container>
+        // <Container>
+            // <View flex style={styles.stepContainer}>
+            //     <CardDeck
+            //         textItems={contentObj.lineItems}
+            //         completeText='Completed'
+            //         onDeckCompleted={() => { }
+
+            //         } 
+            //         style={{ flex: 1, width: '80%'}}/>
+
+            //     {navBar}
+            // </View>
         // </Container>
     )
 }

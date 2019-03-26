@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 import { Container, CheckBox } from 'native-base';
+import { PlatformFonts } from '../Styles';
 
 const styles = StyleSheet.create({
     transparentCard: {
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
         height: '80%',
         color: 'white' ,
         fontSize: 24,
-        fontFamily: 'sans-serif-light',
+        fontFamily: PlatformFonts.light,
         textAlign: 'center',
         flexWrap: 'wrap'
     }

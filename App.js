@@ -44,7 +44,7 @@ class App extends Component<Props> {
             primary
             rounded
             iconRight
-            style={{ flex: 0.2, flexDirection: 'row', alignSelf: 'center' }}
+            style={{ alignSelf: 'center' }}
             onPress={
               () => {
                 this.props.navigation.navigate(steps[0].key)
