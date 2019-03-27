@@ -21,20 +21,75 @@ import * as AnalyticsConstants from './AnalyticsConstants';
 import firebase from 'react-native-firebase';
 
 const steps = require('./share/content/steps.json')
+const db = firebase.firestore();
 
-console.log(firebase.database().app.name); 
+// let steps = null;
+// firebase
+//   .firestore()
+//   .runTransaction(async transaction => {
+//     const doc = await transaction.get(ref);
+
+//     console.log(doc);
+
+//     return doc;
+//     // if it does not exist set the population to one
+//     // if (!doc.exists) {
+//     //   transaction.set(ref, { population: 1 });
+//     //   // return the new value so we know what the new population is
+//     //   return 1;
+//     // }
+
+//     // exists already so lets increment it + 1
+//     // const newPopulation = doc.data().population + 1;
+
+//     // transaction.update(ref, {
+//     //   population: newPopulation,
+//     // });
+
+//     // return the new value so we know what the new population is
+//     // return newPopulation;
+//   })
+//   .then(steps => {
+//     console.log(
+//       `Transaction successfully committed and steps is '${steps}'`
+//     );
+//   })
+//   .catch(error => {
+//     console.log('Transaction failed: ', error);
+//   });
 
 type Props = {}
 
 class App extends Component<Props> {
   state = {
+    isAuthenticated: false
   }
 
   static navigationOptions = {
     header: null
   }
 
+  componentDidMount() {
+    firebase.auth().signInAnonymously()
+      .then(() => {
+        const userRef = db.collection('users').add({
+          fullname: "Test",
+          email: "dd@gmail.com"
+        }).then(ref => {
+          console.log(ref);
+        })
+
+        this.setState({
+          isAuthenticated: true,
+        });
+      });
+  }
+
   render() {
+    if(!this.state.isAuthenticated) {
+      return null
+    }
+
     return (
       <Container>
         <Header androidStatusBarColor={colors.brandDark} style={{ display: 'none' }} />

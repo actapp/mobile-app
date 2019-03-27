@@ -59,13 +59,10 @@
 #import "FIRVerifyPhoneNumberRequest.h"
 #import "FIRVerifyPhoneNumberResponse.h"
 
-#import "../AuthProviders/OAuth/FIROAuthCredential_Internal.h"
 #if TARGET_OS_IOS
 #import "../AuthProviders/Phone/FIRPhoneAuthCredential_Internal.h"
 #import "FIRPhoneAuthProvider.h"
 #endif
-
-NS_ASSUME_NONNULL_BEGIN
 
 /** @var kClientVersionHeader
     @brief HTTP header name for the client version.
@@ -127,12 +124,6 @@ static NSString *const kAppNotAuthorizedReasonValue = @"ipRefererBlocked";
     @brief The key for an error's "message" value in JSON responses from the server.
  */
 static NSString *const kErrorMessageKey = @"message";
-
-/** @var kReturnIDPCredentialErrorMessageKey
-    @brief The key for "errorMessage" value in JSON responses from the server, In case
-        returnIDPCredential of a verifyAssertion request is set to @YES.
- */
-static NSString *const kReturnIDPCredentialErrorMessageKey = @"errorMessage";
 
 /** @var kUserNotFoundErrorMessage
     @brief This is the error message returned when the user is not found, which means the user
@@ -378,11 +369,6 @@ static NSString *const kMissingClientIdentifier = @"MISSING_CLIENT_IDENTIFIER";
         invalid.
  */
 static NSString *const kCaptchaCheckFailedErrorMessage = @"CAPTCHA_CHECK_FAILED";
-
-/** @var kInvalidPendingToken
-    @brief Generic IDP error codes.
- */
-static NSString *const kInvalidPendingToken = @"INVALID_PENDING_TOKEN";
 
 /** @var gBackendImplementation
     @brief The singleton FIRAuthBackendImplementation instance to use.
@@ -750,8 +736,7 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
                                                       providerID:FIRPhoneAuthProviderID];
       callback(nil,
                [FIRAuthErrorUtils credentialAlreadyInUseErrorWithMessage:nil
-                                                              credential:credential
-                                                                   email:nil]);
+                                                              credential:credential]);
       return;
     }
     callback(response, nil);
@@ -815,7 +800,7 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
  */
 - (void)postWithRequest:(id<FIRAuthRPCRequest>)request
                response:(id<FIRAuthRPCResponse>)response
-               callback:(void (^)(NSError * _Nullable error))callback {
+               callback:(void (^)(NSError *error))callback {
   NSError *error;
   NSData *bodyData;
   if ([request containsPostBody]) {
@@ -926,24 +911,7 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
                                                                    underlyingError:error]);
       return;
     }
-    // In case returnIDPCredential of a verifyAssertion request is set to @YES, the server may
-    // return a 200 with a response that may contain a server error.
-    if ([request isKindOfClass:[FIRVerifyAssertionRequest class]]) {
-      FIRVerifyAssertionRequest *verifyAssertionRequest = (FIRVerifyAssertionRequest *)request;
-      if (verifyAssertionRequest.returnIDPCredential) {
-        NSString *errorMessage = dictionary[kReturnIDPCredentialErrorMessageKey];
-        if ([errorMessage isKindOfClass:[NSString class]]) {
-          NSString *errorString = (NSString *)errorMessage;
-          NSError *clientError = [[self class] clientErrorWithServerErrorMessage:errorString
-                                                                 errorDictionary:@{}
-                                                                        response:response];
-          if (clientError) {
-            callback(clientError);
-            return;
-          }
-        }
-      }
-    }
+
     // Success! The response object originally passed in can be used by the caller.
     callback(nil);
   }];
@@ -1012,8 +980,7 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
     return [FIRAuthErrorUtils customTokenMistmatchErrorWithMessage:serverDetailErrorMessage];
   }
 
-  if ([shortErrorMessage isEqualToString:kInvalidCredentialErrorMessage] ||
-      [shortErrorMessage isEqualToString:kInvalidPendingToken]) {
+  if ([shortErrorMessage isEqualToString:kInvalidCredentialErrorMessage]) {
     return [FIRAuthErrorUtils invalidCredentialErrorWithMessage:serverDetailErrorMessage];
   }
 
@@ -1057,22 +1024,8 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
   }
 
   if ([shortErrorMessage isEqualToString:kFederatedUserIDAlreadyLinkedMessage]) {
-    FIROAuthCredential *credential;
-    NSString *email;
-    if ([response isKindOfClass:[FIRVerifyAssertionResponse class]]) {
-      FIRVerifyAssertionResponse *verifyAssertion = (FIRVerifyAssertionResponse *)response;
-      if (verifyAssertion.oauthIDToken.length || verifyAssertion.oauthAccessToken.length) {
-        credential =
-            [[FIROAuthCredential alloc] initWithProviderID:verifyAssertion.providerID
-                                                   IDToken:verifyAssertion.oauthIDToken
-                                               accessToken:verifyAssertion.oauthAccessToken
-                                              pendingToken:verifyAssertion.pendingToken];
-      }
-      email = verifyAssertion.email;
-    }
     return [FIRAuthErrorUtils credentialAlreadyInUseErrorWithMessage:serverDetailErrorMessage
-                                                          credential:credential
-                                                               email:email];
+                                                          credential:nil];
   }
 
   if ([shortErrorMessage isEqualToString:kWeakPasswordErrorMessagePrefix]) {
@@ -1199,5 +1152,3 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
 }
 
 @end
-
-NS_ASSUME_NONNULL_END
