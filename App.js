@@ -9,10 +9,10 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, StatusBar } from 'react-native';
-import { View, Text } from 'react-native-ui-lib';
+import { View, Text, Button, Icon } from 'react-native-ui-lib';
 import codePush from "react-native-code-push";
 import { Typography, Colors } from 'react-native-ui-lib';
-import { Container, Header, Button, Icon } from 'native-base';
+// import { Container, Header, Button, Icon } from 'native-base';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import { renderStep } from './share/ShareStep';
 import * as colors from './native-base-theme/variables/commonColor';
