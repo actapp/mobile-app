@@ -18,6 +18,8 @@ target 'ActApp' do
   
 
   platform :ios, '9.0'
+  pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
+
   target 'ActAppTests' do
     inherit! :search_paths
     # Pods for testing

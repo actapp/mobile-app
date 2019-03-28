@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "1000254899823",
+    "firebase_url": "https://actapp-63eaa.firebaseio.com",
+    "project_id": "actapp-63eaa",
+    "storage_bucket": "actapp-63eaa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1000254899823:android:20d3f9f54bdff9ce",
+        "android_client_info": {
+          "package_name": "com.actapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1000254899823-lumtcsje74h9gi05l4sh4neuf7e0kf99.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.actapp",
+            "certificate_hash": "eb9dafd85caea2a807c5c27ed4e2ce9f284edaf5"
+          }
+        },
+        {
+          "client_id": "1000254899823-q0b7l0pdiob135frfndpe86ufdh3t4k5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0iZt4WCcPALgqyQSvBwt5EIEroE9DuRk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1000254899823-q0b7l0pdiob135frfndpe86ufdh3t4k5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1000254899823-9eh1hd0udrtun1tft404liue8n2cccs0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.actapp"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

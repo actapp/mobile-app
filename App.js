@@ -9,19 +9,18 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, StatusBar } from 'react-native';
-import { View, Text, Button, Icon } from 'react-native-ui-lib';
+import { View, Text, Button } from 'react-native-ui-lib';
+import { Colors } from './Styles';
 import codePush from "react-native-code-push";
-import { Typography, Colors } from 'react-native-ui-lib';
-// import { Container, Header, Button, Icon } from 'native-base';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import { renderStep } from './share/ShareStep';
-import * as colors from './native-base-theme/variables/commonColor';
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from './AnalyticsConstants';
 import firebase from 'react-native-firebase';
+import { GoogleSignin } from 'react-native-google-signin';
 
 const steps = require('./share/content/steps.json')
-const db = firebase.firestore();
+// const db = firebase.firestore();
 
 // let steps = null;
 // firebase
@@ -58,62 +57,90 @@ const db = firebase.firestore();
 //     console.log('Transaction failed: ', error);
 //   });
 
+// Calling this function will open Google for login.
+export async function googleLogin() {
+  try {
+    // add any configuration settings here:
+    await GoogleSignin.configure();
+
+    const data = await GoogleSignin.signIn();
+
+    // create a new firebase credential with the token
+    const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
+    // login with credential
+
+    firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
+
+    console.log(JSON.stringify(firebaseUserCredential.user.toJSON()));
+
+    return true
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 type Props = {}
 
 class App extends Component<Props> {
   state = {
-    isAuthenticated: false
+    isAuthenticating: true,
+    isAuthenticated: true
   }
 
   static navigationOptions = {
     header: null
   }
 
-  componentDidMount() {
-    firebase.auth().signInAnonymously()
-      .then(() => {
-        const userRef = db.collection('users').add({
-          fullname: "Test",
-          email: "dd@gmail.com"
-        }).then(ref => {
-          console.log(ref);
-        })
+  setIsAuthenticated = (isAuthenticated) => {
+    this.setState({ isAuthenticated: isAuthenticated })
+  }
 
-        this.setState({
-          isAuthenticated: true,
-        });
-      });
+  componentDidMount() {
+    // googleLogin()
+    // .then((authenticated) => {
+    //   this.setState({isAuthenticated: authenticated})
+    // })
+    // .catch((error) => {
+    //   this.setState({isAuthenticated: false})
+    // })
   }
 
   render() {
-    if(!this.state.isAuthenticated) {
-      return null
+    let actionButton = null;
+
+    if (this.state.isAuthenticated) {
+      actionButton = (<Button
+        label='Share'
+        style={styles.mainButton}
+        onPress={
+          () => {
+            this.props.navigation.navigate(steps[0].key)
+            Analytics.trackEvent(AnalyticsConstants.EVENT_SHARE_STARTED)
+          }
+        }/>)
+    } else {
+      actionButton = (<Button
+        label="Sign in"
+        style={styles.mainButton}
+        onPress={() => {
+          googleLogin()
+          .then((isAuthenticated) => {
+            this.setIsAuthenticated(isAuthenticated)
+          })
+          .catch((error) => {
+            this.setIsAuthenticated(false)
+          })
+        }} />)  
     }
 
     return (
-      <Container>
-        <Header androidStatusBarColor={colors.brandDark} style={{ display: 'none' }} />
+      <View flex paddingH-25 paddingT-120 style={styles.container}>
+        <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>ACT</Text>
+        <Text text10 style={{ fontSize: 18, color: '#ffffff', marginBottom: 20 }}>Share Jesus without fear</Text>
 
-        <View flex paddingH-25 paddingT-120 style={styles.container}>
-          <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>ACT</Text>
-          <Text text10 style={{ fontSize: 18, color: '#ffffff', marginBottom: 20 }}>Share Jesus without fear</Text>
-
-          <Button
-            primary
-            rounded
-            iconRight
-            style={{ alignSelf: 'center' }}
-            onPress={
-              () => {
-                this.props.navigation.navigate(steps[0].key)
-                Analytics.trackEvent(AnalyticsConstants.EVENT_SHARE_STARTED)
-              }
-            }>
-            <Text style={{ color: 'white', marginLeft: 20 }}>SHARE</Text>
-            <Icon name='arrow-forward' style={{ marginLeft: 10 }} />
-          </Button>
-        </View>
-      </Container>
+        {actionButton}
+      </View>
     );
   }
 
@@ -128,22 +155,15 @@ class App extends Component<Props> {
 let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME };
 App = codePush(codePushOptions)(App)
 
-Colors.loadColors({
-  black: '#000000',
-  gold: '#FFD700',
-});
-
-Typography.loadTypographies({
-  h1: { fontSize: 50, fontWeight: '100', lineHeight: 80 },
-  h2: { fontSize: 46, fontWeight: '300', lineHeight: 64 },
-});
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#000000',
+  },
+  mainButton: {
+    backgroundColor: Colors.primary
   },
   buttonBar: {
     flex: 1,
