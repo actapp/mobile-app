@@ -55,6 +55,13 @@ function confirm(title, msg, onYes, onNo) {
     );
 }
 
+function alert(title, msg) {
+    Alert.alert(
+        title,
+        msg
+    )
+}
+
 function createNextButton(navToNext, isEnabled) {
     let buttonColor = styles.navButton.borderColor
     if (!isEnabled) {
@@ -182,7 +189,15 @@ function renderStep(content) {
     return (
         class Step extends React.Component {
             static navigationOptions = {
-                title: content.title
+                title: content.title,
+                headerRight: (
+                    <TouchableOpacity
+                        onPress={() => {
+                            alert('Tip', content.comments)
+                        }}>
+                        <Icon name={PlatformIcons.name('help-circle')} size={25} color='white' style={{ marginRight: 15 }} />
+                    </TouchableOpacity>
+                ),
             }
 
             state = {
