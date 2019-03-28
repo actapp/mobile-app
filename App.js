@@ -84,8 +84,7 @@ type Props = {}
 
 class App extends Component<Props> {
   state = {
-    isAuthenticating: true,
-    isAuthenticated: true
+    isAuthenticated: false
   }
 
   static navigationOptions = {
@@ -97,13 +96,10 @@ class App extends Component<Props> {
   }
 
   componentDidMount() {
-    // googleLogin()
-    // .then((authenticated) => {
-    //   this.setState({isAuthenticated: authenticated})
-    // })
-    // .catch((error) => {
-    //   this.setState({isAuthenticated: false})
-    // })
+    GoogleSignin.isSignedIn()
+    .then((isSignedIn) => {
+      this.setState({isAuthenticated: isSignedIn})
+    })
   }
 
   render() {
