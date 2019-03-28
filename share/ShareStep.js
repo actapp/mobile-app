@@ -129,7 +129,8 @@ function renderShareStep(contentObj, navBar, allowNext, onQuestionsCompleted) {
                 completeText='Completed'
                 lastCompleteText='Next'
                 onLastCardShowing={allowNext}
-                onDeckCompleted={onQuestionsCompleted} />
+                onDeckCompleted={onQuestionsCompleted}
+                />
 
             {navBar}
         </View>
@@ -238,6 +239,7 @@ const styles = StyleSheet.create({
     navContainer: {
         width: '100%',
         height: '20%',
+        marginBottom: 10,
         padding: 5,
         flex: 1,
         flexDirection: 'row',
