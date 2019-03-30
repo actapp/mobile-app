@@ -2,8 +2,7 @@ package com.actapp;
 
 import android.app.Application;
 
-import com.facebook.react.ReactApplication;
-import co.apptailor.googlesignin.RNGoogleSigninPackage;
+import com.facebook.react.ReactApplication;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;

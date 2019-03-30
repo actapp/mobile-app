@@ -17,7 +17,7 @@ import { renderStep } from './share/ShareStep';
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from './AnalyticsConstants';
 import firebase from 'react-native-firebase';
-import { GoogleSignin } from 'react-native-google-signin';
+//import { GoogleSignin } from 'react-native-google-signin';
 
 const steps = require('./share/content/steps.json')
 // const db = firebase.firestore();
@@ -58,27 +58,27 @@ const steps = require('./share/content/steps.json')
 //   });
 
 // Calling this function will open Google for login.
-export async function googleLogin() {
-  try {
+//export async function googleLogin() {
+ // try {
     // add any configuration settings here:
-    await GoogleSignin.configure();
+   // await GoogleSignin.configure();
 
-    const data = await GoogleSignin.signIn();
+    //const data = await GoogleSignin.signIn();
 
     // create a new firebase credential with the token
-    const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
+    //const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
     // login with credential
 
-    firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
+    //firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
 
-    console.log(JSON.stringify(firebaseUserCredential.user.toJSON()));
+    //console.log(JSON.stringify(firebaseUserCredential.user.toJSON()));
 
-    return true
-  } catch (e) {
-    console.error(e);
-    throw e;
-  }
-}
+    //return true
+  //} catch (e) {
+    //console.error(e);
+    //throw e;
+  //}
+//}
 
 type Props = {}
 
@@ -95,17 +95,17 @@ class App extends Component<Props> {
     this.setState({ isAuthenticated: isAuthenticated })
   }
 
-  componentDidMount() {
-    GoogleSignin.isSignedIn()
-    .then((isSignedIn) => {
-      this.setState({isAuthenticated: isSignedIn})
-    })
-  }
+  //componentDidMount() {
+    //GoogleSignin.isSignedIn()
+    //.then((isSignedIn) => {
+     // this.setState({isAuthenticated: isSignedIn})
+    //})
+  //}
 
   render() {
     let actionButton = null;
 
-    if (this.state.isAuthenticated) {
+    //if (this.state.isAuthenticated) {
       actionButton = (<Button
         label='Share'
         style={styles.mainButton}
@@ -115,7 +115,8 @@ class App extends Component<Props> {
             Analytics.trackEvent(AnalyticsConstants.EVENT_SHARE_STARTED)
           }
         }/>)
-    } else {
+    //} else {
+     /*
       actionButton = (<Button
         label="Sign in"
         style={styles.mainButton}
@@ -129,6 +130,7 @@ class App extends Component<Props> {
           })
         }} />)  
     }
+    */
 
     return (
       <View flex paddingH-25 paddingT-120 style={styles.container}>
