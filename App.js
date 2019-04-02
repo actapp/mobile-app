@@ -87,6 +87,7 @@ type Props = {}
 class App extends Component<Props> {
   state = {
     isAuthenticated: false,
+    awaitingPhoneNumber: false,
     confirmResult: null,
     awaitingCode: false
   }
@@ -99,13 +100,16 @@ class App extends Component<Props> {
     this.setState({ isAuthenticated: isAuthenticated })
   }
 
-  phoneAuth = () => {
+  phoneAuth = (phoneNumber) => {
+      actionButton = 
     console.log("Authenticating via phone")
-    firebase.auth().signInWithPhoneNumber('+19132379703')
+
+    // Erroneously assume US country code only for now...
+    firebase.auth().signInWithPhoneNumber('+1' + phoneNumber)
       .then(confirmResult => {
         console.log('Confirm result: ' + confirmResult)
 
-        this.setState({ confirmResult: confirmResult, awaitingCode: true })
+        this.setState({ confirmResult: confirmResult, awaitingCode: true, awaitingPhoneNumber: false })
       })
       .catch(error => console.log(error));
   }
@@ -126,6 +130,9 @@ class App extends Component<Props> {
       })
   }
 
+  requestPhoneNumber = () => {
+    this.setState({awaitingPhoneNumber: true})
+  }
   //componentDidMount() {
   //GoogleSignin.isSignedIn()
   //.then((isSignedIn) => {
@@ -136,14 +143,33 @@ class App extends Component<Props> {
   render() {
     let actionButton = null;
 
-    if (this.state.awaitingCode) {
+    if(this.state.awaitingPhoneNumber) {
       actionButton =
-        <KeyboardAvoidingView>
+        <KeyboardAvoidingView style={{ width: '80%' }}>
           <TextInput
-            maxLength={6}
-            keyboardType={"number-pad"}
+            key='phoneNumber'
+            placeholder='Enter your phone number (e.g. 9135550000)'
+            placeholderTextColor='white'
+            maxLength={10}
+            keyboardType={"numeric"}
+            returnKeyType='done'
+            returnKeyLabel='Sign in'
+            onSubmitEditing={(event) => { this.phoneAuth(event.nativeEvent.text) }}
+            style={{borderColor: 'white', borderWidth: 1, color: 'white', padding: 15, fontSize: 16 }} />
+        </KeyboardAvoidingView>
+    } else if (this.state.awaitingCode) {
+      actionButton =
+        <KeyboardAvoidingView style={{ width: '80%' }}>
+          <TextInput
+            key='confCode'
+            placeholder='Enter your 6 digit code'
+            placeholderTextColor='white'
+            maxLength={10}
+            keyboardType={"numeric"}
+            returnKeyType='done'
+            returnKeyLabel='Confirm'
             onSubmitEditing={(event) => { this.confirmPhoneAuth(event.nativeEvent.text) }}
-            style={{borderColor: 'white', borderWidth: 1, backgroundColor: 'whites'}} />
+            style={{borderColor: 'white', borderWidth: 1, color: 'white', padding: 15, fontSize: 16 }} />
         </KeyboardAvoidingView>
     } else if (this.state.isAuthenticated) {
       actionButton = (<Button
@@ -160,7 +186,7 @@ class App extends Component<Props> {
         label="Sign in"
         style={styles.mainButton}
         onPress={() => {
-          this.phoneAuth()
+          this.requestPhoneNumber()
         }} />)
     }
 

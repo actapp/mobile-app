@@ -509,6 +509,7 @@
 		DD1A00E1BD2377D4E74799A9 /* Pods-ActApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ActApp-tvOSTests/Pods-ActApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD2F35142377431D93FA6491 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		E11BBD6B2249D6FD00C54155 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E1C8B0C622530315003B0942 /* ActApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ActApp.entitlements; path = ActApp/ActApp.entitlements; sourceTree = "<group>"; };
 		E2C9CA2BDA484489A8137508 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		E577BD505DE54C4796B4F906 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		E90B00DBA77C4D51B2054468 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
@@ -713,6 +714,7 @@
 		13B07FAE1A68108700A75B9A /* ActApp */ = {
 			isa = PBXGroup;
 			children = (
+				E1C8B0C622530315003B0942 /* ActApp.entitlements */,
 				E11BBD6B2249D6FD00C54155 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -1047,6 +1049,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = AB5ZLARJK5;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1847,6 +1854,7 @@
 			baseConfigurationReference = ACCAAEC280679587AEA2F3BB /* Pods-ActApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ActApp/ActApp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = AB5ZLARJK5;
@@ -1879,6 +1887,7 @@
 			baseConfigurationReference = 7F7FF801CA236D630ACCEB75 /* Pods-ActApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ActApp/ActApp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AB5ZLARJK5;
 				HEADER_SEARCH_PATHS = (
