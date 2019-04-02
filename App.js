@@ -148,7 +148,7 @@ class App extends Component<Props> {
         <KeyboardAvoidingView style={{ width: '80%' }}>
           <TextInput
             key='phoneNumber'
-            placeholder='Enter your phone number (e.g. 9135550000)'
+            placeholder='10-digit phone number'
             placeholderTextColor='white'
             maxLength={10}
             keyboardType={"numeric"}
