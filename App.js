@@ -8,7 +8,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, StatusBar } from 'react-native';
+import { Platform, StyleSheet, StatusBar, KeyboardAvoidingView, TextInput } from 'react-native';
 import { View, Text, Button } from 'react-native-ui-lib';
 import { Colors } from './Styles';
 import codePush from "react-native-code-push";
@@ -17,6 +17,8 @@ import { renderStep } from './share/ShareStep';
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from './AnalyticsConstants';
 import firebase from 'react-native-firebase';
+// import CodeInput from 'react-native-confirmation-code-field';// import console = require('console');
+// import VerificationCode from './components/VerificationCode';
 //import { GoogleSignin } from 'react-native-google-signin';
 
 const steps = require('./share/content/steps.json')
@@ -59,32 +61,34 @@ const steps = require('./share/content/steps.json')
 
 // Calling this function will open Google for login.
 //export async function googleLogin() {
- // try {
-    // add any configuration settings here:
-   // await GoogleSignin.configure();
+// try {
+// add any configuration settings here:
+// await GoogleSignin.configure();
 
-    //const data = await GoogleSignin.signIn();
+//const data = await GoogleSignin.signIn();
 
-    // create a new firebase credential with the token
-    //const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
-    // login with credential
+// create a new firebase credential with the token
+//const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
+// login with credential
 
-    //firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
+//firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
 
-    //console.log(JSON.stringify(firebaseUserCredential.user.toJSON()));
+//console.log(JSON.stringify(firebaseUserCredential.user.toJSON()));
 
-    //return true
-  //} catch (e) {
-    //console.error(e);
-    //throw e;
-  //}
+//return true
+//} catch (e) {
+//console.error(e);
+//throw e;
+//}
 //}
 
 type Props = {}
 
 class App extends Component<Props> {
   state = {
-    isAuthenticated: false
+    isAuthenticated: false,
+    confirmResult: null,
+    awaitingCode: false
   }
 
   static navigationOptions = {
@@ -95,17 +99,53 @@ class App extends Component<Props> {
     this.setState({ isAuthenticated: isAuthenticated })
   }
 
+  phoneAuth = () => {
+    console.log("Authenticating via phone")
+    firebase.auth().signInWithPhoneNumber('+19132379703')
+      .then(confirmResult => {
+        console.log('Confirm result: ' + confirmResult)
+
+        this.setState({ confirmResult: confirmResult, awaitingCode: true })
+      })
+      .catch(error => console.log(error));
+  }
+
+  confirmPhoneAuth = (code) => {
+    console.log('confirming: ' + code)
+
+    this.state.confirmResult
+      .confirm(code)
+      .then(user => { // User is logged in
+        console.log('authed')
+        this.setState({ isAuthenticated: true, awaitingCode: false })
+      })
+      .catch(error => {
+        cosole.log(error)
+        // Error with verification code);
+        this.setState({ isAuthenticated: false, awaitingCode: false })
+      })
+  }
+
   //componentDidMount() {
-    //GoogleSignin.isSignedIn()
-    //.then((isSignedIn) => {
-     // this.setState({isAuthenticated: isSignedIn})
-    //})
+  //GoogleSignin.isSignedIn()
+  //.then((isSignedIn) => {
+  // this.setState({isAuthenticated: isSignedIn})
+  //})
   //}
 
   render() {
     let actionButton = null;
 
-    //if (this.state.isAuthenticated) {
+    if (this.state.awaitingCode) {
+      actionButton =
+        <KeyboardAvoidingView>
+          <TextInput
+            maxLength={6}
+            keyboardType={"number-pad"}
+            onSubmitEditing={(event) => { this.confirmPhoneAuth(event.nativeEvent.text) }}
+            style={{borderColor: 'white', borderWidth: 1, backgroundColor: 'whites'}} />
+        </KeyboardAvoidingView>
+    } else if (this.state.isAuthenticated) {
       actionButton = (<Button
         label='Share'
         style={styles.mainButton}
@@ -114,23 +154,15 @@ class App extends Component<Props> {
             this.props.navigation.navigate(steps[0].key)
             Analytics.trackEvent(AnalyticsConstants.EVENT_SHARE_STARTED)
           }
-        }/>)
-    //} else {
-     /*
+        } />)
+    } else {
       actionButton = (<Button
         label="Sign in"
         style={styles.mainButton}
         onPress={() => {
-          googleLogin()
-          .then((isAuthenticated) => {
-            this.setIsAuthenticated(isAuthenticated)
-          })
-          .catch((error) => {
-            this.setIsAuthenticated(false)
-          })
-        }} />)  
+          this.phoneAuth()
+        }} />)
     }
-    */
 
     return (
       <View flex paddingH-25 paddingT-120 style={styles.container}>
