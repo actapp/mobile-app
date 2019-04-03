@@ -8,7 +8,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, StatusBar, KeyboardAvoidingView, TextInput } from 'react-native';
+import { Platform, StyleSheet, StatusBar, KeyboardAvoidingView, TextInput, ActivityIndicator } from 'react-native';
 import { View, Text, Button } from 'react-native-ui-lib';
 import { Colors } from './Styles';
 import codePush from "react-native-code-push";
@@ -86,6 +86,7 @@ type Props = {}
 
 class App extends Component<Props> {
   state = {
+    authInProgress: false,
     isAuthenticated: false,
     awaitingPhoneNumber: false,
     confirmResult: null,
@@ -104,29 +105,40 @@ class App extends Component<Props> {
       actionButton = 
     console.log("Authenticating via phone")
 
+    this.setState({authInProgress: true})
     // Erroneously assume US country code only for now...
     firebase.auth().signInWithPhoneNumber('+1' + phoneNumber)
       .then(confirmResult => {
         console.log('Confirm result: ' + confirmResult)
 
-        this.setState({ confirmResult: confirmResult, awaitingCode: true, awaitingPhoneNumber: false })
+        this.setState({ authInProgress: false, confirmResult: confirmResult, awaitingCode: true, awaitingPhoneNumber: false })
       })
-      .catch(error => console.log(error));
+       .catch((error) => {
+            console.log(error);
+            this.setState({authInProgress: false})
+            alertError('An error occurred while authenticating your phone number')
+        })
+  }
+
+  alertError = (message) => {
+    
   }
 
   confirmPhoneAuth = (code) => {
     console.log('confirming: ' + code)
 
+    this.setState({authInProgress: true})
     this.state.confirmResult
       .confirm(code)
       .then(user => { // User is logged in
         console.log('authed')
-        this.setState({ isAuthenticated: true, awaitingCode: false })
+        this.setState({ authInProgress: false, isAuthenticated: true, awaitingCode: false})
       })
       .catch(error => {
-        cosole.log(error)
+        console.log(error)
         // Error with verification code);
-        this.setState({ isAuthenticated: false, awaitingCode: false })
+        this.setState({ authInProgress: false, isAuthenticated: false, awaitingCode: false })
+        alertError('An error occurred while confirming your phone number. Please try again')
       })
   }
 
@@ -143,7 +155,13 @@ class App extends Component<Props> {
   render() {
     let actionButton = null;
 
-    if(this.state.awaitingPhoneNumber) {
+    if(this.state.authInProgress) {
+     actionButton =
+        <View>
+         <ActivityIndicator size="large" color={Colors.primary} style={{marginBottom: 10}}/>
+         <Text style={styles.loadingMessage}>Authenticating...</Text>
+        </View>
+    } else if(this.state.awaitingPhoneNumber) {
       actionButton =
         <KeyboardAvoidingView style={{ width: '80%' }}>
           <TextInput
@@ -217,6 +235,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#000000',
+  },
+  loadingMessage: {
+    color: 'white',
+    fontSize: 16
   },
   mainButton: {
     backgroundColor: Colors.primary
