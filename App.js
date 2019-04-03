@@ -17,76 +17,15 @@ import { renderStep } from './share/ShareStep';
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from './AnalyticsConstants';
 import firebase from 'react-native-firebase';
-// import CodeInput from 'react-native-confirmation-code-field';// import console = require('console');
-// import VerificationCode from './components/VerificationCode';
-//import { GoogleSignin } from 'react-native-google-signin';
+import ShareContact from './share/ShareContact';
 
-const steps = require('./share/content/steps.json')
-// const db = firebase.firestore();
-
-// let steps = null;
-// firebase
-//   .firestore()
-//   .runTransaction(async transaction => {
-//     const doc = await transaction.get(ref);
-
-//     console.log(doc);
-
-//     return doc;
-//     // if it does not exist set the population to one
-//     // if (!doc.exists) {
-//     //   transaction.set(ref, { population: 1 });
-//     //   // return the new value so we know what the new population is
-//     //   return 1;
-//     // }
-
-//     // exists already so lets increment it + 1
-//     // const newPopulation = doc.data().population + 1;
-
-//     // transaction.update(ref, {
-//     //   population: newPopulation,
-//     // });
-
-//     // return the new value so we know what the new population is
-//     // return newPopulation;
-//   })
-//   .then(steps => {
-//     console.log(
-//       `Transaction successfully committed and steps is '${steps}'`
-//     );
-//   })
-//   .catch(error => {
-//     console.log('Transaction failed: ', error);
-//   });
-
-// Calling this function will open Google for login.
-//export async function googleLogin() {
-// try {
-// add any configuration settings here:
-// await GoogleSignin.configure();
-
-//const data = await GoogleSignin.signIn();
-
-// create a new firebase credential with the token
-//const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
-// login with credential
-
-//firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
-
-//console.log(JSON.stringify(firebaseUserCredential.user.toJSON()));
-
-//return true
-//} catch (e) {
-//console.error(e);
-//throw e;
-//}
-//}
+export const steps = require('./share/content/steps.json')
 
 type Props = {}
 
 class App extends Component<Props> {
   state = {
-    authInProgress: false,
+    authInProgress: true,
     isAuthenticated: false,
     awaitingPhoneNumber: false,
     confirmResult: null,
@@ -145,12 +84,16 @@ class App extends Component<Props> {
   requestPhoneNumber = () => {
     this.setState({awaitingPhoneNumber: true})
   }
-  //componentDidMount() {
-  //GoogleSignin.isSignedIn()
-  //.then((isSignedIn) => {
-  // this.setState({isAuthenticated: isSignedIn})
-  //})
-  //}
+
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log('User is logged in: ' + (user !== null))
+      this.setState({
+        authInProgress: false,
+        isAuthenticated: true
+      });
+    });
+  }
 
   render() {
     let actionButton = null;
@@ -195,7 +138,8 @@ class App extends Component<Props> {
         style={styles.mainButton}
         onPress={
           () => {
-            this.props.navigation.navigate(steps[0].key)
+            //this.props.navigation.navigate(steps[0].key)
+            this.props.navigation.navigate('ShareContact')
             Analytics.trackEvent(AnalyticsConstants.EVENT_SHARE_STARTED)
           }
         } />)
@@ -263,6 +207,9 @@ for (let i = 0; i < steps.length; i++) {
 export const AppNavigator = createStackNavigator({
   Home: {
     screen: App
+  },
+  ShareContact: {
+    screen: ShareContact
   },
   ...stepScreens
 },
