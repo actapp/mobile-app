@@ -55,7 +55,9 @@
         "key": "Step6",
         "title": "Jesus is Lord",
         "lineItems": [
-            "\"If you declare with your mouth, 'Jesus is Lord,' and believe in your heart that God raised him from the dead, you will be saved. For it is with your heart that you believe and are justified, and it is with your mouth that you profess your faith and are saved. As Scripture says, 'Anyone who believes in him will never be put to shame.'  for, 'Everyone who calls on the name of the Lord will be saved.' --Romans 10:9-11,13 (NIV)",
+            "\"If you declare with your mouth, 'Jesus is Lord,' and believe in your heart that God raised him from the dead, you will be saved.",
+            "For it is with your heart that you believe and are justified, and it is with your mouth that you profess your faith and are saved.",
+            "As Scripture says, 'Anyone who believes in hi will never be put to shame.' For, 'Everyone who calls on the name of the Lord will be saved.'\" --Romans 10:9-11,13 (NIV)",
             "What does this say to you?"
         ],
         "comments": "You are looking for an answer like: If I believe God raised Jesus from the dead, I can be saved.",
@@ -101,5 +103,14 @@
             "Are you ready to invite Jesus into your life and into your heart?"
         ],
         "comments": "After asking the last question be silent and pray. Literally, by shutting up we are allowing the Holy Spirit to work.",
+        "nextKey": "Step11"
+    },
+    {
+       "key": "Step11",
+        "title": "Prayer",
+        "lineItems": [
+            "Heavenly Father, I have sinned against You. I want forgiveness of all my sins. I believe Jesus died on the cross for me and rose again. Father, I give You my life to do with as You wish.  I want Jesus Christ to come into my life and into my heart. I ask this in Jesus' name. Amen."
+        ],
+        "comments": "If you friend accepted Christ please:\n1. Congratulate and welcome in their relationship with Jesus as their Lord and Savior.\n2. Let them know they will be receiving a text message with an invitation to learn more about their faith through ACT."
     }
 ]
