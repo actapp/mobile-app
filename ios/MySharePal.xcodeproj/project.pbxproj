@@ -10,10 +10,10 @@
 		00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
-		00E356F31AD99517003FC87E /* ActAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ActAppTests.m */; };
+		00E356F31AD99517003FC87E /* MySharePalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MySharePalTests.m */; };
 		041DC79F732A4F6EA2DFEF6B /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E577BD505DE54C4796B4F906 /* libRNGestureHandler.a */; };
 		09FC244BDC214B5BA94BC983 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AFBAB9E3CFF4460AA80D88D /* rubicon-icon-font.ttf */; };
-		0F1E33F66FB5CE5671FAACCB /* libPods-ActApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28DF6503219CC2089704E374 /* libPods-ActApp.a */; };
+		0F1E33F66FB5CE5671FAACCB /* libPods-MySharePal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28DF6503219CC2089704E374 /* libPods-MySharePal.a */; };
 		11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
@@ -38,15 +38,15 @@
 		2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E941DF850E9000B6D8A /* libRCTText-tvOS.a */; };
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
-		2DCD954D1E0B4F2C00145EB5 /* ActAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ActAppTests.m */; };
+		2DCD954D1E0B4F2C00145EB5 /* MySharePalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MySharePalTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		341C31324BC041F4BA1EC263 /* libreactnativeuilib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD96CBB12BDC4A9D8EB6AFAA /* libreactnativeuilib.a */; };
 		34BC13063D3440388723C07E /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45C99F46407E41F8953056A7 /* Foundation.ttf */; };
 		34FA4052E584446F93A92AAF /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7069BD75DB6A4203A8915256 /* MaterialIcons.ttf */; };
 		389D828F0F3648BF90524873 /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D60F9AB5A78D4F9B86FE112D /* Roboto_medium.ttf */; };
 		59FE734B676348F7AF3BF2F8 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39DB740500D341A4915509D8 /* FontAwesome.ttf */; };
-		5FFB14D2847E05FDA76D044B /* libPods-ActAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A0E4AB21255D52FDBC387F3 /* libPods-ActAppTests.a */; };
-		76FA17218C621191B83A76CF /* libPods-ActApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E6DF0BE2EC0C41025CD00B /* libPods-ActApp-tvOS.a */; };
+		5FFB14D2847E05FDA76D044B /* libPods-MySharePalTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A0E4AB21255D52FDBC387F3 /* libPods-MySharePalTests.a */; };
+		76FA17218C621191B83A76CF /* libPods-MySharePal-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E6DF0BE2EC0C41025CD00B /* libPods-MySharePal-tvOS.a */; };
 		78F96B0F6C0340EE9F1944E2 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84ED0ABB9FCB486FB59CC868 /* AppCenter-Config.plist */; };
 		7B4CA073189D4D699F853B7A /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF5E301F59004A92BAEC6513 /* libAppCenterReactNativeAnalytics.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -67,7 +67,7 @@
 		E11BBD6D2249D6FD00C54155 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E11BBD6B2249D6FD00C54155 /* GoogleService-Info.plist */; };
 		E11BBD6E2249D6FD00C54155 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E11BBD6B2249D6FD00C54155 /* GoogleService-Info.plist */; };
 		E11BBD6F2249D6FD00C54155 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E11BBD6B2249D6FD00C54155 /* GoogleService-Info.plist */; };
-		E18B814956E92317501A4644 /* libPods-ActApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2611AEC47E402B5660F45636 /* libPods-ActApp-tvOSTests.a */; };
+		E18B814956E92317501A4644 /* libPods-MySharePal-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2611AEC47E402B5660F45636 /* libPods-MySharePal-tvOSTests.a */; };
 		E3420D91B1C54E2296D86DC4 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E90B00DBA77C4D51B2054468 /* EvilIcons.ttf */; };
 		E50B992C59A542D181985C78 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6E4DD929EE419F9B62ED0E /* libz.tbd */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
@@ -118,7 +118,7 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = ActApp;
+			remoteInfo = MySharePal;
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -146,7 +146,7 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "ActApp-tvOS";
+			remoteInfo = "MySharePal-tvOS";
 		};
 		2D16E6711FA4F8DC00B85C8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -430,32 +430,32 @@
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
 		00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTNetwork.xcodeproj; path = "../node_modules/react-native/Libraries/Network/RCTNetwork.xcodeproj"; sourceTree = "<group>"; };
 		00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = "../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj"; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* ActAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* MySharePalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MySharePalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* ActAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActAppTests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* MySharePalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySharePalTests.m; sourceTree = "<group>"; };
 		057ED57660E74E75B3267B24 /* libAppCenterReactNativeCrashes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativeCrashes.a; sourceTree = "<group>"; };
 		0D981D13FF8D4F28B7D62A35 /* AppCenterReactNativeAnalytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeAnalytics.xcodeproj; path = "../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics.xcodeproj"; sourceTree = "<group>"; };
 		1303D479F82542568587458E /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* ActApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ActApp/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ActApp/AppDelegate.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* MySharePal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MySharePal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MySharePal/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MySharePal/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ActApp/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ActApp/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ActApp/main.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MySharePal/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MySharePal/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MySharePal/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		19F843BFD8F7A4075E410F12 /* Pods-ActApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-ActApp-tvOS/Pods-ActApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		1A0E4AB21255D52FDBC387F3 /* libPods-ActAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ActAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2611AEC47E402B5660F45636 /* libPods-ActApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ActApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		19F843BFD8F7A4075E410F12 /* Pods-MySharePal-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySharePal-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MySharePal-tvOS/Pods-MySharePal-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		1A0E4AB21255D52FDBC387F3 /* libPods-MySharePalTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MySharePalTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2611AEC47E402B5660F45636 /* libPods-MySharePal-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MySharePal-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26276F601AFA4275A9721F6D /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
-		28DF6503219CC2089704E374 /* libPods-ActApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ActApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		28DF6503219CC2089704E374 /* libPods-MySharePal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MySharePal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AFBAB9E3CFF4460AA80D88D /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		2C6E4DD929EE419F9B62ED0E /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		2CDF1AC8202A47BAA2FD454F /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* ActApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ActApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* ActApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ActApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E47B1E0B4A5D006451C7 /* MySharePal-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MySharePal-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* MySharePal-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MySharePal-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		35181E9A46EC469995E8D631 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		3654FFD8F3CD43F8B93B1D01 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -469,7 +469,7 @@
 		478FCAFB76264C5DBCEFAF66 /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
 		4FD343EF3DFA49E79B37898B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		4FECF34CD38F4AAC936D5B3E /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		53E6DF0BE2EC0C41025CD00B /* libPods-ActApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ActApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		53E6DF0BE2EC0C41025CD00B /* libPods-MySharePal-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MySharePal-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		66B293AED2E54026B1F7103D /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; };
 		6FA64BA340E946798B61E2B7 /* AppCenterReactNativeCrashes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeCrashes.xcodeproj; path = "../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes.xcodeproj"; sourceTree = "<group>"; };
@@ -478,10 +478,10 @@
 		7C09799C36654FB7882C8F82 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		7CA3E5DCDD8046A99B530F4E /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		7D7AEE29D5A044BEA986ECCE /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
-		7F7FF801CA236D630ACCEB75 /* Pods-ActApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActApp.release.xcconfig"; path = "Target Support Files/Pods-ActApp/Pods-ActApp.release.xcconfig"; sourceTree = "<group>"; };
+		7F7FF801CA236D630ACCEB75 /* Pods-MySharePal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySharePal.release.xcconfig"; path = "Target Support Files/Pods-MySharePal/Pods-MySharePal.release.xcconfig"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		83AB805D34504DF7B5529960 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		84ED0ABB9FCB486FB59CC868 /* AppCenter-Config.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "ActApp/AppCenter-Config.plist"; sourceTree = "<group>"; };
+		84ED0ABB9FCB486FB59CC868 /* AppCenter-Config.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "MySharePal/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		8CFF575B600949EB9FA83D98 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		95C35A85B315407FB9A7147E /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		A2152E7BD00F4E55ADD33888 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
@@ -489,32 +489,32 @@
 		A907DF31C9924DE19F5D50D2 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		AA6EF0BB0BED4CB28B38F868 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		AAF24EA63F634FC69B84464C /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
-		ACCAAEC280679587AEA2F3BB /* Pods-ActApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActApp.debug.xcconfig"; path = "Target Support Files/Pods-ActApp/Pods-ActApp.debug.xcconfig"; sourceTree = "<group>"; };
+		ACCAAEC280679587AEA2F3BB /* Pods-MySharePal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySharePal.debug.xcconfig"; path = "Target Support Files/Pods-MySharePal/Pods-MySharePal.debug.xcconfig"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		AF5E301F59004A92BAEC6513 /* libAppCenterReactNativeAnalytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativeAnalytics.a; sourceTree = "<group>"; };
 		B930B6338ED040D2858FAEE1 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
-		BA1423BA09F65F6C4516C67F /* Pods-ActAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActAppTests.debug.xcconfig"; path = "Target Support Files/Pods-ActAppTests/Pods-ActAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		BA1423BA09F65F6C4516C67F /* Pods-MySharePalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySharePalTests.debug.xcconfig"; path = "Target Support Files/Pods-MySharePalTests/Pods-MySharePalTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BBB6B257DB1746328C6015E4 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		C358A582A4C54771A44C3686 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
-		C927520B8724B643C3793E1F /* Pods-ActApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-ActApp-tvOS/Pods-ActApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		C927520B8724B643C3793E1F /* Pods-MySharePal-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySharePal-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MySharePal-tvOS/Pods-MySharePal-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		CE7BB42FB1604B9C8E9B68B2 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		D3C35AF0B5DE14024D2F015B /* Pods-ActAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActAppTests.release.xcconfig"; path = "Target Support Files/Pods-ActAppTests/Pods-ActAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		D3C35AF0B5DE14024D2F015B /* Pods-MySharePalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySharePalTests.release.xcconfig"; path = "Target Support Files/Pods-MySharePalTests/Pods-MySharePalTests.release.xcconfig"; sourceTree = "<group>"; };
 		D3E5568C597B472FA72B7591 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		D60F9AB5A78D4F9B86FE112D /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		D82A1D7DA5D94294A319EDF8 /* libAppCenterReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNative.a; sourceTree = "<group>"; };
 		DB2E1EF618CA43ECA9AE4394 /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 		DC137B4808174096885D82DE /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		DD1A00E1BD2377D4E74799A9 /* Pods-ActApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ActApp-tvOSTests/Pods-ActApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		DD1A00E1BD2377D4E74799A9 /* Pods-MySharePal-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySharePal-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-MySharePal-tvOSTests/Pods-MySharePal-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD2F35142377431D93FA6491 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		E11BBD6B2249D6FD00C54155 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E1C8B0C622530315003B0942 /* ActApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ActApp.entitlements; path = ActApp/ActApp.entitlements; sourceTree = "<group>"; };
+		E1C8B0C622530315003B0942 /* MySharePal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MySharePal.entitlements; path = MySharePal/MySharePal.entitlements; sourceTree = "<group>"; };
 		E2C9CA2BDA484489A8137508 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		E577BD505DE54C4796B4F906 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		E90B00DBA77C4D51B2054468 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		EC1D1D35CA9743E8A9D921B3 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		EE6FDC1FDDF7840E5C829B3F /* Pods-ActApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ActApp-tvOSTests/Pods-ActApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EE6FDC1FDDF7840E5C829B3F /* Pods-MySharePal-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySharePal-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-MySharePal-tvOSTests/Pods-MySharePal-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F90F9D4BB7C849E6811EA81E /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		FB58B99815534C13AC292CE6 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		FD96CBB12BDC4A9D8EB6AFAA /* libreactnativeuilib.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libreactnativeuilib.a; sourceTree = "<group>"; };
@@ -526,7 +526,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
-				5FFB14D2847E05FDA76D044B /* libPods-ActAppTests.a in Frameworks */,
+				5FFB14D2847E05FDA76D044B /* libPods-MySharePalTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,7 +554,7 @@
 				341C31324BC041F4BA1EC263 /* libreactnativeuilib.a in Frameworks */,
 				1D90D7D395544C31ACA6F050 /* libRNVectorIcons.a in Frameworks */,
 				041DC79F732A4F6EA2DFEF6B /* libRNGestureHandler.a in Frameworks */,
-				0F1E33F66FB5CE5671FAACCB /* libPods-ActApp.a in Frameworks */,
+				0F1E33F66FB5CE5671FAACCB /* libPods-MySharePal.a in Frameworks */,
 				87E55F6FB5EE4B4FBBFEC795 /* libRNFirebase.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -573,7 +573,7 @@
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
 				FD806C72D2CD47E98DFFFC72 /* libRNVectorIcons-tvOS.a in Frameworks */,
-				76FA17218C621191B83A76CF /* libPods-ActApp-tvOS.a in Frameworks */,
+				76FA17218C621191B83A76CF /* libPods-MySharePal-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,7 +582,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
-				E18B814956E92317501A4644 /* libPods-ActApp-tvOSTests.a in Frameworks */,
+				E18B814956E92317501A4644 /* libPods-MySharePal-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,13 +631,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		00E356EF1AD99517003FC87E /* ActAppTests */ = {
+		00E356EF1AD99517003FC87E /* MySharePalTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* ActAppTests.m */,
+				00E356F21AD99517003FC87E /* MySharePalTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = ActAppTests;
+			path = MySharePalTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -708,10 +708,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* ActApp */ = {
+		13B07FAE1A68108700A75B9A /* MySharePal */ = {
 			isa = PBXGroup;
 			children = (
-				E1C8B0C622530315003B0942 /* ActApp.entitlements */,
+				E1C8B0C622530315003B0942 /* MySharePal.entitlements */,
 				E11BBD6B2249D6FD00C54155 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -721,7 +721,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = ActApp;
+			name = MySharePal;
 			sourceTree = "<group>";
 		};
 		146834001AC3E56700842450 /* Products */ = {
@@ -754,10 +754,10 @@
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				2C6E4DD929EE419F9B62ED0E /* libz.tbd */,
-				28DF6503219CC2089704E374 /* libPods-ActApp.a */,
-				53E6DF0BE2EC0C41025CD00B /* libPods-ActApp-tvOS.a */,
-				2611AEC47E402B5660F45636 /* libPods-ActApp-tvOSTests.a */,
-				1A0E4AB21255D52FDBC387F3 /* libPods-ActAppTests.a */,
+				28DF6503219CC2089704E374 /* libPods-MySharePal.a */,
+				53E6DF0BE2EC0C41025CD00B /* libPods-MySharePal-tvOS.a */,
+				2611AEC47E402B5660F45636 /* libPods-MySharePal-tvOSTests.a */,
+				1A0E4AB21255D52FDBC387F3 /* libPods-MySharePalTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -819,9 +819,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* ActApp */,
+				13B07FAE1A68108700A75B9A /* MySharePal */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* ActAppTests */,
+				00E356EF1AD99517003FC87E /* MySharePalTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				84ED0ABB9FCB486FB59CC868 /* AppCenter-Config.plist */,
@@ -837,10 +837,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* ActApp.app */,
-				00E356EE1AD99517003FC87E /* ActAppTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* ActApp-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* ActApp-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* MySharePal.app */,
+				00E356EE1AD99517003FC87E /* MySharePalTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* MySharePal-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* MySharePal-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -857,14 +857,14 @@
 		BF692BDCD9A0D226459C170B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				ACCAAEC280679587AEA2F3BB /* Pods-ActApp.debug.xcconfig */,
-				7F7FF801CA236D630ACCEB75 /* Pods-ActApp.release.xcconfig */,
-				19F843BFD8F7A4075E410F12 /* Pods-ActApp-tvOS.debug.xcconfig */,
-				C927520B8724B643C3793E1F /* Pods-ActApp-tvOS.release.xcconfig */,
-				EE6FDC1FDDF7840E5C829B3F /* Pods-ActApp-tvOSTests.debug.xcconfig */,
-				DD1A00E1BD2377D4E74799A9 /* Pods-ActApp-tvOSTests.release.xcconfig */,
-				BA1423BA09F65F6C4516C67F /* Pods-ActAppTests.debug.xcconfig */,
-				D3C35AF0B5DE14024D2F015B /* Pods-ActAppTests.release.xcconfig */,
+				ACCAAEC280679587AEA2F3BB /* Pods-MySharePal.debug.xcconfig */,
+				7F7FF801CA236D630ACCEB75 /* Pods-MySharePal.release.xcconfig */,
+				19F843BFD8F7A4075E410F12 /* Pods-MySharePal-tvOS.debug.xcconfig */,
+				C927520B8724B643C3793E1F /* Pods-MySharePal-tvOS.release.xcconfig */,
+				EE6FDC1FDDF7840E5C829B3F /* Pods-MySharePal-tvOSTests.debug.xcconfig */,
+				DD1A00E1BD2377D4E74799A9 /* Pods-MySharePal-tvOSTests.release.xcconfig */,
+				BA1423BA09F65F6C4516C67F /* Pods-MySharePalTests.debug.xcconfig */,
+				D3C35AF0B5DE14024D2F015B /* Pods-MySharePalTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -954,9 +954,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* ActAppTests */ = {
+		00E356ED1AD99517003FC87E /* MySharePalTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ActAppTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MySharePalTests" */;
 			buildPhases = (
 				C999E51F7267B723A3050D65 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -968,14 +968,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = ActAppTests;
-			productName = ActAppTests;
-			productReference = 00E356EE1AD99517003FC87E /* ActAppTests.xctest */;
+			name = MySharePalTests;
+			productName = MySharePalTests;
+			productReference = 00E356EE1AD99517003FC87E /* MySharePalTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* ActApp */ = {
+		13B07F861A680F5B00A75B9A /* MySharePal */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ActApp" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MySharePal" */;
 			buildPhases = (
 				86B78B9A7FB37E2AB96A2660 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -988,14 +988,14 @@
 			);
 			dependencies = (
 			);
-			name = ActApp;
+			name = MySharePal;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* ActApp.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* MySharePal.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* ActApp-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* MySharePal-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ActApp-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MySharePal-tvOS" */;
 			buildPhases = (
 				0C664276348B69A0D00E504F /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
@@ -1007,14 +1007,14 @@
 			);
 			dependencies = (
 			);
-			name = "ActApp-tvOS";
-			productName = "ActApp-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* ActApp-tvOS.app */;
+			name = "MySharePal-tvOS";
+			productName = "MySharePal-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* MySharePal-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* ActApp-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* MySharePal-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ActApp-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MySharePal-tvOSTests" */;
 			buildPhases = (
 				0C85F061D08119DCA5021AC0 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -1026,9 +1026,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "ActApp-tvOSTests";
-			productName = "ActApp-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* ActApp-tvOSTests.xctest */;
+			name = "MySharePal-tvOSTests";
+			productName = "MySharePal-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* MySharePal-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1063,7 +1063,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ActApp" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "MySharePal" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1158,10 +1158,10 @@
 			);
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* ActApp */,
-				00E356ED1AD99517003FC87E /* ActAppTests */,
-				2D02E47A1E0B4A5D006451C7 /* ActApp-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* ActApp-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* MySharePal */,
+				00E356ED1AD99517003FC87E /* MySharePalTests */,
+				2D02E47A1E0B4A5D006451C7 /* MySharePal-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* MySharePal-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1585,7 +1585,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ActApp-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MySharePal-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1607,7 +1607,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ActApp-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MySharePal-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1622,7 +1622,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ActApp/Pods-ActApp-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-MySharePal/Pods-MySharePal-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/gRPCCertificates-Firestore.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -1633,7 +1633,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ActApp/Pods-ActApp-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MySharePal/Pods-MySharePal-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
@@ -1665,7 +1665,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ActApp-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MySharePal-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1687,7 +1687,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ActAppTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MySharePalTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1701,7 +1701,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* ActAppTests.m in Sources */,
+				00E356F31AD99517003FC87E /* MySharePalTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1727,7 +1727,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* ActAppTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* MySharePalTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1736,12 +1736,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* ActApp */;
+			target = 13B07F861A680F5B00A75B9A /* MySharePal */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* ActApp-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* MySharePal-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1753,7 +1753,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = ActApp;
+			path = MySharePal;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1761,7 +1761,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA1423BA09F65F6C4516C67F /* Pods-ActAppTests.debug.xcconfig */;
+			baseConfigurationReference = BA1423BA09F65F6C4516C67F /* Pods-MySharePalTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1779,7 +1779,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = ActAppTests/Info.plist;
+				INFOPLIST_FILE = MySharePalTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1791,13 +1791,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ActApp.app/ActApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MySharePal.app/MySharePal";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3C35AF0B5DE14024D2F015B /* Pods-ActAppTests.release.xcconfig */;
+			baseConfigurationReference = D3C35AF0B5DE14024D2F015B /* Pods-MySharePalTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -1812,7 +1812,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = ActAppTests/Info.plist;
+				INFOPLIST_FILE = MySharePalTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1824,16 +1824,16 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ActApp.app/ActApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MySharePal.app/MySharePal";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ACCAAEC280679587AEA2F3BB /* Pods-ActApp.debug.xcconfig */;
+			baseConfigurationReference = ACCAAEC280679587AEA2F3BB /* Pods-MySharePal.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = ActApp/ActApp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MySharePal/MySharePal.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = AB5ZLARJK5;
@@ -1848,7 +1848,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = ActApp/Info.plist;
+				INFOPLIST_FILE = MySharePal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1856,17 +1856,17 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.actapp;
-				PRODUCT_NAME = ActApp;
+				PRODUCT_NAME = MySharePal;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F7FF801CA236D630ACCEB75 /* Pods-ActApp.release.xcconfig */;
+			baseConfigurationReference = 7F7FF801CA236D630ACCEB75 /* Pods-MySharePal.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = ActApp/ActApp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MySharePal/MySharePal.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AB5ZLARJK5;
 				HEADER_SEARCH_PATHS = (
@@ -1880,7 +1880,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = ActApp/Info.plist;
+				INFOPLIST_FILE = MySharePal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1888,14 +1888,14 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.actapp;
-				PRODUCT_NAME = ActApp;
+				PRODUCT_NAME = MySharePal;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19F843BFD8F7A4075E410F12 /* Pods-ActApp-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 19F843BFD8F7A4075E410F12 /* Pods-MySharePal-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1917,7 +1917,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = "ActApp-tvOS/Info.plist";
+				INFOPLIST_FILE = "MySharePal-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1926,7 +1926,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ActApp-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MySharePal-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -1936,7 +1936,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C927520B8724B643C3793E1F /* Pods-ActApp-tvOS.release.xcconfig */;
+			baseConfigurationReference = C927520B8724B643C3793E1F /* Pods-MySharePal-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1958,7 +1958,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = "ActApp-tvOS/Info.plist";
+				INFOPLIST_FILE = "MySharePal-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1967,7 +1967,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ActApp-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MySharePal-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -1977,7 +1977,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EE6FDC1FDDF7840E5C829B3F /* Pods-ActApp-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = EE6FDC1FDDF7840E5C829B3F /* Pods-MySharePal-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1998,7 +1998,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = "ActApp-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "MySharePal-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2007,17 +2007,17 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ActApp-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MySharePal-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ActApp-tvOS.app/ActApp-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MySharePal-tvOS.app/MySharePal-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD1A00E1BD2377D4E74799A9 /* Pods-ActApp-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = DD1A00E1BD2377D4E74799A9 /* Pods-MySharePal-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2038,7 +2038,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = "ActApp-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "MySharePal-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2047,10 +2047,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ActApp-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MySharePal-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ActApp-tvOS.app/ActApp-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MySharePal-tvOS.app/MySharePal-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -2157,7 +2157,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ActAppTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MySharePalTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -2166,7 +2166,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ActApp" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MySharePal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -2175,7 +2175,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ActApp-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MySharePal-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -2184,7 +2184,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ActApp-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MySharePal-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -2193,7 +2193,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ActApp" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "MySharePal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

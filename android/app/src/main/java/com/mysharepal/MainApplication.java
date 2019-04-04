@@ -1,4 +1,4 @@
-package com.actapp;
+package com.mysharepal;
 
 import android.app.Application;
 
