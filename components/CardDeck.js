@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 
     cardText: {
         color: 'white',
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: PlatformFonts.light,
         textAlign: 'center',
         flexWrap: 'wrap'
@@ -33,7 +33,9 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         textAlign: 'center'
-    }
+    },
+
+    test: {}
 })
 
 class Card extends Component {
