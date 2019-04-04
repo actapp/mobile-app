@@ -3,7 +3,6 @@ package com.actapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
@@ -40,7 +39,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ReactNativeContacts(),
             //new RNGoogleSigninPackage(),
             new RNFirebasePackage(),
             new RNFirebaseAuthPackage(),

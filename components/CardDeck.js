@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 
     cardText: {
         color: 'white',
-        fontSize: 24,
+        fontSize: 18,
         fontFamily: PlatformFonts.light,
         textAlign: 'center',
         flexWrap: 'wrap'
