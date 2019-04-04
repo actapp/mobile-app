@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
@@ -63,10 +64,10 @@
 		CF3F35DE9D18467DBA2732C6 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF24EA63F634FC69B84464C /* libCodePush.a */; };
 		D7C22A02C79F4C898CB6F71C /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C09799C36654FB7882C8F82 /* FontAwesome5_Regular.ttf */; };
 		E0E9F18487564283B32F6144 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FD343EF3DFA49E79B37898B /* SimpleLineIcons.ttf */; };
-		E11BBD6C2249D6FD00C54155 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E11BBD6B2249D6FD00C54155 /* GoogleService-Info.plist */; };
-		E11BBD6D2249D6FD00C54155 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E11BBD6B2249D6FD00C54155 /* GoogleService-Info.plist */; };
-		E11BBD6E2249D6FD00C54155 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E11BBD6B2249D6FD00C54155 /* GoogleService-Info.plist */; };
-		E11BBD6F2249D6FD00C54155 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E11BBD6B2249D6FD00C54155 /* GoogleService-Info.plist */; };
+		E1069780225683A700229788 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E106977F225683A700229788 /* GoogleService-Info.plist */; };
+		E1069781225683A700229788 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E106977F225683A700229788 /* GoogleService-Info.plist */; };
+		E1069782225683A700229788 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E106977F225683A700229788 /* GoogleService-Info.plist */; };
+		E1069783225683A700229788 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E106977F225683A700229788 /* GoogleService-Info.plist */; };
 		E18B814956E92317501A4644 /* libPods-MySharePal-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2611AEC47E402B5660F45636 /* libPods-MySharePal-tvOSTests.a */; };
 		E3420D91B1C54E2296D86DC4 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E90B00DBA77C4D51B2054468 /* EvilIcons.ttf */; };
 		E50B992C59A542D181985C78 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6E4DD929EE419F9B62ED0E /* libz.tbd */; };
@@ -424,7 +425,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
 		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = "../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
@@ -506,7 +506,7 @@
 		DC137B4808174096885D82DE /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		DD1A00E1BD2377D4E74799A9 /* Pods-MySharePal-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySharePal-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-MySharePal-tvOSTests/Pods-MySharePal-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD2F35142377431D93FA6491 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
-		E11BBD6B2249D6FD00C54155 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E106977F225683A700229788 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1C8B0C622530315003B0942 /* MySharePal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MySharePal.entitlements; path = MySharePal/MySharePal.entitlements; sourceTree = "<group>"; };
 		E2C9CA2BDA484489A8137508 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		E577BD505DE54C4796B4F906 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
@@ -712,8 +712,7 @@
 			isa = PBXGroup;
 			children = (
 				E1C8B0C622530315003B0942 /* MySharePal.entitlements */,
-				E11BBD6B2249D6FD00C54155 /* GoogleService-Info.plist */,
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				E106977F225683A700229788 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -1503,7 +1502,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E11BBD6D2249D6FD00C54155 /* GoogleService-Info.plist in Resources */,
+				E1069781225683A700229788 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1530,7 +1529,7 @@
 				389D828F0F3648BF90524873 /* Roboto_medium.ttf in Resources */,
 				C29CD36285E14399A2BF7074 /* Roboto.ttf in Resources */,
 				09FC244BDC214B5BA94BC983 /* rubicon-icon-font.ttf in Resources */,
-				E11BBD6C2249D6FD00C54155 /* GoogleService-Info.plist in Resources */,
+				E1069780225683A700229788 /* GoogleService-Info.plist in Resources */,
 				E0E9F18487564283B32F6144 /* SimpleLineIcons.ttf in Resources */,
 				C638FAACB71043109FA65DC6 /* Zocial.ttf in Resources */,
 			);
@@ -1541,7 +1540,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
-				E11BBD6E2249D6FD00C54155 /* GoogleService-Info.plist in Resources */,
+				E1069782225683A700229788 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1549,7 +1548,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E11BBD6F2249D6FD00C54155 /* GoogleService-Info.plist in Resources */,
+				E1069783225683A700229788 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1782,9 +1781,7 @@
 				INFOPLIST_FILE = MySharePalTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1815,9 +1812,7 @@
 				INFOPLIST_FILE = MySharePalTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1855,7 +1850,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.actapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mysharepal;
 				PRODUCT_NAME = MySharePal;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1887,7 +1882,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.actapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mysharepal;
 				PRODUCT_NAME = MySharePal;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1919,9 +1914,7 @@
 				);
 				INFOPLIST_FILE = "MySharePal-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1960,9 +1953,7 @@
 				);
 				INFOPLIST_FILE = "MySharePal-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -2000,9 +1991,7 @@
 				);
 				INFOPLIST_FILE = "MySharePal-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -2040,9 +2029,7 @@
 				);
 				INFOPLIST_FILE = "MySharePal-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
