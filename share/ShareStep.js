@@ -123,18 +123,22 @@ function renderShareStep(contentObj, navBar, allowNext, onQuestionsCompleted) {
         //         {navBar}
         //     </View>
         // </Container>
-        <View flex style={styles.stepContainer}>
-            <CardDeck
-                textItems={contentObj.lineItems}
-                completeText='Completed'
-                lastCompleteText='Next'
-                onLastCardShowing={allowNext}
-                onDeckCompleted={onQuestionsCompleted}
+
+        // <ScrollView contentContainerStyle={{
+        //     flexGrow: 1,
+        //     justifyContent: 'space-between'
+        // }}>
+            <View flex style={styles.stepContainer}>
+                <CardDeck
+                    textItems={contentObj.lineItems}
+                    completeText='Completed'
+                    lastCompleteText='Next'
+                    onLastCardShowing={allowNext}
+                    onDeckCompleted={onQuestionsCompleted}
                 />
-
-            {navBar}
-        </View>
-
+                {navBar}
+            </View>
+        // </ScrollView>
         // <Container>
         // <View flex style={styles.stepContainer}>
         //     <CardDeck

@@ -19,6 +19,8 @@ target 'ActApp' do
 
   platform :ios, '9.0'
 
+  pod 'react-native-contacts', :path => '../node_modules/react-native-contacts'
+
   target 'ActAppTests' do
     inherit! :search_paths
     # Pods for testing

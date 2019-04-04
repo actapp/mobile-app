@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { PlatformFonts, PlatformIcons, Colors } from '../Styles';
 
@@ -55,16 +55,18 @@ class Card extends Component {
         const { text, completeText, onChecked } = this.props
 
         return (
-            <View style={styles.transparentCard}>
-                <Text style={{ ...styles.cardText, marginBottom: 30 }}>{text}</Text>
+            // <ScrollView contentContainerStyle={{ flex: 1 }}>
+                <View style={styles.transparentCard}>
+                    <Text style={{ ...styles.cardText, marginBottom: 30 }}>{text}</Text>
 
-                <View style={{ borderBottomWidth: 0.5, borderColor: 'white', marginBottom: 15 }} />
-                <TouchableOpacity style={styles.cardAction}
-                    onPress={onChecked}>
-                    <Icon name={PlatformIcons.name('checkmark-circle-outline')} size={30} color={Colors.primary} />
-                    <Text style={styles.cardActionLabel}>{completeText}</Text>
-                </TouchableOpacity>
-            </View>
+                    <View style={{ borderBottomWidth: 0.5, borderColor: 'white', marginBottom: 15 }} />
+                    <TouchableOpacity style={styles.cardAction}
+                        onPress={onChecked}>
+                        <Icon name={PlatformIcons.name('checkmark-circle-outline')} size={30} color={Colors.primary} />
+                        <Text style={styles.cardActionLabel}>{completeText}</Text>
+                    </TouchableOpacity>
+                </View>
+            // </ScrollView>
         )
     }
 }
@@ -109,7 +111,7 @@ export class CardDeck extends Component {
                 if (currentCardIsLast) {
                     onCompleted()
                 } else {
-                    if(currentCardIsSecondLast) {
+                    if (currentCardIsSecondLast) {
                         onLastCardShowing()
                     }
 

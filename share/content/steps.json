@@ -1,7 +1,7 @@
 [
     {
         "key": "Step1",
-        "title": "Starter questions",
+        "title": "Spiritual beliefs",
         "lineItems": [
             "Do you have any kind of spiritual beliefs?",
             "To you, who is Jesus?",
@@ -9,17 +9,17 @@
             "If you died, where would you go? If heaven, why?",
             "If there was an easier way to know how to get to heaven, would you want to know?"
         ],
-        "comments": "Tip: these questions are just to help understand where this person is coming from. Be carefult to listen, not correct.",
+        "comments": "These questions act as a funnel.  Be careful to listen and not offer correction to answers given.  If your friend says no to being interested do nothing.  You have been obedient to share the gospel, and the results belong to God.",
         "nextKey": "Step2"
     },
     {
         "key": "Step2",
         "title": "For all have sinned",
         "lineItems": [
-            "\"For all have sinned and fallen short of the glory of God\"  -- Romans 3:23 (NIV)",
+            "\"For all have sinned and fallen short of the glory of God\"  --Romans 3:23 (NIV)",
             "What does this say to you?"
         ],
-        "comments": "Tip: Why did I have my friend read it out loud?  Because faith comes from hearing.\n\nWhen people read Scripture aloud, you will be suprised how quickly they become convinced of their need to trust Jesus as Lord and Saviour.\n\nWatch God work as you continue to guide others to read these Scriptures.  You are looking for an answer like: \"Everyone has sinned\"",
+        "comments": "Why did I have my friend read it out loud?  Because faith comes from hearing. When people read Scripture aloud, you will be suprised how quickly they become convinced of their need to trust Jesus as Lord and Saviour.  Watch God work as you continue to guide others to read these Scriptures.  You are looking for an answer like: Everyone has sinned",
         "nextKey": "Step3"
     },
     {
@@ -28,6 +28,78 @@
         "lineItems": [
             "\"For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord\" --Romans 6:23 (NIV)"
         ],
-        "comments": "Tip: You are looking for an answer like: \"The result of sin is death, but God gives likfe through his Son\""
+        "comments": "You are looking for an answer like: The result of sin is death, but God gives life through his Son.",
+        "nextKey": "Step4"
+    },
+    {
+        "key": "Step4",
+        "title": "The Way, the Truth, and the Life",
+        "lineItems": [
+            "\"Jesus answered, 'I am the way and the truth and the life. No one comes to the Father except through me.'\" --John 14:6 (NIV)",
+            "What does this say to you?"
+        ],
+        "comments": "You are looking for an answer like: There is no other way to be with God except through Jesus.",
+        "nextKey": "Step5"
+    },
+    {
+        "key": "Step5",
+        "title": "God's love",
+        "lineItems": [
+            "\"But God demonstrates his own love for us in this: While we were still sinners, Christ died for us.\" --Romans 5:8 (NIV)",
+            "What does this say to you?"
+        ],
+        "comments": "",
+        "nextKey": "Step6"
+    },
+    {
+        "key": "Step6",
+        "title": "Jesus is Lord",
+        "lineItems": [
+            "\"If you declare with your mouth, 'Jesus is Lord,' and believe in your heart that God raised him from the dead, you will be saved. For it is with your heart that you believe and are justified, and it is with your mouth that you profess your faith and are saved. As Scripture says, 'Anyone who believes in him will never be put to shame.'  for, 'Everyone who calls on the name of the Lord will be saved.' --Romans 10:9-11,13 (NIV)",
+            "What does this say to you?"
+        ],
+        "comments": "You are looking for an answer like: If I believe God raised Jesus from the dead, I can be saved.",
+        "nextKey": "Step7"
+    },
+    {
+        "key": "Step7",
+        "title": "You must be born again",
+        "lineItems": [
+            "\"Jesus replied, 'Very truly I tell you, no one can see the kingdom of God unless they are born again.'\" --John 3:3 (NIV)"
+        ],
+        "comments": "You are looking for an answer like: The result of sin is death, but God gives life through his Son.",
+        "nextKey": "Step8"
+    },
+    {
+        "key": "Step8",
+        "title": "He died for all",
+        "lineItems": [
+            "\"And he died for all, that those who live should no longer live for themselves but for him who died for them and was raised again.\"  --2 Corinthians 5:15 (NIV)",
+            "What does this say to you?"
+        ],
+        "comments": "You are looking for an answer like: We should live for Christ",
+        "nextKey": "Step9"
+    },
+    {
+        "key": "Step9",
+        "title": "Here I am",
+        "lineItems": [
+            "\"'Here I am! I stand at the door and knock. If anyone hears my voice and opens the door, I will come in and eat with tha tperson, and they with me.'\" --Revelation 3:20 (NIV)",
+            "What does this say to you?"
+        ],
+        "comments": "You are looking for an answer like: If I ask Jesus to come into my life, he will",
+        "nextKey": "Step10"
+    },
+    {
+        "key": "Step10",
+        "title": "What's next?",
+        "lineItems": [
+            "Are you a sinner?",
+            "Do you want forgiveness for your sins?",
+            "Do you believe Jesus died on the cross for you and rose again?",
+            "Are you willing to surrender your life to Jesus Christ?",
+            "Are you ready to invite Jesus into your life and into your heart?"
+        ],
+        "comments": "After asking the last question be silent and pray. Literally, by shutting up we are allowing the Holy Spirit to work.",
     }
 ]
