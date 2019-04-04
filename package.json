@@ -5,8 +5,9 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "release-android": "appcenter codepush release-react -a MySharePal/MySharePal -d Production",
-    "release-ios": "appcenter codepush release-react -a MySharePal/ACT-Mobile-iOS -d Production"
+    "release-android": "appcenter codepush release-react -a mysharepal/ACT-Mobile -d Production",
+    "release-ios": "appcenter codepush release-react -a mysharepal/ACT-Mobile-iOS -d Production",
+    "release-all": "npm run release-android && npm run release-ios"
   },
   "dependencies": {
     "appcenter": "^1.12.2",

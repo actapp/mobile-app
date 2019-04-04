@@ -176,15 +176,15 @@ class App extends Component<Props> {
     }
 
     return (
-        <ScrollView>
-          <KeyboardAvoidingView style={{...styles.container, paddingBottom: 300}}>
+        //<ScrollView>
+          <View style={{...styles.container}}>
 
-            <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>ACT</Text>
-            <Text text10 style={{ fontSize: 18, color: '#ffffff', marginBottom: 20 }}>Share Jesus without fear</Text>
+            <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>MySharePal</Text>
+            <Text text10 style={{ fontSize: 18, color: '#ffffff', marginBottom: 20 }}>A Simple Way to Share the Gospel</Text>
 
             {actionButton}
-          </KeyboardAvoidingView>
-        </ScrollView>
+          </View>
+        //</ScrollView>
     );
   }
 
