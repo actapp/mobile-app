@@ -131,8 +131,8 @@ function renderShareStep(contentObj, navBar, allowNext, onQuestionsCompleted) {
             <View flex style={styles.stepContainer}>
                 <CardDeck
                     textItems={contentObj.lineItems}
-                    completeText='Completed'
-                    lastCompleteText='Next'
+                    completeText='Next'
+                    lastCompleteText='Continue'
                     onLastCardShowing={allowNext}
                     onDeckCompleted={onQuestionsCompleted}
                 />
@@ -214,7 +214,11 @@ function renderStep(content) {
             }
 
             render() {
-                const isNextEnabled = this.state.isNextEnabled
+                let isNextEnabled = this.state.isNextEnabled
+                if(content.lineItems.length == 1) {
+                    isNextEnabled = true
+                }
+
                 let nextFunc = createNextFunc(content, this.props.navigation)
                 if (nextFunc == null) {
                     // No next function; assume this must be the last step
