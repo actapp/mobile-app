@@ -26,7 +26,8 @@
         "key": "Step3",
         "title": "The wages of sin",
         "lineItems": [
-            "\"For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord\" --Romans 6:23 (NIV)"
+            "\"For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord\" --Romans 6:23 (NIV)",
+            "What does this say to you?"
         ],
         "comments": "You are looking for an answer like: The result of sin is death, but God gives life through his Son.",
         "nextKey": "Step4"
@@ -65,9 +66,10 @@
     },
     {
         "key": "Step7",
-        "title": "You must be born again",
+        "title": "By grace",
         "lineItems": [
-            "\"Jesus replied, 'Very truly I tell you, no one can see the kingdom of God unless they are born again.'\" --John 3:3 (NIV)"
+            "\"For by grace you have been saved through faith. And this is not your own doing; it is the gift of God, not a result of works, so that no one may boast.\" --Ephesians 2:8-9 (NIV)",
+            "What does this say to you?"
         ],
         "comments": "You are looking for an answer like: The result of sin is death, but God gives life through his Son.",
         "nextKey": "Step8"
@@ -86,7 +88,7 @@
         "key": "Step9",
         "title": "Here I am",
         "lineItems": [
-            "\"'Here I am! I stand at the door and knock. If anyone hears my voice and opens the door, I will come in and eat with tha tperson, and they with me.'\" --Revelation 3:20 (NIV)",
+            "\"'Here I am! I stand at the door and knock. If anyone hears my voice and opens the door, I will come in and eat with that person, and they with me.'\" --Revelation 3:20 (NIV)",
             "What does this say to you?"
         ],
         "comments": "You are looking for an answer like: If I ask Jesus to come into my life, he will",
@@ -111,6 +113,6 @@
         "lineItems": [
             "Heavenly Father, I have sinned against You. I want forgiveness of all my sins. I believe Jesus died on the cross for me and rose again. Father, I give You my life to do with as You wish.  I want Jesus Christ to come into my life and into my heart. I ask this in Jesus' name. Amen."
         ],
-        "comments": "If you friend accepted Christ please:\n1. Congratulate and welcome in their relationship with Jesus as their Lord and Savior.\n2. Let them know they will be receiving a text message with an invitation to learn more about their faith through ACT."
+        "comments": "If you friend accepted Christ please:\n\n1. Congratulate and welcome in their relationship with Jesus as their Lord and Savior.\n\n2. Let them know they will be receiving a text message with an invitation to learn more about their faith through ACT."
     }
 ]

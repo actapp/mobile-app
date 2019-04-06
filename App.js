@@ -11,7 +11,7 @@ import { Platform, StyleSheet, StatusBar, KeyboardAvoidingView, TextInput, Activ
 import { View, Text, Button } from 'react-native-ui-lib';
 import { Colors } from './Styles';
 import codePush from "react-native-code-push";
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation";
 import { renderStep } from './share/ShareStep';
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from './AnalyticsConstants';
@@ -232,9 +232,14 @@ for (let i = 0; i < steps.length; i++) {
 }
 
 export const AppNavigator = createStackNavigator({
-  Home: {
-    screen: App
-  },
+  Home: createBottomTabNavigator({
+    MainScreen: {
+      screen: App
+    },
+    ContactScreen: {
+      screen: ShareContact
+    }
+  }),
   ShareContact: {
     screen: ShareContact
   },
