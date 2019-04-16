@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "deploy": "node scripts/Deploy.js",    
+    "deploy": "node scripts/Deploy.js",
     "release-android-sta": "appcenter codepush release-react -a mysharepal/ACT-Mobile -d Staging",
     "release-ios-sta": "appcenter codepush release-react -a mysharepal/ACT-Mobile-iOS -d Staging",
     "release-all-sta": "npm run release-android-sta && npm run release-ios-sta",

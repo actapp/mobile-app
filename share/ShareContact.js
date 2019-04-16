@@ -4,6 +4,7 @@ import { CommonStyles, Colors, PlatformIcons } from '../Styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { WizardButton, LoadingIndicator, alertError } from '../components/Foundation';
 import store from 'react-native-simple-store';
+import uuidv4 from '../utils/UUID';
 import { text } from '../lib/AKCommunications.js'
 import { steps } from '../App'
 // import firebase from 'react-native-firebase';
@@ -69,11 +70,14 @@ export default class ShareContact extends Component {
 
   submitForm = () => {
     const contact = this.collectData()
+
+    contact['id'] = uuidv4()
+    contact['currentStep'] = 0
+
     console.log(contact)
 
     store.push('contacts', contact)
       .then((res) => {
-        // text('9132379703', "Hello")
         this.props.navigation.navigate(steps[0].key)
       })
       .catch((error) => {

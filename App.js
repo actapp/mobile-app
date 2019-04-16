@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, StatusBar, KeyboardAvoidingView, TextInput, ActivityIndicator, ScrollView } from 'react-native';
+import { Platform, StyleSheet, StatusBar, KeyboardAvoidingView, TextInput, ActivityIndicator, ScrollView, FlatList } from 'react-native';
 import { View, Text, Button } from 'react-native-ui-lib';
 import { Colors } from './Styles';
 import codePush from "react-native-code-push";
@@ -17,6 +17,7 @@ import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from './AnalyticsConstants';
 // import firebase from 'react-native-firebase';
 import ShareContact from './share/ShareContact';
+import store from 'react-native-simple-store';
 
 export const steps = require('./share/content/steps.json')
 
@@ -24,15 +25,21 @@ type Props = {}
 
 class App extends Component<Props> {
   state = {
+    initializing: true,
+
     authInProgress: false,
     isAuthenticated: true,
     awaitingPhoneNumber: false,
     confirmResult: null,
-    awaitingCode: false
+    awaitingCode: false,
+
+    //
+
+    shareContacts: []
   }
 
   static navigationOptions = {
-    header: null
+    title: 'MySharePal' 
   }
 
   /*
@@ -107,7 +114,39 @@ class App extends Component<Props> {
   }
   */
 
+  componentDidMount = () => {
+    store.get('contacts')
+      .then((contacts) => {
+        const keyedContacts = []
+        for (let i = 0; i < contacts.length; i++) {
+          keyedContacts.push({ ...contacts[i], key: contacts[i].id })
+        }
+
+        this.setState({ initializing: false, shareContacts: keyedContacts })
+      })
+      .catch((error) => {
+        console.log(error)
+        this.setState({ initializing: false })
+      })
+  }
+
   render() {
+    if (this.state.initializing) {
+      // todo
+      return null
+    }
+
+    let screen = null
+    if (this.state.shareContacts.length > 0) {
+      screen = this.renderHomeScreen()
+    } else {
+      screen = this.renderWelcomeScreen()
+    }
+
+    return screen
+  }
+
+  renderWelcomeScreen = () => {
     let actionButton = null;
 
     if (this.state.authInProgress) {
@@ -165,6 +204,7 @@ class App extends Component<Props> {
     }
 
     let signout = null
+
     if (this.state.isAuthenticated) {
       signout = (<View style={{ marginTop: 20 }}>
         <Button
@@ -176,23 +216,24 @@ class App extends Component<Props> {
     }
 
     return (
-      //<ScrollView>
       <View style={{ ...styles.container }}>
-
         <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>MySharePal</Text>
         <Text text10 style={{ fontSize: 18, color: '#ffffff', marginBottom: 20 }}>A Simple Way to Share the Gospel</Text>
 
         {actionButton}
       </View>
-      //</ScrollView>
-    );
+    )
   }
 
-  onButtonPress() {
-    codePush.sync({
-      updateDialog: true,
-      installMode: codePush.InstallMode.IMMEDIATE
-    });
+  renderHomeScreen = () => {
+    return (
+      <View style={{ ...styles.container }}>
+        <FlatList
+          data={this.state.shareContacts}
+          renderItem={({ item }) => <Text style={{ color: 'white' }}>{item.name}</Text>}
+        />
+      </View>
+    )
   }
 }
 
