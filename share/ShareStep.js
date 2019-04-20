@@ -6,6 +6,7 @@ import CardDeck from '../components/CardDeck';
 import { PlatformFonts, PlatformIcons } from '../Styles';
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from '../AnalyticsConstants';
+import store from 'react-native-simple-store';
 
 function renderNavBar(onBack, onNext, isNextEnabled) {
     const buttons = []
@@ -128,16 +129,16 @@ function renderShareStep(contentObj, navBar, allowNext, onQuestionsCompleted) {
         //     flexGrow: 1,
         //     justifyContent: 'space-between'
         // }}>
-            <View flex style={styles.stepContainer}>
-                <CardDeck
-                    textItems={contentObj.lineItems}
-                    completeText='Next'
-                    lastCompleteText='Continue'
-                    onLastCardShowing={allowNext}
-                    onDeckCompleted={onQuestionsCompleted}
-                />
-                {navBar}
-            </View>
+        <View flex style={styles.stepContainer}>
+            <CardDeck
+                textItems={contentObj.lineItems}
+                completeText='Next'
+                lastCompleteText='Continue'
+                onLastCardShowing={allowNext}
+                onDeckCompleted={onQuestionsCompleted}
+            />
+            {navBar}
+        </View>
         // </ScrollView>
         // <Container>
         // <View flex style={styles.stepContainer}>
@@ -155,15 +156,45 @@ function renderShareStep(contentObj, navBar, allowNext, onQuestionsCompleted) {
     )
 }
 
-function createNextFunc(step, navigation) {
-    if (step.nextKey == null) {
+function createNextFunc(currentStep, nextStep, navigation) {
+    if (nextStep == null) {
         return null
     }
 
     return () => {
-        navigation.navigate(step.nextKey)
-        Analytics.trackEvent(AnalyticsConstants.EVENT_STEP_COMPLETED, { [AnalyticsConstants.PARAM_STEP_KEY]: step.key })
+        const contact = navigation.getParam('contact', null)
+
+        updateContact(contact, nextStep)
+
+        navigation.navigate(nextStep.key, {
+            contact: contact
+        })
+
+        Analytics.trackEvent(AnalyticsConstants.EVENT_STEP_COMPLETED, { 
+            [AnalyticsConstants.PARAM_STEP_KEY]: currentStep.key,
+            contactId: contact.id
+        })
     }
+}
+
+function updateContact(contact, nextStep) {
+    contact.currentStep = nextStep.key
+    contact.currentStepDesc = nextStep.desc
+
+    console.log('Updating contact: ' + JSON.stringify(contact))
+
+    store
+        .get('contacts')
+        .then((contacts) => {
+            console.log('Got contacts: ' + JSON.stringify(contacts))
+            contacts[contact.id] = contact
+
+            store
+                .save('contacts', contacts)
+                .then(() => {
+                    console.log("Saved contacts")
+                })
+        })
 }
 
 function onCompleted(navigation, acceptedChrist) {
@@ -171,7 +202,7 @@ function onCompleted(navigation, acceptedChrist) {
     Analytics.trackEvent(AnalyticsConstants.EVENT_SHARE_COMPLETED, { [AnalyticsConstants.PARAM_ACCEPTED_CHRIST]: acceptedChrist })
 }
 
-function createCompleteFunc(step, navigation) {
+function createCompleteFunc(navigation) {
     return () => {
         confirm('Complete', 'Did your friend accept Christ?', () => {
             onCompleted(navigation, true)
@@ -181,7 +212,7 @@ function createCompleteFunc(step, navigation) {
     }
 }
 
-function renderStep(content) {
+function renderStep(content, nextStep) {
     // let nextFunc = createNextFunc(content, this.props.navigation)
     // if (nextFunc == null) {
     //     // No next function; assume this must be the last step
@@ -215,14 +246,14 @@ function renderStep(content) {
 
             render() {
                 let isNextEnabled = this.state.isNextEnabled
-                if(content.lineItems.length == 1) {
+                if (content.lineItems.length == 1) {
                     isNextEnabled = true
                 }
 
-                let nextFunc = createNextFunc(content, this.props.navigation)
+                let nextFunc = createNextFunc(content, nextStep, this.props.navigation)
                 if (nextFunc == null) {
                     // No next function; assume this must be the last step
-                    nextFunc = createCompleteFunc(content, this.props.navigation)
+                    nextFunc = createCompleteFunc(this.props.navigation)
                 }
 
                 return renderShareStep(content,
