@@ -52,9 +52,14 @@ class App extends Component<Props> {
     // Check authentication
 
     this.authListener = listenForAuthenticationChange(user => {
-      console.log("User updated: " + user.uid)
+      // console.log("User updated: " + user.uid)
       this.currentUser = user
       this.setState({ isAuthenticated: user !== null })
+
+      if (user == null) {
+        this.setState({ initializing: false })
+        return
+      }
 
       hasContacts(user.uid)
         .then(hasContacts => {

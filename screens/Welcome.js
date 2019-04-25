@@ -8,6 +8,7 @@ import firebase from 'react-native-firebase'
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from '../AnalyticsConstants';
 
+import { listenForAuthenticationChange } from '../data/AuthInteractor'
 import { withNavigation } from 'react-navigation';
 
 class Welcome extends Component {
@@ -24,7 +25,11 @@ class Welcome extends Component {
     }
 
     setIsAuthenticated = (isAuthenticated) => {
-        this.setState({ isAuthenticated: isAuthenticated })
+        if (isAuthenticated) {
+            this.setState({ isAuthenticated: true, authInProgress: false, awaitingPhoneNumber: false, confirmResult: null, awaitingCode: false })
+        } else {
+            this.setState({ isAuthenticated: isAuthenticated, })
+        }
     }
 
     phoneAuth = (phoneNumber) => {
@@ -35,9 +40,9 @@ class Welcome extends Component {
         // Erroneously assume US country code only for now...
         firebase.auth().signInWithPhoneNumber('+1' + phoneNumber)
             .then(confirmResult => {
-                console.log('Confirm result: ' + confirmResult)
-
-                this.setState({ authInProgress: false, confirmResult: confirmResult, awaitingCode: true, awaitingPhoneNumber: false })
+                if (this.state.isAuthenticated == true) {
+                    this.setState({ authInProgress: false, confirmResult: false, awaitingCode: false, awaitingPhoneNumber: false })
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -68,6 +73,14 @@ class Welcome extends Component {
         this.setState({ awaitingPhoneNumber: true })
     }
 
+    componentDidMount() {
+        listenForAuthenticationChange(user => {
+            if (user !== null) {
+                this.setIsAuthenticated(true)
+            }
+        }, null)
+    }
+
     render() {
         let actionButton = null;
 
@@ -94,6 +107,9 @@ class Welcome extends Component {
         } else if (this.state.awaitingCode) {
             actionButton =
                 <KeyboardAvoidingView style={{ width: '80%' }}>
+                    <Text style={{ ...styles.authMessage, marginBottom: 15, textAlign: 'center' }}>
+                        We've sent you a 6 digit code via SMS. You should receive it shortly.
+                    </Text>
                     <TextInput
                         key='confCode'
                         placeholder='Enter your 6 digit code'
@@ -141,10 +157,14 @@ export default withNavigation(Welcome);
 const styles = StyleSheet.create({
     ...CommonStyles,
     loadingMessage: {
-      color: 'white',
-      fontSize: 16
+        color: 'white',
+        fontSize: 16
     },
     mainButton: {
-      backgroundColor: Colors.primary
+        backgroundColor: Colors.primary
+    },
+    authMessage: {
+        color: 'white',
+        fontSize: 16
     }
-  });
+});

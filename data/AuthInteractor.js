@@ -10,14 +10,14 @@ export function uid() {
 
 export function listenForAuthenticationChange(callback, currentUser) {
     return firebase.auth().onAuthStateChanged(user => {
-        console.log("User updated: " + user.uid)
-        
         // Only update if user has actually changed
         if(user == null) {
             if(currentUser !== null) {
                 callback(null)
             }
         } else {
+            console.log("User updated: " + user.uid)
+
             if(currentUser == null) {
                 callback(user)
             } else {
