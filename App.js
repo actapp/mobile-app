@@ -22,6 +22,7 @@ import { hasContacts } from './data/ContactInteractor';
 
 // Main screen components
 import Welcome from './screens/Welcome'
+import Intro from './screens/Intro'
 import Home from './screens/Home'
 
 // Other components needed for React Navigation declaration
@@ -100,6 +101,9 @@ export const AppNavigator = createStackNavigator({
   },
   Welcome: {
     screen: Welcome
+  },
+  Intro: {
+    screen: Intro
   },
   Home: {
     screen: Home

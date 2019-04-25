@@ -186,7 +186,6 @@ function updateContactStep(contact, nextStep) {
 
     console.log('Updating contact: ' + JSON.stringify(contact))
 
-
     updateContact(uid(), contact)
         .then(() => {
             console.log("Saved contacts")

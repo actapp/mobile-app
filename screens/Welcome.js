@@ -123,12 +123,13 @@ class Welcome extends Component {
                 </KeyboardAvoidingView>
         } else if (this.state.isAuthenticated || this.props.isAuthenticated) {
             actionButton = (<Button
-                label='Share'
+                label='Start'
                 style={styles.mainButton}
                 onPress={
                     () => {
                         //this.props.navigation.navigate(steps[0].key)
                         this.props.navigation.navigate('ShareContact')
+                        // this.props.navigation.navigate('Intro')
                         Analytics.trackEvent(AnalyticsConstants.EVENT_SHARE_STARTED, {
                             user: uid()
                         })
@@ -163,7 +164,9 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     mainButton: {
-        backgroundColor: Colors.primary
+        backgroundColor: Colors.primary,
+        paddingLeft: 10,
+        paddingRight: 10
     },
     authMessage: {
         color: 'white',

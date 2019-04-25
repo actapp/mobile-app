@@ -8,6 +8,7 @@
     "deploy": "node scripts/Deploy.js",
     "rr": "adb shell input text \"RR\"",
     "adbr": "adb reverse tcp:8081 tcp:8081",
+    "adbc": "adb shell pm clear com.mysharepal",
     "release-android-sta": "appcenter codepush release-react -a mysharepal/ACT-Mobile -d Staging",
     "release-ios-sta": "appcenter codepush release-react -a mysharepal/ACT-Mobile-iOS -d Staging",
     "release-all-sta": "npm run release-android-sta && npm run release-ios-sta",
