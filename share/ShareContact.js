@@ -3,7 +3,10 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Keyboa
 import { CommonStyles, Colors, PlatformIcons } from '../Styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { WizardButton, LoadingIndicator, alertError } from '../components/Foundation';
-import store from 'react-native-simple-store';
+
+import { uid } from '../data/AuthInteractor'
+import { addContact } from '../data/ContactInteractor'
+
 import uuidv4 from '../utils/UUID';
 import { steps } from '../screens/StepScreens'
 import Analytics from 'appcenter-analytics';
@@ -12,14 +15,6 @@ import * as AnalyticsConstants from '../AnalyticsConstants';
 export default class ShareContact extends Component {
   static navigationOptions = {
     title: 'Who are you sharing with?'
-    // headerRight: (
-    //     <TouchableOpacity
-    //         onPress={() => {
-    //             alert('Tip', content.comments)
-    //         }}>f
-    //         <Icon name={PlatformIcons.name('help-circle')} size={25} color='white' style={{ marginRight: 15 }} />
-    //     </TouchableOpacity>
-    // ),
   }
 
   state = {
@@ -68,34 +63,53 @@ export default class ShareContact extends Component {
 
     console.log(contact)
 
-    store.get('contacts')
-      .then((contacts) => {
-        console.log('Got: ' + JSON.stringify(contacts))
+    addContact(uid(), contact)
+      .then(contacts => {
+        console.log("Updated contacts")
 
-        let newContacts = {}
-        if (contacts != null) {
-          newContacts = contacts
-        }
+        this.props.navigation.navigate(steps[0].key, {
+          contact: contact
+        })
 
-        newContacts[contact.id] = contact
-
-        store
-          .save('contacts', newContacts)
-          .then(() => {
-            Analytics.trackEvent(AnalyticsConstants.CONTACT_ADDED, {
-              contactId: contact.id,
-              contactPhone: contact.phone,
-              contactName: contact.name
-            })
-
-            console.log(this.props.navigation)
-            this.props.navigation.navigate(steps[0].key, {
-              contact: contact
-            })
-
-            console.log('saved')
-          })
+        Analytics.trackEvent(AnalyticsConstants.CONTACT_ADDED, {
+          contactId: contact.id,
+          contactPhone: contact.phone,
+          contactName: contact.name
+        })
       })
+      .catch(error => {
+        console.log(error)
+
+        // TODO - store locally for later...
+        alertError('An error occurred when saving your contact. Please try again.')
+      })
+    // store.get('contacts')
+    //   .then((contacts) => {
+    //     console.log('Got: ' + JSON.stringify(contacts))
+
+    //     let newContacts = {}
+    //     if (contacts != null) {
+    //       newContacts = contacts
+    //     }
+
+    //     newContacts[contact.id] = contact
+
+    //     store
+    //       .save('contacts', newContacts)
+    //       .then(() => {
+    //         Analytics.trackEvent(AnalyticsConstants.CONTACT_ADDED, {
+    //           contactId: contact.id,
+    //           contactPhone: contact.phone,
+    //           contactName: contact.name
+    //         })
+
+    //         this.props.navigation.navigate(steps[0].key, {
+    //           contact: contact
+    //         })
+
+    //         console.log('saved')
+    //       })
+    //   })
 
     // const ref = firebase.firestore().collection('users').doc('contacts');
     // const data = this.collectData()

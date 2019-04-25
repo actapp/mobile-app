@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, KeyboardAvoidingView, TextInput, StyleSheet } from 'react-native';
 import { View, Text, Button } from 'react-native-ui-lib';
+import { alertError } from '../components/Foundation'
 import { Colors, CommonStyles } from '../Styles'
 
 import firebase from 'react-native-firebase'
@@ -41,12 +42,8 @@ class Welcome extends Component {
             .catch((error) => {
                 console.log(error);
                 this.setState({ authInProgress: false })
-                alertError('An error occurred while authenticating your phone number')
+                alertError('An error occurred while authenticating your phone number. Please try again later.')
             })
-    }
-
-    alertError = (message) => {
-
     }
 
     confirmPhoneAuth = (code) => {

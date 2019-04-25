@@ -9,10 +9,15 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Text } from 'react-native';
 import { createStackNavigator, createAppContainer } from "react-navigation";
+
+import { alertError } from './components/Foundation'
 import { Colors } from './Styles'
 
 import codePush from "react-native-code-push";
 import firebase from 'react-native-firebase';
+
+// Data
+import { listenForAuthenticationChange } from './data/AuthInteractor'
 import { hasContacts } from './data/ContactInteractor';
 
 // Main screen components
@@ -42,13 +47,19 @@ class App extends Component<Props> {
 
   componentDidMount() {
     // Check authentication
-    firebase.auth().onAuthStateChanged(user => {
-      hasContacts()
-        .then((hasContacts) => {
-          this.setState({ initializing: false, isAuthenticated: (user !== null), hasContacts: hasContacts })
+
+    listenForAuthenticationChange(user => {
+      this.setState({ isAuthenticated: user !== null })
+
+      hasContacts(user.uid)
+        .then(hasContacts => {
+          console.log("has contacts: " + hasContacts)
+          this.setState({ hasContacts: hasContacts, initializing: false })
         })
-        .catch((error) => {
-          this.setState({ initializing: false, isAuthenticated: (user !== null), hasContacts: false })
+        .catch(error => {
+          console.log(error)
+          alertError()
+          this.setState({ hasContacts: false, initializing: false })
         })
     })
   }
@@ -69,7 +80,6 @@ class App extends Component<Props> {
 let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_START };
 App = codePush(codePushOptions)(App)
 
-console.log(stepScreens)
 export const AppNavigator = createStackNavigator({
   Main: {
     screen: App
