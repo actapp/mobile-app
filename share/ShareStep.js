@@ -6,7 +6,9 @@ import CardDeck from '../components/CardDeck';
 import { PlatformFonts, PlatformIcons } from '../Styles';
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from '../AnalyticsConstants';
-import store from 'react-native-simple-store';
+
+import { uid } from '../data/AuthInteractor'
+import { updateContact } from '../data/ContactInteractor'
 
 function renderNavBar(onBack, onNext, isNextEnabled) {
     const buttons = []
@@ -164,36 +166,29 @@ function createNextFunc(currentStep, nextStep, navigation) {
     return () => {
         const contact = navigation.getParam('contact', null)
 
-        updateContact(contact, nextStep)
+        updateContactStep(contact, nextStep)
 
         navigation.navigate(nextStep.key, {
             contact: contact
         })
 
-        Analytics.trackEvent(AnalyticsConstants.EVENT_STEP_COMPLETED, { 
+        Analytics.trackEvent(AnalyticsConstants.EVENT_STEP_COMPLETED, {
             [AnalyticsConstants.PARAM_STEP_KEY]: currentStep.key,
             contactId: contact.id
         })
     }
 }
 
-function updateContact(contact, nextStep) {
+function updateContactStep(contact, nextStep) {
     contact.currentStep = nextStep.key
     contact.currentStepDesc = nextStep.desc
 
     console.log('Updating contact: ' + JSON.stringify(contact))
 
-    store
-        .get('contacts')
-        .then((contacts) => {
-            console.log('Got contacts: ' + JSON.stringify(contacts))
-            contacts[contact.id] = contact
 
-            store
-                .save('contacts', contacts)
-                .then(() => {
-                    console.log("Saved contacts")
-                })
+    updateContact(uid(), contact)
+        .then(() => {
+            console.log("Saved contacts")
         })
 }
 

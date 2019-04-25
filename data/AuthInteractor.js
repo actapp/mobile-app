@@ -8,24 +8,23 @@ export function uid() {
     return null
 }
 
-let currentUser = {}
-Object.assign(currentUser, firebase.auth().currentUser)
-
-export function listenForAuthenticationChange(callback) {
-    firebase.auth().onAuthStateChanged(user => {
+export function listenForAuthenticationChange(callback, currentUser) {
+    return firebase.auth().onAuthStateChanged(user => {
+        console.log("User updated: " + user.uid)
+        
         // Only update if user has actually changed
         if(user == null) {
             if(currentUser !== null) {
                 callback(null)
             }
         } else {
-            if(currentUser !== null && user.uid !== currentUser.uid) {
+            if(currentUser == null) {
                 callback(user)
-            } else if (currentUser == null) {
-                callback(user)
+            } else {
+                if(currentUser.uid !== user.uid) {
+                    callback(user)
+                }
             }
         }
-
-        currentUser = user
     })
 }

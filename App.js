@@ -45,10 +45,15 @@ class App extends Component<Props> {
     hasContacts: false
   }
 
+  static currentUser = null
+  static authListener = null
+
   componentDidMount() {
     // Check authentication
 
-    listenForAuthenticationChange(user => {
+    this.authListener = listenForAuthenticationChange(user => {
+      console.log("User updated: " + user.uid)
+      this.currentUser = user
       this.setState({ isAuthenticated: user !== null })
 
       hasContacts(user.uid)
@@ -61,7 +66,11 @@ class App extends Component<Props> {
           alertError()
           this.setState({ hasContacts: false, initializing: false })
         })
-    })
+    }, this.currentUser)
+  }
+
+  componentWillUnmount() {
+    this.authListener()
   }
 
   render() {
