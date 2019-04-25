@@ -173,6 +173,7 @@ function createNextFunc(currentStep, nextStep, navigation) {
         })
 
         Analytics.trackEvent(AnalyticsConstants.EVENT_STEP_COMPLETED, {
+            user: uid(),
             [AnalyticsConstants.PARAM_STEP_KEY]: currentStep.key,
             contactId: contact.id
         })
@@ -194,7 +195,10 @@ function updateContactStep(contact, nextStep) {
 
 function onCompleted(navigation, acceptedChrist) {
     navigation.navigate('Home')
-    Analytics.trackEvent(AnalyticsConstants.EVENT_SHARE_COMPLETED, { [AnalyticsConstants.PARAM_ACCEPTED_CHRIST]: acceptedChrist })
+    Analytics.trackEvent(AnalyticsConstants.EVENT_SHARE_COMPLETED, {
+        user: uid(),
+        [AnalyticsConstants.PARAM_ACCEPTED_CHRIST]: acceptedChrist
+    })
 }
 
 function createCompleteFunc(navigation) {

@@ -72,6 +72,7 @@ export default class ShareContact extends Component {
         })
 
         Analytics.trackEvent(AnalyticsConstants.CONTACT_ADDED, {
+          user: uid(),
           contactId: contact.id,
           contactPhone: contact.phone,
           contactName: contact.name

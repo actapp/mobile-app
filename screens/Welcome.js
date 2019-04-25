@@ -8,7 +8,7 @@ import firebase from 'react-native-firebase'
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from '../AnalyticsConstants';
 
-import { listenForAuthenticationChange } from '../data/AuthInteractor'
+import { uid, listenForAuthenticationChange } from '../data/AuthInteractor'
 import { withNavigation } from 'react-navigation';
 
 class Welcome extends Component {
@@ -129,7 +129,9 @@ class Welcome extends Component {
                     () => {
                         //this.props.navigation.navigate(steps[0].key)
                         this.props.navigation.navigate('ShareContact')
-                        Analytics.trackEvent(AnalyticsConstants.EVENT_SHARE_STARTED)
+                        Analytics.trackEvent(AnalyticsConstants.EVENT_SHARE_STARTED, {
+                            user: uid()
+                        })
                     }
                 } />)
         } else {
