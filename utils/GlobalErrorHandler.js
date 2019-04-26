@@ -17,7 +17,8 @@ export default function handleError(name = GENERIC_ERROR, error, params) {
         {
             ...params,
             errorId: errorHash,
-            platform: Platform.OS
+            platform: Platform.OS,
+            stack: error.stack
         }
     )
 }
