@@ -25,8 +25,7 @@ export const CommonStyles = {
         paddingLeft: 15,
         paddingRight: 15,
         paddingTop: 15,
-        flexWrap: 'wrap',
-        color: 'white'
+        flexWrap: 'wrap'
     },
 
     primaryButton: {

@@ -6,6 +6,9 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "deploy": "node scripts/Deploy.js",
+    "rr": "adb shell input text \"RR\"",
+    "adbr": "adb reverse tcp:8081 tcp:8081",
+    "adbc": "adb shell pm clear com.mysharepal",
     "release-android-sta": "appcenter codepush release-react -a mysharepal/ACT-Mobile -d Staging",
     "release-ios-sta": "appcenter codepush release-react -a mysharepal/ACT-Mobile-iOS -d Staging",
     "release-all-sta": "npm run release-android-sta && npm run release-ios-sta",
@@ -25,9 +28,11 @@
     "react-native-confirmation-code-field": "^3.4.1",
     "react-native-firebase": "^5.2.3",
     "react-native-gesture-handler": "^1.0.17",
+    "react-native-options-menu": "^2.0.2",
     "react-native-simple-store": "^1.3.0",
     "react-native-ui-lib": "^3.20.1",
     "react-native-vector-icons": "^6.3.0",
+    "react-native-webview-autoheight": "^1.0.6",
     "react-navigation": "^3.4.1"
   },
   "devDependencies": {

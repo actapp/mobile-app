@@ -102,8 +102,8 @@ android {
         applicationId "com.mysharepal"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 100080
+        versionName "1.0.8"
         multiDexEnabled true
     }
     splits {

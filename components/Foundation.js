@@ -57,8 +57,15 @@ export class LoadingIndicator extends Component {
     }
 }
 
-export function alertError(msg) {
-
+export function alertError(msg = 'Uh oh, something went wrong. Please try again later.', title = 'Error') {
+    Alert.alert(
+        title,
+        msg,
+        [
+            { text: 'OK', onPress: () => {} },
+        ],
+        { cancelable: true },
+    );
 }
 
 const styles = StyleSheet.create({

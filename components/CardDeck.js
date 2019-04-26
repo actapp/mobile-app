@@ -101,7 +101,6 @@ export class CardDeck extends Component {
 
     constructor(props) {
         super(props)
-        console.log(this.props)
     }
 
     incrementCurrentIndex = () => {

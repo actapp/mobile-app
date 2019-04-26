@@ -3,28 +3,18 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Keyboa
 import { CommonStyles, Colors, PlatformIcons } from '../Styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { WizardButton, LoadingIndicator, alertError } from '../components/Foundation';
-import store from 'react-native-simple-store';
-import uuidv4 from '../utils/UUID';
-import { text } from '../lib/AKCommunications.js'
-import { steps } from '../App'
-// import firebase from 'react-native-firebase';
 
-const FIELDS = {
-  name: 'name',
-  phone: 'phone'
-}
+import { uid } from '../data/AuthInteractor'
+import { addContact } from '../data/ContactInteractor'
+
+import uuidv4 from '../utils/UUID';
+import { steps } from '../screens/StepScreens'
+import Analytics from 'appcenter-analytics';
+import * as AnalyticsConstants from '../AnalyticsConstants';
 
 export default class ShareContact extends Component {
   static navigationOptions = {
     title: 'Who are you sharing with?'
-    // headerRight: (
-    //     <TouchableOpacity
-    //         onPress={() => {
-    //             alert('Tip', content.comments)
-    //         }}>f
-    //         <Icon name={PlatformIcons.name('help-circle')} size={25} color='white' style={{ marginRight: 15 }} />
-    //     </TouchableOpacity>
-    // ),
   }
 
   state = {
@@ -34,10 +24,6 @@ export default class ShareContact extends Component {
 
     name: null,
     phone: null
-  }
-
-  componentDidMount() {
-
   }
 
   _focusNextField(nextField) {
@@ -72,18 +58,59 @@ export default class ShareContact extends Component {
     const contact = this.collectData()
 
     contact['id'] = uuidv4()
-    contact['currentStep'] = 0
+    contact['currentStep'] = steps[0].key
+    contact['currentStepDesc'] = steps[0].desc
 
     console.log(contact)
 
-    store.push('contacts', contact)
-      .then((res) => {
-        this.props.navigation.navigate(steps[0].key)
+    addContact(uid(), contact)
+      .then(contacts => {
+        console.log("Updated contacts")
+
+        this.props.navigation.navigate(steps[0].key, {
+          contact: contact
+        })
+
+        Analytics.trackEvent(AnalyticsConstants.CONTACT_ADDED, {
+          user: uid(),
+          contactId: contact.id,
+          contactPhone: contact.phone,
+          contactName: contact.name
+        })
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error)
-        throw error
+
+        // TODO - store locally for later...
+        alertError('An error occurred when saving your contact. Please try again.')
       })
+    // store.get('contacts')
+    //   .then((contacts) => {
+    //     console.log('Got: ' + JSON.stringify(contacts))
+
+    //     let newContacts = {}
+    //     if (contacts != null) {
+    //       newContacts = contacts
+    //     }
+
+    //     newContacts[contact.id] = contact
+
+    //     store
+    //       .save('contacts', newContacts)
+    //       .then(() => {
+    //         Analytics.trackEvent(AnalyticsConstants.CONTACT_ADDED, {
+    //           contactId: contact.id,
+    //           contactPhone: contact.phone,
+    //           contactName: contact.name
+    //         })
+
+    //         this.props.navigation.navigate(steps[0].key, {
+    //           contact: contact
+    //         })
+
+    //         console.log('saved')
+    //       })
+    //   })
 
     // const ref = firebase.firestore().collection('users').doc('contacts');
     // const data = this.collectData()
@@ -125,8 +152,8 @@ export default class ShareContact extends Component {
       <ScrollView style={{ backgroundColor: 'black' }}>
         <KeyboardAvoidingView style={{ ...CommonStyles.container, paddingLeft: 25, paddingRight: 20, paddingTop: 25 }}>
           <View style={{ width: '100%' }}>
-            {this.textField('Name', 'default', 'next', 10, (input) => { this.nameInput = input }, (text) => { this.setState({name: text})}, (event) => { this.phoneInput.focus() })}
-            {this.textField('Phone number', 'numeric', 'go', 30, (input) => { this.phoneInput = input }, (text) => { this.setState({phone: text})}, this.submitForm, 10)}
+            {this.textField('Name', 'default', 'next', 10, (input) => { this.nameInput = input }, (text) => { this.setState({ name: text }) }, (event) => { this.phoneInput.focus() })}
+            {this.textField('Phone number', 'numeric', 'go', 30, (input) => { this.phoneInput = input }, (text) => { this.setState({ phone: text }) }, this.submitForm, 10)}
 
             {actionButton}
           </View>
