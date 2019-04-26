@@ -9,9 +9,12 @@ import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from '../AnalyticsConstants';
 
 import { uid, listenForAuthenticationChange } from '../data/AuthInteractor'
-import { withNavigation } from 'react-navigation';
 
-class Welcome extends Component {
+export default class Welcome extends Component {
+    static navigationOptions = {
+        header: null
+    }
+
     state = {
         authInProgress: false,
         isAuthenticated: false,
@@ -41,7 +44,9 @@ class Welcome extends Component {
         firebase.auth().signInWithPhoneNumber('+1' + phoneNumber)
             .then(confirmResult => {
                 if (this.state.isAuthenticated == true) {
-                    this.setState({ authInProgress: false, confirmResult: false, awaitingCode: false, awaitingPhoneNumber: false })
+                    this.setState({ authInProgress: false, confirmResult: null, awaitingCode: false, awaitingPhoneNumber: false })
+                } else {
+                    this.setState({ authInProgress: false, confirmResult: confirmResult, awaitingCode: true, awaitingPhoneNumber: false})
                 }
             })
             .catch((error) => {
@@ -154,8 +159,6 @@ class Welcome extends Component {
         )
     }
 }
-
-export default withNavigation(Welcome);
 
 const styles = StyleSheet.create({
     ...CommonStyles,

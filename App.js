@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import { ActivityIndicator, Text } from 'react-native';
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { createStackNavigator, createAppContainer, NavigationActions, StackActions } from "react-navigation";
 
 import { alertError } from './components/Foundation'
 import { Colors } from './Styles'
@@ -55,22 +55,31 @@ class App extends Component<Props> {
     this.authListener = listenForAuthenticationChange(user => {
       // console.log("User updated: " + user.uid)
       this.currentUser = user
-      this.setState({ isAuthenticated: user !== null })
+      // this.setState({ isAuthenticated: user !== null })
 
       if (user == null) {
-        this.setState({ initializing: false })
+        // this.setState({ initializing: false })
+        this.props.navigation.replace('Welcome')
         return
       }
 
       hasContacts(user.uid)
         .then(hasContacts => {
           console.log("has contacts: " + hasContacts)
-          this.setState({ hasContacts: hasContacts, initializing: false })
+          // this.setState({ hasContacts: hasContacts, initializing: false })
+          // this.props.navigation.replace('Home')
+          if (hasContacts) {
+            this.startScreen('Home')
+          } else {
+            this.startScreen('Welcome')
+          }
         })
         .catch(error => {
           console.log(error)
           alertError()
-          this.setState({ hasContacts: false, initializing: false })
+          // this.setState({ hasContacts: false, initializing: false })
+          // this.propsnavigation.replace('Welcome')
+          this.startScreen('Welcome')
         })
     }, this.currentUser)
   }
@@ -79,16 +88,26 @@ class App extends Component<Props> {
     this.authListener()
   }
 
-  render() {
-    if (this.state.initializing) {
-      return <ActivityIndicator size="large" color={Colors.primary} />
-    }
+  startScreen = (title) => {
+    // const resetAction = StackActions.reset({
+    //   index: 0,
+    //   actions: [NavigationActions.navigate({ routeName: title })],
+    // });
 
-    if (this.state.isAuthenticated && this.state.hasContacts) {
-      return <Home />
-    } else {
-      return <Welcome isAuthenticated={this.state.isAuthenticated} />
-    }
+    // this.props.navigation.dispatch(resetAction);
+    this.props.navigation.replace(title)
+  }
+
+  render() {
+    // if (this.state.initializing) {
+    return <ActivityIndicator size="large" color={Colors.primary} />
+    // }
+
+    // if (this.state.isAuthenticated && this.state.hasContacts) {
+    //   return <Home />
+    // } else {
+    //   return <Welcome isAuthenticated={this.state.isAuthenticated} />
+    // }
   }
 }
 

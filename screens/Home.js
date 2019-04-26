@@ -4,10 +4,14 @@ import { View, Text } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { PlatformIcons, Colors, CommonStyles } from '../Styles';
 
-import { withNavigation } from 'react-navigation';
+import { text } from '../lib/AKCommunications'
 import { getContacts } from '../data/ContactInteractor'
 
-class Home extends Component {
+export default class Home extends Component {
+    static navigationOptions = {
+        title: 'Dashboard'
+    }
+
     state = {
         initializing: true,
         shareContacts: []
@@ -18,7 +22,6 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.navigation.setParams({ screenTitle: 'Dashboard' })
         this.initContacts()
     }
 
@@ -43,6 +46,10 @@ class Home extends Component {
         })
     }
 
+    componentWillUnmount() {
+        console.log('will unmount!')
+    }
+
     render() {
         const renderContact = this.renderContact
 
@@ -54,12 +61,18 @@ class Home extends Component {
                     renderItem={({ item }) => { return renderContact(item) }}
                 />
                 <TouchableOpacity style={styles.actionButton} onPress={this.startNewSession}>
-                    <Text style={{ color: 'white', fontSize: 20, marginRight: 15 }}>Share now</Text>
+                    <Text style={styles.actionButtonText}>Share now</Text>
                     <Icon name={PlatformIcons.name('arrow-forward')} size={20} color='white' />
                 </TouchableOpacity>
             </View>
         )
     }
+    /**
+     * <TouchableOpacity style={styles.actionButton} onPress={this.startNewSession}>
+                    <Text style={styles.actionButtonText}>Share now</Text>
+                    <Icon name={PlatformIcons.name('arrow-forward')} size={20} color='white' />
+                </TouchableOpacity>
+     */
 
     renderContact = (contact) => {
         const resume = this.resumeSession
@@ -88,8 +101,6 @@ class Home extends Component {
         )
     }
 }
-
-export default withNavigation(Home);
 
 const styles = StyleSheet.create({
     ...CommonStyles,
@@ -120,12 +131,18 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     actionButton: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.primary,
         width: '100%',
-        padding: 25
+        height: '10%'
+    },
+    actionButtonText: {
+        fontSize: 20,
+        color: 'white',
+        textAlign: 'center',
+        marginRight: 15,
+        marginBottom: 3
     }
 })
