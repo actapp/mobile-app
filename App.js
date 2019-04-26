@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { createStackNavigator, createAppContainer, NavigationActions, StackActions } from "react-navigation";
 
+import handleError, { CONTACTS_ERROR } from './utils/GlobalErrorHandler'
 import { alertError } from './components/Foundation'
 import { CommonStyles, Colors } from './Styles'
 
@@ -75,10 +76,8 @@ class App extends Component<Props> {
           }
         })
         .catch(error => {
-          console.log(error)
+          handleError(CONTACTS_ERROR, error, { step: 'HAS_CONTACTS' })
           alertError()
-          // this.setState({ hasContacts: false, initializing: false })
-          // this.propsnavigation.replace('Welcome')
           this.startScreen('Welcome')
         })
     }, this.currentUser)

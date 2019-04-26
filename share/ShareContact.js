@@ -11,6 +11,7 @@ import uuidv4 from '../utils/UUID';
 import { steps } from '../screens/StepScreens'
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from '../AnalyticsConstants';
+import handleError, { CONTACTS_ERROR } from '../utils/GlobalErrorHandler'
 
 export default class ShareContact extends Component {
   static navigationOptions = {
@@ -79,7 +80,7 @@ export default class ShareContact extends Component {
         })
       })
       .catch(error => {
-        console.log(error)
+        handleError(CONTACTS_ERROR, error, { step: 'ADD_CONTACT' })
 
         // TODO - store locally for later...
         alertError('An error occurred when saving your contact. Please try again.')

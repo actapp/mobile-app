@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, KeyboardAvoidingView, TextInput, StyleSheet } from 'react-native';
 import { View, Text, Button } from 'react-native-ui-lib';
-import { alertError } from '../components/Foundation'
+
 import { Colors, CommonStyles } from '../Styles'
 
 import firebase from 'react-native-firebase'
 import Analytics from 'appcenter-analytics';
 import * as AnalyticsConstants from '../AnalyticsConstants';
+
+import handleError, { AUTH_ERROR } from '../utils/GlobalErrorHandler'
+import { alertError } from '../components/Foundation'
 
 import { uid, listenForAuthenticationChange } from '../data/AuthInteractor'
 
@@ -50,7 +53,7 @@ export default class Welcome extends Component {
                 }
             })
             .catch((error) => {
-                console.log(error);
+                handleError(AUTH_ERROR, error, { step: 'SUBMIT_PHONE_NUMBER' })
                 this.setState({ authInProgress: false })
                 alertError('An error occurred while authenticating your phone number. Please try again later.')
             })
@@ -67,7 +70,7 @@ export default class Welcome extends Component {
                 this.setState({ authInProgress: false, isAuthenticated: true, awaitingCode: false })
             })
             .catch(error => {
-                console.log(error)
+                handleError(AUTH_ERROR, error, { step: 'SUBMIT_VERIFICATION_CODE' })
                 // Error with verification code);
                 this.setState({ authInProgress: false, isAuthenticated: false, awaitingCode: false })
                 alertError('An error occurred while confirming your phone number. Please try again')

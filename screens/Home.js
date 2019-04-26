@@ -7,6 +7,10 @@ import { PlatformIcons, Colors, CommonStyles } from '../Styles';
 
 import { text } from '../lib/AKCommunications'
 import { getContacts } from '../data/ContactInteractor'
+import { alertError } from '../components/Foundation';
+import handleError, {
+    CONTACTS_ERROR
+} from '../utils/GlobalErrorHandler'
 
 export default class Home extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -42,6 +46,8 @@ export default class Home extends Component {
                 this.setState({ initializing: false, shareContacts: contacts })
             })
             .catch((error) => {
+                handleError(CONTACTS_ERROR, error, { step: 'GET_CONTACTS' })
+                alertError()
                 this.setState({ initializing: false })
             })
     }
