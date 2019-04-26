@@ -6,6 +6,7 @@ import { PlatformFonts, PlatformIcons, Colors } from '../Styles';
 
 const styles = StyleSheet.create({
     transparentCard: {
+        width: '100%',
         margin: 20,
         padding: 15,
         backgroundColor: 'black',
@@ -16,7 +17,8 @@ const styles = StyleSheet.create({
 
     cardText: {
         color: 'white',
-        fontSize: 16,
+        padding: 10,
+        fontSize: 20,
         fontFamily: PlatformFonts.light,
         textAlign: 'center',
         flexWrap: 'wrap'
@@ -25,11 +27,11 @@ const styles = StyleSheet.create({
     cardAction: {
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 10
     },
 
     cardActionLabel: {
-        width: '50%',
         color: 'white',
         fontSize: 16,
         textAlign: 'center'
@@ -42,7 +44,10 @@ class Card extends Component {
     static propTypes = {
         text: PropTypes.string.isRequired,
         completeText: PropTypes.string,
-        onChecked: PropTypes.func.isRequired
+        onUp: PropTypes.func.isRequired,
+        onDown: PropTypes.func.isRequired,
+        isUpEnabled: PropTypes.bool,
+        isDownEnabled: PropTypes.bool
     }
 
     state = {
@@ -54,22 +59,30 @@ class Card extends Component {
     }
 
     render() {
-        const { text, completeText, onChecked } = this.props
+        const { text, onUp, onDown, isUpEnabled, isDownEnabled } = this.props
 
         return (
             // <ScrollView contentContainerStyle={{ flex: 1 }}>
-                <View style={styles.transparentCard}>
-                    <Text style={{ ...styles.cardText, marginBottom: 30 }}>{text}</Text>
+            <View style={styles.transparentCard}>
+                <Text style={{ ...styles.cardText, marginBottom: 20 }}>{text}</Text>
 
-                    <View style={{ borderBottomWidth: 0.5, borderColor: 'white', marginBottom: 15 }} />
-                    <TouchableOpacity style={styles.cardAction}
-                        onPress={onChecked}>
-                        <Icon name={PlatformIcons.name('checkmark-circle-outline')} size={30} color={Colors.primary} />
-                        <Text style={styles.cardActionLabel}>{completeText}</Text>
-                    </TouchableOpacity>
+                <View style={{ borderBottomWidth: 0.5, borderColor: 'white', marginBottom: 15 }} />
+                <View style={{ flexDirection: 'row' }}>
+                    {this.button('ios-arrow-up', isUpEnabled, onUp)}
+                    {this.button('ios-arrow-down', isDownEnabled, onDown)}
                 </View>
+            </View>
             // </ScrollView>
         )
+    }
+
+    button = (icon, isEnabled, onPressIfEnabled) => {
+        const color = isEnabled ? 'white' : Colors.grayedOut;
+
+        return (<TouchableOpacity style={{ ...styles.cardAction, flex: 1 }}
+            onPress={isEnabled ? onPressIfEnabled : null}>
+            <Icon name={icon} size={20} color={color} />
+        </TouchableOpacity>)
     }
 }
 
@@ -88,11 +101,14 @@ export class CardDeck extends Component {
 
     constructor(props) {
         super(props)
-        console.log(this.props)
     }
 
     incrementCurrentIndex = () => {
         this.setState({ currentCardIndex: this.state.currentCardIndex + 1 })
+    }
+
+    decrementCurrentIndex = () => {
+        this.setState({ currentCardIndex: this.state.currentCardIndex - 1 })
     }
 
     render() {
@@ -100,6 +116,7 @@ export class CardDeck extends Component {
         const items = this.props.textItems
         const completeText = this.props.completeText
         const lastCompleteText = this.props.lastCompleteText
+        const currentCardIsFirst = this.state.currentCardIndex == 0
         const currentCardIsSecondLast = (index == (items.length - 2));
         const currentCardIsLast = (index == (items.length - 1));
         const onLastCardShowing = this.props.onLastCardShowing;
@@ -108,18 +125,20 @@ export class CardDeck extends Component {
         return (<Card
             text={items[index]}
             completeText={currentCardIsLast ? lastCompleteText : completeText}
-            onChecked={() => {
-                // Show next card
-                if (currentCardIsLast) {
-                    onCompleted()
-                } else {
-                    if (currentCardIsSecondLast) {
-                        onLastCardShowing()
-                    }
-
-                    this.incrementCurrentIndex()
+            isUpEnabled={!currentCardIsFirst}
+            isDownEnabled={!currentCardIsLast}
+            onUp={() => {
+                this.decrementCurrentIndex()
+            }}
+            onDown={() => {
+                if (currentCardIsSecondLast) {
+                    onLastCardShowing()
                 }
-            }} />)
+
+                // Show next card
+                this.incrementCurrentIndex()
+            }}
+        />)
     }
 }
 
