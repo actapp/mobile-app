@@ -31,7 +31,7 @@ export default class Welcome extends Component {
         if (isAuthenticated) {
             this.setState({ isAuthenticated: true, authInProgress: false, awaitingPhoneNumber: false, confirmResult: null, awaitingCode: false })
         } else {
-            this.setState({ isAuthenticated: isAuthenticated, })
+            this.setState({ isAuthenticated: isAuthenticated })
         }
     }
 
@@ -46,7 +46,7 @@ export default class Welcome extends Component {
                 if (this.state.isAuthenticated == true) {
                     this.setState({ authInProgress: false, confirmResult: null, awaitingCode: false, awaitingPhoneNumber: false })
                 } else {
-                    this.setState({ authInProgress: false, confirmResult: confirmResult, awaitingCode: true, awaitingPhoneNumber: false})
+                    this.setState({ authInProgress: false, confirmResult: confirmResult, awaitingCode: true, awaitingPhoneNumber: false })
                 }
             })
             .catch((error) => {
@@ -78,12 +78,21 @@ export default class Welcome extends Component {
         this.setState({ awaitingPhoneNumber: true })
     }
 
+    showVideos = () => {
+        this.props.navigation.navigate('Intro')
+    }
+
     componentDidMount() {
         listenForAuthenticationChange(user => {
             if (user !== null) {
                 this.setIsAuthenticated(true)
             }
         }, null)
+    }
+
+    authInProgress = () => {
+        const { authInProgress, awaitingPhoneNumber, awaitingCode } = this.state
+        return authInProgress || awaitingPhoneNumber || awaitingCode
     }
 
     render() {
@@ -128,7 +137,7 @@ export default class Welcome extends Component {
                 </KeyboardAvoidingView>
         } else if (this.state.isAuthenticated || this.props.isAuthenticated) {
             actionButton = (<Button
-                label='Start'
+                label='Share now'
                 style={styles.mainButton}
                 onPress={
                     () => {
@@ -149,12 +158,22 @@ export default class Welcome extends Component {
                 }} />)
         }
 
+        let secondaryButton = null
+        if (!this.authInProgress()) {
+            secondaryButton = <Button
+                label="Learn more"
+                style={{ ...styles.secondaryButton, marginTop: 20 }}
+                onPress={this.showVideos} />
+        }
+
         return (
             <View style={{ ...styles.container }}>
                 <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>MySharePal</Text>
                 <Text text10 style={{ fontSize: 18, color: '#ffffff', marginBottom: 20 }}>A Simple Way to Share the Gospel</Text>
 
                 {actionButton}
+
+                {secondaryButton}
             </View>
         )
     }
@@ -162,14 +181,28 @@ export default class Welcome extends Component {
 
 const styles = StyleSheet.create({
     ...CommonStyles,
+    container: {
+        ...CommonStyles.container,
+        flex: 1,
+        paddingTop: 50
+    },
     loadingMessage: {
         color: 'white',
         fontSize: 16
     },
     mainButton: {
         backgroundColor: Colors.primary,
-        paddingLeft: 10,
-        paddingRight: 10
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderWidth: 2,
+        borderColor: Colors.primary,
+        width: '50%'
+    },
+    secondaryButton: {
+        borderWidth: 2,
+        borderColor: Colors.primary,
+        backgroundColor: 'black',
+        width: '50%'
     },
     authMessage: {
         color: 'white',

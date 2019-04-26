@@ -7,11 +7,11 @@
  */
 
 import React, { Component } from 'react';
-import { ActivityIndicator, Text } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import { createStackNavigator, createAppContainer, NavigationActions, StackActions } from "react-navigation";
 
 import { alertError } from './components/Foundation'
-import { Colors } from './Styles'
+import { CommonStyles, Colors } from './Styles'
 
 import codePush from "react-native-code-push";
 import firebase from 'react-native-firebase';
@@ -100,7 +100,12 @@ class App extends Component<Props> {
 
   render() {
     // if (this.state.initializing) {
-    return <ActivityIndicator size="large" color={Colors.primary} />
+    return (
+      <View style={{ ...CommonStyles.container, justifyContent: 'center' }}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    )
+
     // }
 
     // if (this.state.isAuthenticated && this.state.hasContacts) {

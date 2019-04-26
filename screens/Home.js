@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { View, Text } from 'react-native-ui-lib';
+import OptionsMenu from "react-native-options-menu";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { PlatformIcons, Colors, CommonStyles } from '../Styles';
 
@@ -8,9 +9,19 @@ import { text } from '../lib/AKCommunications'
 import { getContacts } from '../data/ContactInteractor'
 
 export default class Home extends Component {
-    static navigationOptions = {
-        title: 'Dashboard'
-    }
+    static navigationOptions = ({ navigation }) => {
+        const showVideos = () => {
+            navigation.navigate('Intro')
+        }
+
+        return {
+            title: 'Dashboard',
+            headerRight: <OptionsMenu
+                customButton={<Icon name={PlatformIcons.name('more')} size={25} color='white' style={{ marginRight: 20 }} />}
+                options={['Learn more']}
+                actions={[showVideos]} />
+        };
+    };
 
     state = {
         initializing: true,
@@ -48,6 +59,10 @@ export default class Home extends Component {
 
     componentWillUnmount() {
         console.log('will unmount!')
+    }
+
+    showVideos = () => {
+        this.props.navigation.navigate('Intro')
     }
 
     render() {
