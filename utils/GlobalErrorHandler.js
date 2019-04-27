@@ -1,8 +1,8 @@
-import  { Platform } from 'react-native'
+import { Platform } from 'react-native'
 import Analytics from 'appcenter-analytics';
 
 export const GENERIC_ERROR = 'GENERIC_ERROR'
-export const AUTH_ERROR = 'AUTH_ERROR'
+export const AUTH_ERROR = 'AUTHENTICATION_ERROR'
 export const CONTACTS_ERROR = 'CONTACTS_ERROR'
 
 
@@ -18,9 +18,17 @@ export default function handleError(name = GENERIC_ERROR, error, params) {
             ...params,
             errorId: errorHash,
             platform: Platform.OS,
-            stack: error.stack
+            stack: getStackTrace(error)
         }
     )
+}
+
+function getStackTrace(error) {
+    let stack = error.stack || '';
+
+    stack = stack.split('\n').map(function (line) { return line.trim(); });
+    const stacks = stack.splice(stack[0] == 'Error' ? 2 : 1);
+    return stacks.join("\n")
 }
 
 /**

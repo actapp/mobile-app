@@ -51,6 +51,7 @@ export default class Intro extends Component {
                         javaScriptEnabled={true}
                         domStorageEnabled={true}
                         source={{ uri: `https://player.vimeo.com/video/${videoId}` }}
+                        useWebKit={true}
                         style={{ backgroundColor: 'black' }}
                     />
                 </View>
