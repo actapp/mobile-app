@@ -2,11 +2,20 @@
  * @format
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
+import React from 'react'
+import { AppRegistry } from 'react-native';
+import { name as appName } from './app.json';
+import App from './src/App';
 
-import {AppRegistry} from 'react-native';
-import App from './App';
-import {name as appName} from './app.json';
+import { Provider } from 'react-redux';
+import GlobalRedux from './src/presentation/redux/GlobalRedux'
 
 console.log('Registering ' + appName)
 
-AppRegistry.registerComponent(appName, () => App);
+const ReduxApp = () => {
+    return <Provider store={GlobalRedux.store}>
+        <App />
+    </Provider>
+}
+
+AppRegistry.registerComponent(appName, () => ReduxApp);

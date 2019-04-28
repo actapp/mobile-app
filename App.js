@@ -1,153 +1,38 @@
-/**
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
- */
+import React, { Component } from 'react'
+import { View, Text, Button } from 'react-native'
 
-import React, { Component } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
-import { createStackNavigator, createAppContainer, NavigationActions, StackActions } from "react-navigation";
+import { connect } from 'react-redux'
+import { logIn } from './redux/Reducer'
 
-import handleError, { CONTACTS_ERROR } from './utils/GlobalErrorHandler'
-import { alertError } from './components/Foundation'
-import { CommonStyles, Colors } from './Styles'
-
-import codePush from "react-native-code-push";
-import firebase from 'react-native-firebase';
-
-// Data
-import { listenForAuthenticationChange } from './data/AuthInteractor'
-import { hasContacts } from './data/ContactInteractor';
-
-// Main screen components
-import Welcome from './screens/Welcome'
-import Intro from './screens/Intro'
-import Home from './screens/Home'
-
-// Other components needed for React Navigation declaration
-import ShareContact from './share/ShareContact';
-import { stepScreens } from './screens/StepScreens'
-
-type Props = {}
-
-class App extends Component<Props> {
-  static navigationOptions = ({ navigation }) => {
-    const { params } = navigation.state;
-
-    return {
-      title: params ? params.screenTitle : '',
-    }
-  };
-
-  state = {
-    initializing: true,
-    isAuthenticated: false,
-    hasContacts: false
-  }
-
-  static currentUser = null
-  static authListener = null
-
-  componentDidMount() {
-    // Check authentication
-
-    this.authListener = listenForAuthenticationChange(user => {
-      // console.log("User updated: " + user.uid)
-      this.currentUser = user
-      // this.setState({ isAuthenticated: user !== null })
-
-      if (user == null) {
-        // this.setState({ initializing: false })
-        this.props.navigation.replace('Welcome')
-        return
-      }
-
-      hasContacts(user.uid)
-        .then(hasContacts => {
-          console.log("has contacts: " + hasContacts)
-          // this.setState({ hasContacts: hasContacts, initializing: false })
-          // this.props.navigation.replace('Home')
-          if (hasContacts) {
-            this.startScreen('Home')
-          } else {
-            this.startScreen('Welcome')
-          }
-        })
-        .catch(error => {
-          handleError(CONTACTS_ERROR, error, { step: 'HAS_CONTACTS' })
-          alertError()
-          this.startScreen('Welcome')
-        })
-    }, this.currentUser)
-  }
-
-  componentWillUnmount() {
-    this.authListener()
-  }
-
-  startScreen = (title) => {
-    // const resetAction = StackActions.reset({
-    //   index: 0,
-    //   actions: [NavigationActions.navigate({ routeName: title })],
-    // });
-
-    // this.props.navigation.dispatch(resetAction);
-    this.props.navigation.replace(title)
-  }
-
+class App extends Component {
   render() {
-    // if (this.state.initializing) {
+    const { isAuthenticated, isAuthenticating } = this.props
+
+    let text = "Logged in: " + isAuthenticated
+    if(isAuthenticating) {
+      text = "Logging in: " + isAuthenticating
+    }
+
     return (
-      <View style={{ ...CommonStyles.container, justifyContent: 'center' }}>
-        <ActivityIndicator size="large" color={Colors.primary} />
+      <View style={{ flex: 1 }}>
+        <Text style={{ color: 'white' }}>{text}</Text>
+        <Button title="Log in" onPress={this.props.logIn}/>
       </View>
     )
-
-    // }
-
-    // if (this.state.isAuthenticated && this.state.hasContacts) {
-    //   return <Home />
-    // } else {
-    //   return <Welcome isAuthenticated={this.state.isAuthenticated} />
-    // }
   }
 }
 
-let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_START };
-App = codePush(codePushOptions)(App)
-
-export const AppNavigator = createStackNavigator({
-  Main: {
-    screen: App
-  },
-  Welcome: {
-    screen: Welcome
-  },
-  Intro: {
-    screen: Intro
-  },
-  Home: {
-    screen: Home
-  },
-  ShareContact: {
-    screen: ShareContact
-  },
-  ...stepScreens
-},
-  {
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: '#000',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: '100',
-      },
-      headerLeft: null
-    }
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticating: state.isAuthenticating,
+    isAuthenticated: state.isAuthenticated
   }
-);
+};
 
-export default createAppContainer(AppNavigator);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logIn: () => dispatch(logIn('+19132379703'))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
