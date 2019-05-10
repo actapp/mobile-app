@@ -14,6 +14,8 @@ import { alertError } from '../components/Foundation'
 import { uid, listenForAuthenticationChange } from '../data/AuthInteractor'
 
 export default class Welcome extends Component {
+    static SCREEN_ID = 'Welcom'
+
     static navigationOptions = {
         header: null
     }
