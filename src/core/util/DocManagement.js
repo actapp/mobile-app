@@ -1,7 +1,6 @@
 import firebase from 'react-native-firebase'
 import { getSteps } from '../share/ShareInteractor'
 
-
 const STRUCTURE_VERSION = 1
 
 let _ref = null

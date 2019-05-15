@@ -9,6 +9,8 @@ export const CONTACTS_ERROR = 'CONTACTS_ERROR'
 export const ADD_CONTACT_ERROR = 'ADD_CONTACT_ERROR'
 export const UPDATE_CONTACT_ERROR = 'UPDATE_CONTACT_ERROR'
 export const GET_STEPS_ERROR = 'GET_STEPS_ERROR'
+export const GET_MINISTRY_STATUS_ERROR = 'GET_MINISTRY_STATUS_ERROR'
+export const CHECK_ADMIN_ERROR = 'CHECK_ADMIN_ERROR'
 
 const breadcrumbs = []
 export function logBreadcrumb(breadcrumb) {
