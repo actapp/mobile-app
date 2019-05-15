@@ -21,6 +21,11 @@ import HomeScreen from './presentation/screens/home/HomeScreen'
 
 import handleError, { AUTH_ERROR, CONTACTS_ERROR, TIMEOUT_ERROR } from './utils/GlobalErrorHandler'
 
+import { PAGE_HOME } from './core/analytics/AnalyticsConstants'
+import { trackPage } from './core/analytics/AnalyticsInteractor'
+
+trackPage(PAGE_HOME)
+
 class App extends Component {
     static ERROR_SOURCE = 'App'
 

@@ -13,6 +13,8 @@ import handleError, { ADD_CONTACT_ERROR } from '../../../utils/GlobalErrorHandle
 
 import ShareScreen from './ShareScreen'
 
+import { trackShareStarted } from '../../../core/analytics/AnalyticsInteractor'
+
 class StartShareScreen extends Component {
   static KEY = 'StartShareScreen'
 
@@ -62,6 +64,7 @@ class StartShareScreen extends Component {
       .then(contact => {
         this.props.checkStepsAndStartSession(contact.id, contact.currentStepIndex)
         navToShare(ShareScreen.KEY)
+        trackShareStarted(this.props.uid, contact.id)
       })
       .catch(error => {
         this.setState({ isLoading: false })

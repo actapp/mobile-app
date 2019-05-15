@@ -5,3 +5,5 @@ export const CONTACT_ADDED = "CONTACT_ADDED";
 
 export const PARAM_STEP_KEY = "STEP_KEY";
 export const PARAM_ACCEPTED_CHRIST = "ACCEPTED_CHRIST";
+
+export const PAGE_HOME = 'HOME'
