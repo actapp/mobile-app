@@ -7,8 +7,7 @@ import { LoadingIndicator } from '../../components/Foundation'
 import Colors from '../../style/Colors'
 import Styles from '../../style/Styles'
 
-export function renderAwaitingContactsScreen() {
-    console.log('awaiting contacts screen')
+export function renderGenericLoadingScreen() {
     return (
         <View style={Styles.centeredRootContainer}>
             <LoadingIndicator />
@@ -56,11 +55,31 @@ export function renderAwaitingCode(screenComp) {
                 key='confCode'
                 placeholder='Enter your 6 digit code'
                 placeholderTextColor='white'
-                maxLength={10}
+                maxLength={6}
                 keyboardType={"numeric"}
                 returnKeyType='done'
                 returnKeyLabel='Confirm'
                 onSubmitEditing={(event) => { screenComp.onCodeSubmitted(event.nativeEvent.text) }}
+                style={{ borderColor: 'white', borderWidth: 1, color: 'white', padding: 15, fontSize: 16 }} />
+        </KeyboardAvoidingView>
+    )
+}
+
+export function renderAwaitingMinistryId(screenComp) {
+    return wrapInRootContainer(
+        <KeyboardAvoidingView style={{ width: '80%' }}>
+            <Text style={{ ...styles.authMessage, marginBottom: 15, textAlign: 'center' }}>
+                Thanks! You're number has been verified. Now please enter your 6-digit ministry ID. You can skip this step if you do not have one or do not know it.
+                    </Text>
+            <TextInput
+                key='confCode'
+                placeholder='Enter your 6 digit ministry code'
+                placeholderTextColor='white'
+                maxLength={6}
+                keyboardType={"numeric"}
+                returnKeyType='done'
+                returnKeyLabel='Confirm'
+                onSubmitEditing={(event) => { screenComp.onMinistryIdSubmitted(event.nativeEvent.text) }}
                 style={{ borderColor: 'white', borderWidth: 1, color: 'white', padding: 15, fontSize: 16 }} />
         </KeyboardAvoidingView>
     )

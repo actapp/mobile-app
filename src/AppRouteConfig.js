@@ -6,6 +6,7 @@ import HomeScreen from './presentation/screens/home/HomeScreen';
 import StartShareScreen from './presentation/screens/share/StartShareScreen'
 import ShareScreen from './presentation/screens/share/ShareScreen'
 import LearnScreen from './presentation/screens/learn/LearnScreen';
+import AdminHomeScreen from './presentation/screens/home/AdminHomeScreen';
 
 export default createAppNavigator = (connectedAppComponent) => (createStackNavigator({
     App: {
@@ -19,6 +20,9 @@ export default createAppNavigator = (connectedAppComponent) => (createStackNavig
     },
     [HomeScreen.KEY]: {
         screen: HomeScreen
+    },
+    [AdminHomeScreen.KEY]: {
+        screen: AdminHomeScreen
     },
     [StartShareScreen.KEY]: {
         screen: StartShareScreen

@@ -3,7 +3,7 @@ import { getCurrentUser, setAuthenticationListener, startPhoneLogIn, verifyCode 
 export default class LogInRedux {
     static reducer = (state = {
         logInState: LogInState.LOGGED_OUT,
-        uid: null,
+        user: null,
         hasCheckedAuth: false,
         error: null,
         confirmation: null,
@@ -16,9 +16,9 @@ export default class LogInRedux {
 
         switch (newState.logInState) {
             case LogInState.LOGGED_IN:
-                return { ...newState, uid: action.payload, hasCheckedAuth: true }
+                return { ...newState, user: action.payload, hasCheckedAuth: true }
             case LogInState.LOGGED_OUT:
-                return { ...newState, uid: null, hasCheckedAuth: true }
+                return { ...newState, user: null, hasCheckedAuth: true }
             case LogInState.AWAITING_FIRST_AUTH_STATUS:
                 return { ...newState, hasCheckedAuth: false }
             case LogInState.AWAITING_CODE:
@@ -56,7 +56,7 @@ export class LogInActions {
             const currentUser = getCurrentUser()
 
             if (currentUser !== null) {
-                dispatch(LogInActions.loggedIn(currentUser.uid))
+                dispatch(LogInActions.loggedIn(currentUser))
             } else {
                 dispatch(LogInActions.loggedOut())
             }
@@ -76,7 +76,7 @@ export class LogInActions {
                 if (user == null) {
                     dispatch(LogInActions.loggedOut())
                 } else if (user.uid !== getState().uid) {
-                    dispatch(LogInActions.loggedIn(user.uid))
+                    dispatch(LogInActions.loggedIn(user))
                 }
             }
 
@@ -107,7 +107,7 @@ export class LogInActions {
                     const currentUser = getCurrentUser()
                     if (currentUser && currentUser.uid) {
                         // Auto-verification occurred by Google, just assume now logged in
-                        dispatch(LogInActions.loggedIn(currentUser.uid))
+                        dispatch(LogInActions.loggedIn(currentUser))
                     } else {
                         dispatch(LogInActions.awaitingCode(confirmation))
                     }
@@ -126,7 +126,7 @@ export class LogInActions {
 
             verifyCode(code, confirmation)
                 .then(user => {
-                    dispatch(LogInActions.loggedIn(user.uid))
+                    dispatch(LogInActions.loggedIn(user))
                 })
                 .catch(error => {
                     dispatch(LogInActions.logInError(error))
@@ -147,10 +147,10 @@ export class LogInActions {
         type: LogInState.LOGGING_IN
     })
 
-    static loggedIn = (uid) => {
+    static loggedIn = (user) => {
         return {
             type: LogInState.LOGGED_IN,
-            payload: uid
+            payload: user
         }
     }
 

@@ -3,8 +3,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { LogInActions, LogInState } from '../../redux/LogIn'
 import { ContactsActions, ContactsStates } from '../../redux/Contacts'
+import { MinistryMgmtStates, MinistryMgmtActions } from '../../redux/MinistryMgmt'
 
-import { renderLoggedOut, renderAwaitingPhoneNumber, renderAwaitingCode, renderAwaitingAuthStep, renderLoggedIn, renderAwaitingContactsScreen } from './Containers'
+import { renderLoggedOut, renderAwaitingPhoneNumber, renderAwaitingCode, renderAwaitingAuthStep, renderLoggedIn, renderGenericLoadingScreen, renderAwaitingMinistryId } from './Containers'
 
 import { alertError } from '../../alerts/Alerts'
 import handleError, { AUTH_ERROR, CONTACTS_ERROR } from '../../../utils/GlobalErrorHandler'
@@ -12,6 +13,7 @@ import handleError, { AUTH_ERROR, CONTACTS_ERROR } from '../../../utils/GlobalEr
 import HomeScreen from '../home/HomeScreen'
 import StartShareScreen from '../share/StartShareScreen'
 import LearnScreen from '../learn/LearnScreen';
+import AdminHomeScreen from '../home/AdminHomeScreen';
 
 class WelcomeScreen extends Component {
     static KEY = 'WelcomeScreen'
@@ -29,15 +31,20 @@ class WelcomeScreen extends Component {
     }
 
     componentDidUpdate() {
-        const { logInState, uid, contactsState, contacts, logInError, contactsError } = this.props
+        const { logInState, user, ministry, contactsState, contacts, logInError, contactsError } = this.props
 
         if (logInState == LogInState.LOGGED_IN) {
-            if (contacts && contacts.length) {
+            if (ministry.ministryState == MinistryMgmtStates.REFRESHING
+                || ministry.ministryState == MinistryMgmtStates.NOT_READY) {
+                // do nothing yet
+            } else if (ministry.isAdmin) {
+                this.props.navigation.replace(AdminHomeScreen.KEY)
+            } else if (contacts && contacts.length) {
                 // Logged in & has contacts
                 this.props.navigation.replace(HomeScreen.KEY)
             } else if (contactsState == ContactsStates.NOT_READY) {
                 // User is logged in, but we haven't yet checked for contacts
-                this.props.checkForContacts(uid)
+                this.props.checkForContacts(user.uid)
             }
 
             // Else (user logged in, but either no contacts exist, or the contacts are currently being fetched)
@@ -54,15 +61,19 @@ class WelcomeScreen extends Component {
     }
 
     render() {
-        const { logInState, confirmation, contactsState } = this.props
+        const { logInState, confirmation, ministry, contactsState } = this.props
         const { awaitingPhoneNumber } = this.state
 
-        if (contactsState == ContactsStates.LOADING) {
-            return renderAwaitingContactsScreen()
+        if (contactsState == ContactsStates.LOADING || ministry.ministryState == MinistryMgmtStates.REFRESHING) {
+            return renderGenericLoadingScreen()
         }
 
         if (logInState == LogInState.LOGGED_IN) {
-            return renderLoggedIn(this)
+            if (ministry.ministryState == MinistryMgmtStates.NOT_READY) {
+                return renderAwaitingMinistryId(this)
+            } else {
+                return renderLoggedIn(this)
+            }
         } else if (logInState == LogInState.LOGGING_IN || logInState == LogInState.VERIFYING_CODE) {
             return renderAwaitingAuthStep(this)
         } else if (confirmation !== null) {
@@ -84,6 +95,8 @@ class WelcomeScreen extends Component {
 
     onCodeSubmitted = (code) => this.props.verifyCode(code, this.props.confirmation)
 
+    onMinistryIdSubmitted = (ministryId) => this.props.setMinistryId(this.props.user, ministryId)
+
     onLearnMorePressed = () => this.props.navigation.navigate(LearnScreen.KEY)
 
     handleError(error) {
@@ -97,11 +110,12 @@ const mapStateToProps = state => {
     return {
         confirmation: state.logIn.confirmation,
         logInState: state.logIn.logInState,
-        uid: state.logIn.uid,
+        user: state.logIn.user,
         logInError: state.logIn.error,
         contactsError: state.contacts.error,
         contacts: state.contacts.contacts,
-        contactsState: state.contacts.contactsState
+        contactsState: state.contacts.contactsState,
+        ministry: state.ministry
     }
 }
 
@@ -111,7 +125,8 @@ const mapDispatchToProps = dispatch => {
         verifyCode: (code, confirmation) => dispatch(LogInActions.verifyCode(code, confirmation)),
         listenForAuthChanges: () => dispatch(LogInActions.listenForAuthChanges()),
         stopListeningForAuthChanges: () => dispatch(LogInActions.stopListeningForAuthChanges()),
-        checkForContacts: (uid) => dispatch(ContactsActions.refreshContacts(uid))
+        checkForContacts: (uid) => dispatch(ContactsActions.refreshContacts(uid)),
+        setMinistryId: (user, mid) => dispatch(MinistryMgmtActions.setMinistryId(user, mid))
     }
 }
 

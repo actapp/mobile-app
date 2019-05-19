@@ -48,7 +48,7 @@ class StartShareScreen extends Component {
 
   onFormSubmitted = () => {
     const { name, phone } = this.state
-    const { uid } = this.props
+    const { user } = this.props
 
     // Add contact
     // Show loading
@@ -60,11 +60,11 @@ class StartShareScreen extends Component {
 
     console.log('Adding ' + phone)
 
-    this.props.addContact(name, phone, uid)
+    this.props.addContact(name, phone, user.uid)
       .then(contact => {
         this.props.checkStepsAndStartSession(contact.id, contact.currentStepIndex)
         navToShare(ShareScreen.KEY)
-        trackShareStarted(this.props.uid, contact.id)
+        trackShareStarted(this.props.user.uid, contact.id)
       })
       .catch(error => {
         this.setState({ isLoading: false })
@@ -75,7 +75,7 @@ class StartShareScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  uid: state.logIn.uid
+  user: state.logIn.user
 })
 
 const mapDispatchToProps = dispatch => ({
