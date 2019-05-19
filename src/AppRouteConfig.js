@@ -7,6 +7,7 @@ import StartShareScreen from './presentation/screens/share/StartShareScreen'
 import ShareScreen from './presentation/screens/share/ShareScreen'
 import LearnScreen from './presentation/screens/learn/LearnScreen';
 import AdminHomeScreen from './presentation/screens/home/AdminHomeScreen';
+import GetStartedScreen from './presentation/screens/welcome/GetStartedScreen';
 
 export default createAppNavigator = (connectedAppComponent) => (createStackNavigator({
     App: {
@@ -29,6 +30,11 @@ export default createAppNavigator = (connectedAppComponent) => (createStackNavig
     },
     [ShareScreen.KEY]: {
         screen: ShareScreen
+    },
+
+    // ISSUE-9
+    [GetStartedScreen.KEY]: {
+        screen: GetStartedScreen
     }
 },
     {
