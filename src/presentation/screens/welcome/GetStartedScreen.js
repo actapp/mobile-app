@@ -1,13 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image } from 'react-native';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, H1, Text, StyleProvider } from 'native-base';
-import getTheme from '../../../../native-base-theme/components';
-
-import * as Animatable from 'react-native-animatable';
-
-import Styles from '../../style/Styles'
-import { Col, Row, Grid } from 'react-native-easy-grid';
-import Colors from '../../style/Colors';
+import renderContent, { subtitleViewRef, startOptionsViewRef } from './GetStartedScreenRenderer'
 
 export default class GetStartedScreen extends Component {
     static KEY = 'GetStartedScreen'
@@ -25,11 +17,8 @@ export default class GetStartedScreen extends Component {
         showStartDashboard: false
     }
 
-    handleSubtitleRef = ref => this.subtitleView = ref
-    handleStartDashboardRef = ref => this.startDashboardView = ref
-
-    fadeInSubtitle = () => this.subtitleView.fadeIn(1500)
-    fadeOutSubtitle = () => this.subtitleView.fadeOut(1500)
+    fadeInSubtitle = () => subtitleViewRef.fadeIn(1000)
+    fadeOutSubtitle = () => subtitleViewRef.fadeOut(1000)
 
     flipSubtitle = () => {
         if (this.state.currentSubtitle < 0) {
@@ -39,7 +28,6 @@ export default class GetStartedScreen extends Component {
             return
         } else if (this.state.currentSubtitle == this.state.subtitles.length - 1) {
             // Next flow
-
             return
         }
 
@@ -65,86 +53,15 @@ export default class GetStartedScreen extends Component {
 
     enableAndFadeInStartDashboard = () => {
         this.setState({ showStartDashboard: true })
-        this.startDashboardView.fadeIn(1500)
-    }
-
-    componentDidMount() {
-
+        startOptionsViewRef.fadeIn(1000)
     }
 
     render() {
-        let subtitleView = null
-        if (this.state.currentSubtitle >= 0) {
-            let subtitle = this.state.subtitles[this.state.currentSubtitle]
-            subtitleView = (
-                <Animatable.Text
-                    ref={this.handleSubtitleRef}
-                    style={{ ...Styles.bigHeaderSubtitle, marginBottom: 50 }}
-                >
-                    {subtitle}
-                </Animatable.Text>
-            )
-        }
-
-        let startDashboardView = null
-        if (this.state.showStartDashboard) {
-            startDashboardView = (
-                <Animatable.View
-                    ref={this.handleStartDashboardRef}
-                    style={{ ...Styles.horizontallyContentContainer }}
-                >
-                    <Button block bordered light style={{ borderColor: Colors.primary, paddingLeft: 50, paddingRight: 50, marginBottom: 10 }}>
-                        <Text>
-                            Share the Gospel
-                        </Text>
-                    </Button>
-                    <Button block bordered light style={{ borderColor: Colors.primary, marginBottom: 10 }}>
-                        <Text>
-                            Lead a ministry
-                        </Text>
-                    </Button>
-                    <Button block bordered light style={{ borderColor: Colors.primary }}>
-                        <Text>
-                            Learn more
-                        </Text>
-                    </Button>
-                </Animatable.View>
-            )
-        }
-
-        return (
-            <StyleProvider style={getTheme()}>
-                <Container>
-                    <Content contentContainerStyle={{ ...Styles.rootContainer, paddingTop: 20, width: '100%' }}>
-                        <Animatable.Image
-                            source={require('../../../assets/ic_logo.png')}
-                            style={{
-                                width: 80,
-                                height: 80
-                            }}
-                            animation="fadeInUp"
-                            duration={2000} />
-                        <Animatable.Text
-                            style={{ ...Styles.bigHeader, marginBottom: 50 }}
-                            animation="fadeInUp"
-                            duration={2000}
-                            onAnimationEnd={
-                                () => {
-                                    this.flipSubtitle()
-                                }
-                            }
-                        >
-                            MySharePal
-                        </Animatable.Text>
-
-
-                        <View style={Styles.horizontallyCenteredContentContainer}>
-                            {subtitleView}
-                            {startDashboardView}
-                        </View>
-                    </Content>
-                </Container>
-            </StyleProvider>
-        )
+        return renderContent({
+            currentSubtitle: this.state.currentSubtitle,
+            subtitles: this.state.subtitles,
+            shouldShowStartOptions: this.state.showStartDashboard,
+            onSubtitleReady: this.flipSubtitle
+        })
     }
 }
