@@ -15,10 +15,16 @@ const handleSubtitleRef = ref => subtitleViewRef = ref
 const handleStartOptionsRef = ref => startOptionsViewRef = ref
 
 export default function renderContent({
+    // State
     currentSubtitle,
     subtitles,
     shouldShowStartOptions,
-    onSubtitleReady
+
+    // Callbacks
+    onSubtitleReady,
+    onStartSharer,
+    onStartAdmin,
+    onLearnMore
 }) {
     let subtitleView = null
     if (currentSubtitle >= 0) {
