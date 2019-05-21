@@ -12,6 +12,10 @@ import { MinistryMgmtStates } from './presentation/redux/MinistryMgmt'
 import handleError, { AUTH_ERROR, CONTACTS_ERROR, TIMEOUT_ERROR } from './utils/GlobalErrorHandler'
 
 export default {
+    route: ({
+        
+    }),
+
     routeByState: ({
         // State params
         user,

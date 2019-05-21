@@ -22,9 +22,7 @@ export default class GetStartedScreen extends Component {
 
     flipSubtitle = () => {
         if (this.state.currentSubtitle < 0) {
-            this.setState({ currentSubtitle: 0 })
-            this.fadeInSubtitle()
-            this.flipSubtitle()
+            this.showFirstSubtitle()
             return
         } else if (this.state.currentSubtitle == this.state.subtitles.length - 1) {
             // Next flow
@@ -33,22 +31,30 @@ export default class GetStartedScreen extends Component {
 
         setTimeout(() => {
             this.fadeOutSubtitle()
-                .then(() => {
-                    const newIndex = this.state.currentSubtitle + 1
-                    const willShowLastSubtitle = newIndex == this.state.subtitles.length - 1
-                    let onFadeIn = null
-                    if (!willShowLastSubtitle) {
-                        onFadeIn = this.flipSubtitle
-                    }
-
-                    this.setState({ currentSubtitle: newIndex })
-                    this.fadeInSubtitle().then(onFadeIn)
-
-                    if (willShowLastSubtitle) {
-                        this.enableAndFadeInStartDashboard()
-                    }
-                })
+                .then(this.onSubtitleFadedOut)
         }, 3000)
+    }
+
+    showFirstSubtitle = () => {
+        this.setState({ currentSubtitle: 0 })
+        this.fadeInSubtitle()
+        this.flipSubtitle()
+    }
+
+    onSubtitleFadedOut = () => {
+        const newIndex = this.state.currentSubtitle + 1
+        const willShowLastSubtitle = newIndex == this.state.subtitles.length - 1
+        let onFadeIn = null
+        if (!willShowLastSubtitle) {
+            onFadeIn = this.flipSubtitle
+        }
+
+        this.setState({ currentSubtitle: newIndex })
+        this.fadeInSubtitle().then(onFadeIn)
+
+        if (willShowLastSubtitle) {
+            this.enableAndFadeInStartDashboard()
+        }
     }
 
     enableAndFadeInStartDashboard = () => {

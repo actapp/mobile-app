@@ -1,5 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 
+import AuthRedux from './Auth'
+
 import LogInRedux from './LogIn'
 import ContactsRedux from './Contacts'
 import ShareRedux from './Share'
@@ -11,6 +13,7 @@ import logger from 'redux-logger'
 
 export default class GlobalRedux {
     static reducer = combineReducers({
+        auth: AuthRedux.auth,
         logIn: LogInRedux.reducer,
         contacts: ContactsRedux.reducer,
         share: ShareRedux.reducer,

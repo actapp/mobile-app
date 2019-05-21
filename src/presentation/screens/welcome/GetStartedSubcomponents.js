@@ -55,7 +55,6 @@ export default {
                 ref={handleRef}
                 style={{ ...Styles.horizontallyContentContainer }}
             >
-                {/** Create additional padding on left and right to expand width of container */}
                 {renderStartSharerButton(buttonStyling, onStartSharer)}
                 {renderStartAdminButton(buttonStyling, onStartAdmin)}
                 {renderLearnMoreButton(null, onLearnMore)}
@@ -68,6 +67,8 @@ function renderStartSharerButton(styling, onStartSharer) {
     return renderStartButton({
         onPress: onStartSharer,
         label: 'Share the Gospel',
+
+        // Create additional padding on left and right to expand width of container
         additionalStyling: { ...styling, paddingLeft: 50, paddingRight: 50 }
     })
 }
