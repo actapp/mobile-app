@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 
 import { connect } from 'react-redux'
 
@@ -34,6 +34,8 @@ class App extends Component {
     })
 
     componentDidMount() {
+        StatusBar.setBarStyle('light-content')
+
         this.props.listenForAuthChanges()
         this.routeToScreen()
 

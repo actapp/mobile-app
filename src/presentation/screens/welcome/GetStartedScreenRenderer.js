@@ -34,7 +34,10 @@ export default function renderContent({
 
     let startOptionsView = null
     if (shouldShowStartOptions) {
-        startOptionsView = Subcomponents.renderStartOptions(handleStartOptionsRef)
+        startOptionsView = Subcomponents.renderStartOptions(
+            { onStartSharer, onStartAdmin, onLearnMore },
+            handleStartOptionsRef
+        )
     }
 
     return renderRootView(subtitleView, startOptionsView, onSubtitleReady)
@@ -44,7 +47,7 @@ function renderRootView(subtitleView, startOptionsView, onSubtitleReady) {
     return (
         <StyleProvider style={getTheme()}>
             <Container>
-                <Content contentContainerStyle={{ ...Styles.rootContainer, paddingTop: 20, width: '100%' }}>
+                <Content contentContainerStyle={{ ...Styles.rootContainer, paddingTop: 80, width: '100%' }}>
                     {Subcomponents.renderHeaderImage(onSubtitleReady)}
                     {Subcomponents.renderHeaderTitle()}
                     <View style={Styles.horizontallyCenteredContentContainer}>

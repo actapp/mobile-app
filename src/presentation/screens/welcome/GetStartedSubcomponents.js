@@ -19,7 +19,7 @@ export default {
             />
         )
     },
-    
+
     renderHeaderTitle: () => {
         return applyStartAnimationProps(
             <Animatable.Text
@@ -29,7 +29,7 @@ export default {
             </Animatable.Text>
         )
     },
-    
+
     renderSubtitleView: (subtitle, handleRef) => {
         return (
             <Animatable.Text
@@ -40,29 +40,59 @@ export default {
             </Animatable.Text>
         )
     },
-    
-    renderStartOptions: (handleRef) => {
+
+    renderStartOptions: ({
+        onStartSharer,
+        onStartAdmin,
+        onLearnMore
+    }, handleRef) => {
         const buttonStyling = {
             marginBottom: 10
         }
-    
+
         return (
             <Animatable.View
                 ref={handleRef}
                 style={{ ...Styles.horizontallyContentContainer }}
             >
                 {/** Create additional padding on left and right to expand width of container */}
-                {renderStartButton('Share the Gospel', { ...buttonStyling, paddingLeft: 50, paddingRight: 50 })}
-                {renderStartButton('Lead a ministry', buttonStyling)}
-                {renderStartButton('Learn more')}
+                {renderStartSharerButton(buttonStyling, onStartSharer)}
+                {renderStartAdminButton(buttonStyling, onStartAdmin)}
+                {renderLearnMoreButton(null, onLearnMore)}
             </Animatable.View>
         )
     }
 }
 
-function renderStartButton(label, additionalStyling) {
+function renderStartSharerButton(styling, onStartSharer) {
+    return renderStartButton({
+        onPress: onStartSharer,
+        label: 'Share the Gospel',
+        additionalStyling: { ...styling, paddingLeft: 50, paddingRight: 50 }
+    })
+}
+
+function renderStartAdminButton(styling, onStartAdmin) {
+    return renderStartButton({
+        onPress: onStartAdmin,
+        label: 'Lead a ministry',
+        additionalStyling: styling
+    })
+}
+
+function renderLearnMoreButton(styling, onLearnMore) {
+    return renderStartButton({
+        onPress: onLearnMore,
+        label: 'Learn more',
+        additionalStyling: styling
+    })
+}
+
+function renderStartButton({ onPress, label, additionalStyling }) {
     return (
-        <Button block bordered light style={{ ...additionalStyling, borderColor: Colors.primary }}>
+        <Button block bordered light
+            style={{ ...additionalStyling, borderColor: Colors.primary }}
+            onPress={onPress}>
             <Text>
                 {label}
             </Text>

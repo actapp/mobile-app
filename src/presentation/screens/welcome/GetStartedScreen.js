@@ -61,7 +61,11 @@ export default class GetStartedScreen extends Component {
             currentSubtitle: this.state.currentSubtitle,
             subtitles: this.state.subtitles,
             shouldShowStartOptions: this.state.showStartDashboard,
-            onSubtitleReady: this.flipSubtitle
+            onSubtitleReady: this.flipSubtitle,
+
+            onStartSharer: () => { },
+            onStartAdmin: () => { },
+            onLearnMore: () => { }
         })
     }
 }
