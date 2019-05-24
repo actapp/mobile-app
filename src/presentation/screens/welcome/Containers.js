@@ -3,6 +3,8 @@ import { KeyboardAvoidingView, TextInput, StyleSheet } from 'react-native'
 import { View, Text, Button } from 'react-native-ui-lib';
 
 import { LoadingIndicator } from '../../components/Foundation'
+import HeaderlessRootContainer from '../../components/HeaderlessRootContainer'
+import { StaticHeader, subtitle } from '../../components/Welcome'
 
 import Colors from '../../style/Colors'
 import Styles from '../../style/Styles'
@@ -118,12 +120,11 @@ function learnMore(screenComp) {
 
 function wrapInRootContainer(content) {
     return (
-        <View style={styles.container}>
-            <Text text10 style={{ fontSize: 48, fontWeight: '100', color: '#ffffff' }}>MySharePal</Text>
-            <Text text10 style={{ fontSize: 18, color: '#ffffff', marginBottom: 20 }}>A Simple Way to Share the Gospel</Text>
+        <HeaderlessRootContainer style={{ paddingTop: 80 }}>
+            <StaticHeader style={{ marginBottom: 50 }} />
 
             {content}
-        </View>
+        </HeaderlessRootContainer>
     )
 }
 

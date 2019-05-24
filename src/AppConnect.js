@@ -1,4 +1,4 @@
-import { LogInActions } from './presentation/redux/LogIn'
+import { AuthActions } from './presentation/redux/Auth'
 import { ErrorActions } from './presentation/redux/Errors'
 
 export default {
@@ -8,8 +8,8 @@ export default {
     }),
 
     mapDispatchToProps: dispatch => ({
-        listenForAuthChanges: () => dispatch(LogInActions.listenForAuthChanges()),
-        stopListeningForAuthChanges: () => dispatch(LogInActions.stopListeningForAuthChanges()),
+        listenForAuthChanges: () => dispatch(AuthActions.listenForAuthChanges()),
+        stopListeningForAuthChanges: () => dispatch(AuthActions.stopListeningForAuthChanges()),
         timeout: (source) => dispatch(ErrorActions.timeout(source))
     })
 }

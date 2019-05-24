@@ -78,10 +78,8 @@ class WelcomeScreen extends Component {
             return renderAwaitingAuthStep(this)
         } else if (confirmation !== null) {
             return renderAwaitingCode(this)
-        } else if (awaitingPhoneNumber) {
-            return renderAwaitingPhoneNumber(this)
         } else {
-            return renderLoggedOut(this)
+            return renderAwaitingPhoneNumber(this)
         }
     }
 
