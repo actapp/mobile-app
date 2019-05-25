@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import renderContent, { subtitleViewRef, startOptionsViewRef } from './GetStartedScreenRenderer'
+import LogInScreen from '../login/LogInScreen';
+import WelcomeScreen from './WelcomeScreen';
 
 export default class GetStartedScreen extends Component {
     static KEY = 'GetStartedScreen'
@@ -17,8 +19,17 @@ export default class GetStartedScreen extends Component {
         showStartDashboard: false
     }
 
-    fadeInSubtitle = () => subtitleViewRef.fadeIn(1000)
-    fadeOutSubtitle = () => subtitleViewRef.fadeOut(1000)
+    animation = {
+        fadeInSubtitle:
+            // (__DEV__) ? async () => { } : 
+            () => subtitleViewRef.fadeIn(1000),
+        fadeOutSubtitle:
+            // (__DEV__) ? async () => { } : 
+            () => subtitleViewRef.fadeOut(1000),
+        fadeInStartOptions:
+            // (__DEV__) ? async () => { } : 
+            () => startOptionsViewRef.fadeIn(1000)
+    }
 
     flipSubtitle = () => {
         if (this.state.currentSubtitle < 0) {
@@ -30,14 +41,17 @@ export default class GetStartedScreen extends Component {
         }
 
         setTimeout(() => {
-            this.fadeOutSubtitle()
+            this.animation.fadeOutSubtitle()
                 .then(this.onSubtitleFadedOut)
-        }, 3000)
+        }, 
+            // (__DEV__) ? 0 : 
+            3000
+        )
     }
 
     showFirstSubtitle = () => {
         this.setState({ currentSubtitle: 0 })
-        this.fadeInSubtitle()
+        this.animation.fadeInSubtitle()
         this.flipSubtitle()
     }
 
@@ -50,7 +64,7 @@ export default class GetStartedScreen extends Component {
         }
 
         this.setState({ currentSubtitle: newIndex })
-        this.fadeInSubtitle().then(onFadeIn)
+        this.animation.fadeInSubtitle().then(onFadeIn)
 
         if (willShowLastSubtitle) {
             this.enableAndFadeInStartDashboard()
@@ -59,7 +73,7 @@ export default class GetStartedScreen extends Component {
 
     enableAndFadeInStartDashboard = () => {
         this.setState({ showStartDashboard: true })
-        startOptionsViewRef.fadeIn(1000)
+        this.animation.fadeInStartOptions()
     }
 
     render() {
@@ -69,7 +83,7 @@ export default class GetStartedScreen extends Component {
             shouldShowStartOptions: this.state.showStartDashboard,
             onSubtitleReady: this.flipSubtitle,
 
-            onStartSharer: () => { },
+            onStartSharer: () => { this.props.navigation.navigate(WelcomeScreen.KEY) },
             onStartAdmin: () => { },
             onLearnMore: () => { }
         })

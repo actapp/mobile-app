@@ -41,7 +41,7 @@ export default {
     return this.brandPrimary;
   },
   get btnPrimaryColor() {
-    return this.inverseTextColor;
+    return this.textColor;
   },
   get btnInfoBg() {
     return this.brandInfo;
@@ -185,7 +185,7 @@ export default {
     return this.textColor;
   },
   get inputColorPlaceholder() {
-    return "#575757";
+    return "#fff";
   },
 
   // Line Height

@@ -1,76 +1,119 @@
-import { setAuthenticationListener } from '../../core/LogInInteractor'
+import { getCurrentUser, setAuthenticationListener } from '../../core/LogInInteractor'
 
-export default AuthRedux = {
-    Status: Status,
-    Actions: Actions,
-    reducer: reducer
-}
-
-const Status = {
-    NOT_READY: 'NOT_READY',
-    LOGGED_OUT: 'LOGGED_OUT',
-    LOGGED_IN: 'LOGGED_IN',
-    ERROR: 'ERROR'
-}
-
-const Actions = {
-    loggedOut: simpleActionCreator(ActionTypes.LOGGED_OUT),
-    loggedIn: simpleActionCreator(ActionTypes.LOGGED_IN),
-    error: (errorInfo) => ({
-        type: ActionTypes.ERROR,
-        payload: errorInfo
-    }),
-
-    listenForAuthChanges: listenForAuthChanges,
-    stopListeningForAuthChanges: stopListeningForAuthChanges
-}
-
-const ActionTypes = {
-    LOGGED_OUT: actionType(Status.LOGGED_OUT),
-    LOGGED_IN: actionType(Status.LOGGED_IN),
-    ERROR: actionType(Status.ERROR)
-}
-
-const simpleActionCreator = type => () => ({ type })
-
-function reducer(state = {
-    status: AuthStatus.NOT_READY
+function authReducer(state = {
+    status: AuthStatus.NOT_READY,
+    user: null
 }, action) {
+    if (!isAuthAction(action)) {
+        return state
+    }
+
+    const newState = { ...state, status: action.type, error: null }
+
     switch (action.type) {
-        case ActionTypes.LOGGED_OUT:
-        case ActionTypes.LOGGED_IN:
-            return { ...state, status: action.type }
-        case ActionTypes.ERROR:
-            return { ...state, status: action.type, error: action.payload }
+        case AuthStatus.LOGGED_OUT:
+            return { ...newState, user: null }
+        case AuthStatus.LOGGED_IN:
+            return { ...newState, user: action.payload, confirmationResult: null }
+        case AuthStatus.AWAITING_CODE:
+            return { ...newState, confirmationResult: action.payload }
+        case AuthStatus.ERROR:
+            return { ...newState, error: action.payload }
         default:
-            return state
+            return newState
     }
 }
 
-function actionType(type) {
-    return 'auth/' + type
+function isAuthAction(action) {
+    if (action && action.type) {
+        return action.type.startsWith('auth/')
+    }
+
+    return false
+}
+
+/**
+ * Synonymous w/ action types
+ */
+class AuthStatus {
+    static NOT_READY = 'auth/not_ready'
+    static LOGGED_IN = 'auth/logged_in'
+    static LOGGING_IN = 'auth/logging_in'
+    static LOGGED_OUT = 'auth/logged_out'
+    static AWAITING_CODE = 'auth/awaiting_code'
+    static ERROR = 'auth/error'
+}
+
+const actionCreator = (type, payload) => {
+    return {
+        type,
+        payload
+    }
+}
+
+/**
+* Internally dispatched
+*/
+class InternalActions {
+    static loggedOut = () => actionCreator(AuthStatus.LOGGED_OUT)
+    static loggingIn = () => actionCreator(AuthStatus.LOGGING_IN)
+    static loggedIn = (user) => actionCreator(AuthStatus.LOGGED_IN, user)
+    static awaitingCode = (confirmationResult) => actionCreator(AuthStatus.AWAITING_CODE, confirmationResult)
+    static error = (error) => actionCreator(AuthStatus.ERROR, error)
+}
+
+/**
+* Externally dispatched
+*/
+class AuthActions {
+    static listenForAuthChanges = _listenForAuthChanges
+    static stopListeningForAuthChanges = _stopListeningForAuthChanges
+
+    static startPhoneLogIn = (mdn) => {
+        return function (dispatch) {
+            dispatch(InternalActions.loggingIn())
+
+            startPhoneLogIn(mdn)
+                .then(confirmation => {
+                    const currentUser = getCurrentUser()
+                    if (currentUser && currentUser.uid) {
+                        // Auto-verification occurred by Google, just assume now logged in
+                        dispatch(InternalActions.loggedIn(currentUser))
+                    } else {
+                        dispatch(LogInActions.awaitingCode(confirmation))
+                    }
+                })
+                .catch(error => {
+                    dispatch(LogInActions.logInError(error))
+                })
+        }
+    }
 }
 
 let unsubscribeFromAuth = null
-function listenForAuthChanges(dispatch, { getState }) {
-    if (unsubscribeFromAuth) {
-        // Ignore -- already listening globally for auths
-        return
-    }
-
-    console.log(`Listening for auth changes...`)
-
-    const listener = (user) => {
-        console.log('Auth user changed: ' + user)
-
-        if (user == null) {
-            dispatch(Actions.loggedOut())
-        } else if (user.uid !== getUidFromState(getState())) {
-            dispatch(Actions.loggedIn())
+function _listenForAuthChanges() {
+    return function (dispatch, getState) {
+        if (unsubscribeFromAuth) {
+            // Ignore -- already listening globally for auths
+            return
         }
-    }
 
-    unsubscribeFromAuth = setAuthenticationListener(listener)
+        console.log(`Listening for auth changes...`)
+
+        const listener = (user) => {
+            console.log('Auth user changed: ' + user)
+
+            if (user == null) {
+                dispatch(InternalActions.loggedOut())
+            }
+            
+            else if (user.uid !== getUidFromState(getState())) {
+                dispatch(InternalActions.loggedIn())
+            }
+        }
+
+        unsubscribeFromAuth = setAuthenticationListener(listener)
+    }
 }
 
 function getUidFromState(state) {
@@ -81,9 +124,13 @@ function getUidFromState(state) {
     return null
 }
 
-function stopListeningForAuthChanges() {
-    if (unsubscribeFromAuth != null) {
-        unsubscribeFromAuth()
-        unsubscribeFromAuth = null
+function _stopListeningForAuthChanges() {
+    return function () {
+        if (unsubscribeFromAuth != null) {
+            unsubscribeFromAuth()
+            unsubscribeFromAuth = null
+        }
     }
 }
+
+export { authReducer, AuthStatus, AuthActions }
