@@ -5,6 +5,7 @@ import * as Animatable from 'react-native-animatable';
 
 import Styles from '../../style/Styles'
 import Colors from '../../style/Colors';
+import AppConfig from '../../../AppConfig';
 
 export default {
     renderHeaderImage: (onAnimationEnd) => {
@@ -106,7 +107,7 @@ function applyStartAnimationProps(component) {
         component,
         {
             animation: 'fadeInUp',
-            duration: 1100
+            duration: AppConfig.animDuration(1100)
         }
     )
 }

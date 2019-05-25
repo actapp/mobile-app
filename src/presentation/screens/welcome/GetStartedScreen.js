@@ -3,6 +3,8 @@ import renderContent, { subtitleViewRef, startOptionsViewRef } from './GetStarte
 import LogInScreen from '../login/LogInScreen';
 import WelcomeScreen from './WelcomeScreen';
 
+import AppConfig from '../../../AppConfig'
+
 export default class GetStartedScreen extends Component {
     static KEY = 'GetStartedScreen'
 
@@ -21,14 +23,11 @@ export default class GetStartedScreen extends Component {
 
     animation = {
         fadeInSubtitle:
-            // (__DEV__) ? async () => { } : 
-            () => subtitleViewRef.fadeIn(1000),
+            () => subtitleViewRef.fadeIn(AppConfig.DEFAULT_ANIM_DURATION),
         fadeOutSubtitle:
-            // (__DEV__) ? async () => { } : 
-            () => subtitleViewRef.fadeOut(1000),
+            () => subtitleViewRef.fadeOut(AppConfig.DEFAULT_ANIM_DURATION),
         fadeInStartOptions:
-            // (__DEV__) ? async () => { } : 
-            () => startOptionsViewRef.fadeIn(1000)
+            () => startOptionsViewRef.fadeIn(AppConfig.DEFAULT_ANIM_DURATION)
     }
 
     flipSubtitle = () => {
@@ -44,8 +43,7 @@ export default class GetStartedScreen extends Component {
             this.animation.fadeOutSubtitle()
                 .then(this.onSubtitleFadedOut)
         }, 
-            // (__DEV__) ? 0 : 
-            3000
+            AppConfig.animDuration(3000)
         )
     }
 

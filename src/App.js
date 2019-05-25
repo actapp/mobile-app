@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { AuthStatus } from './presentation/redux/Auth'
 
 import { createAppContainer } from 'react-navigation'
-import createAppNavigator from './AppRouteConfig'
+import createAppNavigator from './AppNavigator'
 
 import codePush from 'react-native-code-push'
 
