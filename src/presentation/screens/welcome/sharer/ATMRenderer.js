@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
-import { Form, Item, Input, Label, Text, Button, Icon } from 'native-base';
+import { Form, Item, Input, Label, Text, Button } from 'native-base';
+import Icon from 'react-native-vector-icons/Ionicons'
 import HeaderlessRootContainer from '../../../components/HeaderlessRootContainer'
 import { StaticHeader, subtitle } from '../../../components/Welcome'
 import { LoadingIndicator } from '../../../components/Foundation'
@@ -25,7 +26,7 @@ export default function renderContent({ accountStatus, onMinistryIdSubmitted }) 
 }
 
 function contentAndSubtitle({ accountStatus, onMinistryIdSubmitted }) {
-    if (accountStatus == AccountStatus.UPDATING) {
+    if (accountStatus == AccountStatus.ASSOCIATING) {
         return { subtitle: 'Please wait...', body: updatingAccount() }
     }
 
@@ -80,7 +81,7 @@ function nextButton(onMinistryIdSubmitted) {
             <Text style={{ color: 'white' }}>
                 Next
             </Text>
-            <Icon name={PlatformIcons.name('arrow-forward')} color='white' />
+            <Icon name={PlatformIcons.name('arrow-forward')} color='white' size={25} />
         </Button>
     )
 }

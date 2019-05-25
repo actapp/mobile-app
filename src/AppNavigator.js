@@ -1,4 +1,4 @@
-import { createStackNavigator } from 'react-navigation'
+import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation'
 
 import WelcomeScreen from './presentation/screens/welcome/WelcomeScreen'
 import Colors from './presentation/style/Colors'
@@ -62,3 +62,10 @@ export default createAppNavigator = (connectedAppComponent) => (createStackNavig
         }
     }
 ))
+
+export function buildResetToRouteAction(screenKey) {
+    return StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: screenKey })],
+    });
+}

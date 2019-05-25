@@ -8,9 +8,10 @@ export default ATMConnect = {
 const mapStateToProps = state => ({
     uid: state.auth.user.uid,
     accountStatus: state.account.status,
-    account: state.account.data
+    accountData: state.account.data,
+    error: state.account.error
 })
 
 const mapDispatchToProps = dispatch => ({
-    updateAccount: (uid, account) => dispatch(AccountActions.updateAccount(uid, account))
+    associateAccount: (uid, ministryId) => dispatch(AccountActions.associateAccount(uid, ministryId))
 })

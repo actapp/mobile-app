@@ -2,11 +2,14 @@ import React, { Component } from 'react'
 
 import ATMConnect from './ATMConnect'
 
-import { validateMinistryId } from '../../../../core/account/AccountInteractor'
-
 import renderContent from './ATMRenderer'
 
+import handleError from '../../../../utils/GlobalErrorHandler'
 import { alertError } from '../../../alerts/Alerts'
+import { ASSOCIATE_ACCOUNT_ERROR } from '../../../../utils/GlobalErrorHandler';
+import { AccountStatus } from '../../../redux/Account';
+import { Roles } from '../../../../core/account/AccountInteractor';
+import { resetToDashboardAction } from '../RoleBasedRouter'
 
 class AssociateToMinistryScreen extends Component {
     static KEY = 'ATMScreen'
@@ -14,6 +17,18 @@ class AssociateToMinistryScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         header: null
     })
+
+    componentDidUpdate() {
+        if (this.props.error != null) {
+            handleError(ASSOCIATE_ACCOUNT_ERROR, this.props.error)
+            alertError(this.props.error.message)
+        }
+
+        if (this.props.accountStatus == AccountStatus.ASSOCIATED) {
+            // Account now associated
+            this.props.navigation.dispatch(resetToDashboardAction(this.props.accountData.role))
+        }
+    }
 
     render() {
         return renderContent({
@@ -23,12 +38,7 @@ class AssociateToMinistryScreen extends Component {
     }
 
     onMinistryIdSubmitted = (mid) => {
-        try {
-            validateMinistryId(mid)
-            this.props.updateAccount(this.props.uid, { ...this.props.account, ministryId: mid })
-        } catch (error) {
-            alertError(error.message)
-        }
+        this.props.associateAccount(this.props.uid)
     }
 }
 

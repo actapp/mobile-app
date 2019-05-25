@@ -19,13 +19,25 @@ export async function updateAccount(uid, account) {
     return await AccountService.updateAccount(uid, account)
 }
 
+export async function associateAccount(uid, ministryId) {
+    validateMinistryId(ministryId)
+
+    const existingAccount = await getAccount(uid)
+
+    if (existingAccount == null) {
+        throw new Error('Account does not exist')
+    }
+
+    return await updateAccount(uid, { ...existingAccount, ministryId: ministryId })
+}
+
 export async function deleteAccount(uid) {
     return await AccountService.deleteAccount(uid)
 }
 
 export function validateMinistryId(mid) {
-    if(!mid || !mid.length || mid.length !== MINISTRY_ID_LENGTH) {
-        throw new Error('You did not enter a valid ministry code. Please enter your 5-digit ministry code.')   
+    if (!mid || !mid.length || mid.length !== MINISTRY_ID_LENGTH) {
+        throw new Error('You did not enter a valid ministry code. Please enter your 5-digit ministry code.')
     }
 }
 
