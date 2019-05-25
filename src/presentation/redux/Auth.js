@@ -118,10 +118,8 @@ function _listenForAuthChanges() {
 
             if (user == null) {
                 dispatch(InternalActions.loggedOut())
-            }
-            
-            else if (user.uid !== getUidFromState(getState())) {
-                dispatch(InternalActions.loggedIn())
+            } else if (user.uid !== getUidFromState(getState())) {
+                dispatch(InternalActions.loggedIn(user))
             }
         }
 

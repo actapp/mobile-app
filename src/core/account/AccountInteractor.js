@@ -6,7 +6,7 @@ export const Roles = {
 }
 
 export async function createAccount(uid, role) {
-    return await AccountService.createAccount(uid, createNewAccountModel(role, ministryId))
+    return await AccountService.createAccount(uid, createNewAccountModel(role))
 }
 
 export async function getAccount(uid) {

@@ -49,7 +49,7 @@ function isAccountStatusAction(action) {
 
 function reduceNonStatusAction(newState, action) {
     switch (action.type) {
-        case ActionTypes.ROLE_INTEDED:
+        case ActionTypes.ROLE_INTENDED:
             newState['intendedRole'] = action.payload
             break
         case ActionTypes.CLEAR_ROLE_INTENDED:
@@ -63,11 +63,18 @@ function reduceNonStatusAction(newState, action) {
 }
 
 function reduceStatusAction(newState, action) {
+    newState['status'] = action.type
+
     switch (action.type) {
         case AccountStatus.CREATED:
         case AccountStatus.UPDATED:
         case AccountStatus.READY:
+        case AccountStatus.CREATED_UNASSOCIATED:
+        case AccountStatus.READY_UNASSOCIATED:
             newState['data'] = action.payload
+            break
+        case AccountStatus.NO_ACCOUNT:
+            newState['data'] = null
             break
         case AccountStatus.ERROR:
             newState['error'] = action.payload
@@ -81,27 +88,25 @@ function reduceStatusAction(newState, action) {
 
 class AccountStatus {
     static NOT_READY = 'account/status/not_ready'
+
     static CREATING = 'account/status/creating'
     static GETTING = 'account/status/getting'
     static UPDATING = 'account/status/updating'
 
     static CREATED = 'account/status/created'
+    static CREATED_UNASSOCIATED = 'account/status/created_unassociated'
     static UPDATED = 'account/status/updated'
-
     static READY = 'account/status/ready'
+    static READY_UNASSOCIATED = 'account/status/ready_unassociated'
+
+    static NO_ACCOUNT = 'account/status/none'
 
     static ERROR = 'account/status/error'
-
-    static isAccountAvailable = (status) => {
-        return status == AccountStatus.CREATED
-            || status == AccountStatus.UPDATED
-            || status == AccountStatus.READY
-    }
 }
 
 
 class AccountActions {
-    static roleIntended = (role) => actionCreator(ActionTypes.ROLE_INTEDED, role)
+    static roleIntended = (role) => actionCreator(ActionTypes.ROLE_INTENDED, role)
 
     static createAccount = (uid, role) => {
         return (dispatch, getState) => {
@@ -110,7 +115,12 @@ class AccountActions {
             createAccount(uid, role)
                 .then(createdAccount => {
                     dispatch(InternalActions.clearRoleIntended())
-                    dispatch(InternalActions.created(createdAccount))
+
+                    if(isAccountAssociated(createdAccount)) {
+                        dispatch(InternalActions.created(createdAccount))
+                    } else {
+                        dispatch(InternalActions.createdUnassociated(createdAccount))
+                    }
                 })
                 .catch(error => {
                     dispatch(InternalActions.error(error))
@@ -124,8 +134,19 @@ class AccountActions {
 
             getAccount(uid)
                 .then(account => {
-                    dispatch(InternalActions.clearRoleIntended())
-                    dispatch(InternalActions.ready(account))
+                    if (account != null) {
+                        // An account w/ this UID exists
+                        dispatch(InternalActions.clearRoleIntended())
+
+                        if(isAccountAssociated(account)) {
+                            dispatch(InternalActions.ready(account))
+                        } else {
+                            dispatch(InternalActions.readyUnassociated(account))
+                        }
+                    } else {
+                        // We need to create an account; don't clear intended role yet because it is used in creating account
+                        dispatch(InternalActions.noAccount())
+                    }
                 })
                 .catch(error => {
                     dispatch(InternalActions.error(error))
@@ -154,8 +175,11 @@ class InternalActions {
     static updating = () => actionCreator(AccountStatus.UPDATING)
 
     static created = (newAccount) => actionCreator(AccountStatus.CREATED, newAccount)
+    static createdUnassociated = (newAccount) => actionCreator(AccountStatus.CREATED_UNASSOCIATED, newAccount)
     static updated = (updatedAccount) => actionCreator(AccountStatus.UPDATED, updatedAccount)
     static ready = (account) => actionCreator(AccountStatus.READY, account)
+    static readyUnassociated = (account) => actionCreator(AccountStatus.READY_UNASSOCIATED, account)
+    static noAccount = () => actionCreator(AccountStatus.NO_ACCOUNT)
 
     static clearRoleIntended = () => actionCreator(ActionTypes.CLEAR_ROLE_INTENDED)
 
@@ -163,8 +187,16 @@ class InternalActions {
 }
 
 class ActionTypes {
-    static ROLE_INTEDED = 'account/role_intended'
+    static ROLE_INTENDED = 'account/role_intended'
     static CLEAR_ROLE_INTENDED = 'account/clear_role_intended'
+}
+
+function isAccountAssociated(account) {
+    if (!account) {
+        return false
+    }
+
+    return account.ministryId && account.ministryId.length
 }
 
 export { AccountStatus, AccountActions, accountReducer }

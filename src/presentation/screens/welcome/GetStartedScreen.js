@@ -11,6 +11,7 @@ import AdminHomeScreen from '../home/AdminHomeScreen'
 import HomeScreen from '../home/HomeScreen'
 
 import AppConfig from '../../../AppConfig'
+import { Roles } from '../../../core/account/AccountInteractor';
 
 class GetStartedScreen extends Component {
     static KEY = 'GetStartedScreen'
@@ -88,8 +89,8 @@ class GetStartedScreen extends Component {
             shouldShowStartOptions: this.state.showStartDashboard,
             onSubtitleReady: this.flipSubtitle,
 
-            onStartSharer: () => { this.navigateToLogIn(AssociateToMinistryScreen.KEY, HomeScreen.KEY) },
-            onStartAdmin: () => { this.navigateToLogIn(CreateMinistryScreen.KEY, AdminHomeScreen.KEY) },
+            onStartSharer: () => { this.startLogInRoute(Roles.SHARER) },
+            onStartAdmin: () => { this.startLogInRoute(Roles.LEADER) },
 
             // TODO
             onLearnMore: () => { }

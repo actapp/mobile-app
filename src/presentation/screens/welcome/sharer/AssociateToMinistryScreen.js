@@ -12,7 +12,7 @@ class AssociateToMinistryScreen extends Component {
     })
 
     render() {
-        return renderContent()
+        return renderContent({})
     }
 }
 

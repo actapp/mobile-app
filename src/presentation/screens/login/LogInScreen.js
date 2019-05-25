@@ -7,6 +7,16 @@ import renderContent from './LogInRenderer'
 
 import { alertError } from '../../alerts/Alerts'
 import { AuthStatus } from '../../redux/Auth';
+import { AccountStatus } from '../../redux/Account';
+
+import { goToMinistryAssociationByRole, goToDashboardByRole } from '../util/NavigationHelpers'
+import { Roles } from '../../../core/account/AccountInteractor';
+
+import { StackActions, NavigationAction } from 'react-navigation'
+import AssociateToMinistryScreen from '../welcome/sharer/AssociateToMinistryScreen';
+import CreateMinistryScreen from '../welcome/admin/CreateMinistryScreen';
+import HomeScreen from '../home/HomeScreen';
+import AdminHomeScreen from '../home/AdminHomeScreen';
 
 class LogInScreen extends Component {
     static KEY = 'LogInScreen'
@@ -25,8 +35,7 @@ class LogInScreen extends Component {
 
     render() {
         return renderContent({
-            authStatus: this.props.authStatus,
-
+            authStatus: this.props.auth.status,
             onPhoneNumberSubmitted: this.onPhoneNumberSubmitted,
             onCodeSubmitted: this.onCodeSubmitted
         })
@@ -35,15 +44,40 @@ class LogInScreen extends Component {
     handleState = () => {
         this.checkLoggedIn()
 
-        if (this.props.error != null) {
-            alertError(this.props.error.message)
+        if (this.props.auth.error != null) {
+            alertError(this.props.auth.error.message)
+        }
+
+        if (this.props.account.error != null) {
+            alertError(this.props.account.error.message)
         }
     }
 
     checkLoggedIn = () => {
-        if (this.props.authStatus == AuthStatus.LOGGED_IN) {
-            
-            this.props.navigation.replace(nextScreen)
+        if (this.props.auth.status == AuthStatus.LOGGED_IN) {
+            this.handleAccount()
+        }
+    }
+
+    handleAccount = () => {
+        switch (this.props.account.status) {
+            case AccountStatus.NOT_READY:
+                this.props.fetchAccount(this.props.auth.user.uid)
+                break
+            case AccountStatus.NO_ACCOUNT:
+                // First, create account
+                this.props.createAccount(this.props.auth.user.uid, this.props.account.intendedRole)
+                break
+            case AccountStatus.CREATED_UNASSOCIATED:
+            case AccountStatus.READY_UNASSOCIATED:
+                // If account is not associated, now associate
+                this.goToMinistryAssociationByRole(this.props.account.data.role)
+                break
+            case AccountStatus.READY:
+            case AccountStatus.CREATED:
+                // Go to dashboard
+                this.goToDashboardByRole(this.props.account.data.role)
+                break
         }
     }
 
@@ -53,6 +87,35 @@ class LogInScreen extends Component {
 
     onCodeSubmitted = (code) => {
         this.props.verifyCode(code)
+    }
+
+    goToMinistryAssociationByRole(role) {
+        console.log('Associating by role: ' + role)
+
+        if (role == Roles.SHARER) {
+            this.resetTo(AssociateToMinistryScreen.KEY)
+        } else if (role == Roles.LEADER) {
+            this.resetTo(CreateMinistryScreen.KEY)
+        }
+    }
+
+    goToDashboardByRole(role) {
+        console.log('Going home by role: ' + role)
+
+        if (role == Roles.SHARER) {
+            this.resetTo(HomeScreen.KEY)
+        } else {
+            this.resetTo(AdminHomeScreen.KEY)
+        }
+    }
+
+    resetTo(screenKey) {
+        const resetAction = StackActions.reset({
+            index: 0,
+            key: screenKey
+        });
+
+        this.props.navigation.dispatch(resetAction);
     }
 }
 

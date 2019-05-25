@@ -1,3 +1,7 @@
-export default function renderContent() {
-    
+export default function renderContent({ }) {
+    return (
+        <Text>
+            Hi
+        </Text>
+    )
 }

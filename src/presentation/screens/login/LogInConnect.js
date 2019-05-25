@@ -1,13 +1,26 @@
 import { AuthActions } from '../../redux/Auth'
+import { AccountActions } from '../../redux/Account';
 
 export default LogInConnect = {
     mapStateToProps: state => ({
-        authStatus: state.auth.status,
-        error: state.auth.error
+        auth: {
+            status: state.auth.status,
+            user: state.auth.user,
+            error: state.auth.error
+        },
+        account: {
+            status: state.account.status,
+            intendedRole: state.account.intendedRole,
+            data: state.account.data,
+            error: state.account.error
+        }
     }),
 
     mapDispatchToProps: dispatch => ({
         startPhoneLogIn: (mdn) => dispatch(AuthActions.startPhoneLogIn(mdn)),
-        verifyCode: (code) => dispatch(AuthActions.verifyCode(code))
+        verifyCode: (code) => dispatch(AuthActions.verifyCode(code)),
+
+        createAccount: (uid, role) => dispatch(AccountActions.createAccount(uid, role)),
+        fetchAccount: (uid) => dispatch(AccountActions.getAccount(uid))
     })
 }

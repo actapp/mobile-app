@@ -10,11 +10,10 @@ import { AuthStatus } from '../../redux/Auth';
 
 export default function renderContent({
     authStatus,
-
     onPhoneNumberSubmitted,
     onCodeSubmitted
 }) {
-    const content = contentAndSubtitle(authStatus, onPhoneNumberSubmitted, onCodeSubmitted)
+    const content = contentAndSubtitle({ authStatus, onPhoneNumberSubmitted, onCodeSubmitted })
 
     return (
         <HeaderlessRootContainer style={{ paddingTop: 80, paddingLeft: 50, paddingRight: 50 }}>
@@ -30,14 +29,24 @@ const inputState = {
     code: null
 }
 
-function contentAndSubtitle(authStatus, onPhoneNumberSubmitted, onCodeSubmitted) {
-    switch (authStatus) {
-        case AuthStatus.LOGGING_IN:
-            return { subtitle: 'Authenticating...', body: authLoading() }
-        case AuthStatus.AWAITING_CODE:
-            return { subtitle: "We've texted you a 6-digit code. Please enter it below to confirm your phone number.", body: verifyCodeForm(onCodeSubmitted) }
-        default:
-            return { subtitle: 'Enter your phone number', body: signInForm(onPhoneNumberSubmitted) }
+function contentAndSubtitle({
+    authStatus,
+    onPhoneNumberSubmitted,
+    onCodeSubmitted
+}) {
+    if (authStatus == AuthStatus.LOGGED_IN) {
+        return { subtitle: 'Please wait...', body: accountLoading() }
+    } else {
+        switch (authStatus) {
+            case AuthStatus.LOGGING_IN:
+                return { subtitle: 'Authenticating...', body: authLoading() }
+            case AuthStatus.AWAITING_CODE:
+                return { subtitle: "We've texted you a 6-digit code. Please enter it below to confirm your phone number.", body: verifyCodeForm(onCodeSubmitted) }
+            case AuthStatus.VERIFYING_CODE:
+                return { subtitle: 'Verifying...', body: authLoading() }
+            default:
+                return { subtitle: 'Enter your phone number', body: signInForm(onPhoneNumberSubmitted) }
+        }
     }
 }
 
@@ -130,5 +139,11 @@ function verifyCodeButton(onCodeSubmitted) {
                 Verify
             </Text>
         </Button>
+    )
+}
+
+function accountLoading() {
+    return (
+        <LoadingIndicator />
     )
 }

@@ -37,14 +37,17 @@ async function verifyStructure(doc) {
         docVersion = 0
     }
 
-    switch (docVersion) {
-        case 0:
-            return await migrateV0(data)
-        case STRUCTURE_VERSION:
-            return data
-        default:
-            throw new Error('Unknown document version: ' + docVersion)
-    }
+    // TODO
+    // switch (docVersion) {
+    //     case 0:
+    //         return await migrateV0(data)
+    //     case STRUCTURE_VERSION:
+    //         return data
+    //     default:
+    //         throw new Error('Unknown document version: ' + docVersion)
+    // }
+
+    return data
 }
 
 async function migrateV0(docData) {
