@@ -1,5 +1,7 @@
 import { getCurrentUser, setAuthenticationListener, startPhoneLogIn, verifyCode } from '../../core/LogInInteractor'
 
+import { actionCreator } from './util/Util'
+
 function authReducer(state = {
     status: AuthStatus.NOT_READY,
     user: null
@@ -43,13 +45,6 @@ class AuthStatus {
     static AWAITING_CODE = 'auth/awaiting_code'
     static VERIFYING_CODE = 'auth/verifying_code'
     static ERROR = 'auth/error'
-}
-
-const actionCreator = (type, payload) => {
-    return {
-        type,
-        payload
-    }
 }
 
 /**
