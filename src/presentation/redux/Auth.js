@@ -1,4 +1,4 @@
-import { getCurrentUser, setAuthenticationListener } from '../../core/LogInInteractor'
+import { getCurrentUser, setAuthenticationListener, startPhoneLogIn, verifyCode } from '../../core/LogInInteractor'
 
 function authReducer(state = {
     status: AuthStatus.NOT_READY,
@@ -41,6 +41,7 @@ class AuthStatus {
     static LOGGING_IN = 'auth/logging_in'
     static LOGGED_OUT = 'auth/logged_out'
     static AWAITING_CODE = 'auth/awaiting_code'
+    static VERIFYING_CODE = 'auth/verifying_code'
     static ERROR = 'auth/error'
 }
 
@@ -59,6 +60,7 @@ class InternalActions {
     static loggingIn = () => actionCreator(AuthStatus.LOGGING_IN)
     static loggedIn = (user) => actionCreator(AuthStatus.LOGGED_IN, user)
     static awaitingCode = (confirmationResult) => actionCreator(AuthStatus.AWAITING_CODE, confirmationResult)
+    static verifyingCode = () => actionCreator(AuthStatus.VERIFYING_CODE)
     static error = (error) => actionCreator(AuthStatus.ERROR, error)
 }
 
@@ -80,11 +82,27 @@ class AuthActions {
                         // Auto-verification occurred by Google, just assume now logged in
                         dispatch(InternalActions.loggedIn(currentUser))
                     } else {
-                        dispatch(LogInActions.awaitingCode(confirmation))
+                        dispatch(InternalActions.awaitingCode(confirmation))
                     }
                 })
                 .catch(error => {
-                    dispatch(LogInActions.logInError(error))
+                    dispatch(InternalActions.error(error))
+                })
+        }
+    }
+
+    static verifyCode = (code) => {
+        return function (dispatch, getState) {
+            dispatch(InternalActions.verifyingCode())
+
+            const confirmation = getState().auth.confirmationResult
+
+            verifyCode(code, confirmation)
+                .then(user => {
+                    dispatch(InternalActions.loggedIn(user))
+                })
+                .catch(error => {
+                    dispatch(InternalActions.error(error))
                 })
         }
     }

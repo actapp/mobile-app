@@ -1,6 +1,23 @@
-export default {
+import { logOut } from './core/LogInInteractor'
+
+export default AppConfig = {
+    initialize: initializeConfiguration,
+
+    // Authentication
+    FORCE_LOGOUT: __DEV__,
+
+    // Animation
     DEFAULT_ANIM_DURATION: duration(1000),
     animDuration: duration
+}
+
+/**
+ * Run any custom initialization 
+ */
+function initializeConfiguration() {
+    if (AppConfig.FORCE_LOGOUT) {
+        logOut().then().catch(error => { console.log(error) })
+    }
 }
 
 /**

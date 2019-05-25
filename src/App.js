@@ -16,6 +16,7 @@ import GetStartedScreen from './presentation/screens/welcome/GetStartedScreen';
 
 import { LoadingIndicator } from './presentation/components/Foundation'
 import Styles from './presentation/style/Styles'
+import AppConfig from './AppConfig';
 
 class App extends Component {
     static ERROR_SOURCE = 'App'
@@ -25,6 +26,8 @@ class App extends Component {
     })
 
     componentDidMount() {
+        AppConfig.initialize()
+
         StatusBar.setBarStyle('light-content')
 
         this.props.listenForAuthChanges()

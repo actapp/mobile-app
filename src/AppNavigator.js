@@ -9,6 +9,8 @@ import LearnScreen from './presentation/screens/learn/LearnScreen';
 import AdminHomeScreen from './presentation/screens/home/AdminHomeScreen';
 import GetStartedScreen from './presentation/screens/welcome/GetStartedScreen';
 import LogInScreen from './presentation/screens/login/LogInScreen';
+import CreateMinistryScreen from './presentation/screens/welcome/admin/CreateMinistryScreen'
+import AssociateToMinistryScreen from './presentation/screens/welcome/sharer/AssociateToMinistryScreen'
 
 export default createAppNavigator = (connectedAppComponent) => (createStackNavigator({
     App: {
@@ -39,6 +41,12 @@ export default createAppNavigator = (connectedAppComponent) => (createStackNavig
     },
     [LogInScreen.KEY]: {
         screen: LogInScreen
+    },
+    [CreateMinistryScreen.KEY]: {
+        screen: CreateMinistryScreen
+    },
+    [AssociateToMinistryScreen.KEY]: {
+        screen: AssociateToMinistryScreen
     }
 },
     {

@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import renderContent, { subtitleViewRef, startOptionsViewRef } from './GetStartedScreenRenderer'
+
 import LogInScreen from '../login/LogInScreen';
-import WelcomeScreen from './WelcomeScreen';
+import AssociateToMinistryScreen from '../welcome/sharer/AssociateToMinistryScreen'
+import CreateMinistryScreen from '../welcome/admin/CreateMinistryScreen'
+import AdminHomeScreen from '../home/AdminHomeScreen'
+import HomeScreen from '../home/HomeScreen'
 
 import AppConfig from '../../../AppConfig'
 
@@ -42,7 +46,7 @@ export default class GetStartedScreen extends Component {
         setTimeout(() => {
             this.animation.fadeOutSubtitle()
                 .then(this.onSubtitleFadedOut)
-        }, 
+        },
             AppConfig.animDuration(3000)
         )
     }
@@ -81,9 +85,18 @@ export default class GetStartedScreen extends Component {
             shouldShowStartOptions: this.state.showStartDashboard,
             onSubtitleReady: this.flipSubtitle,
 
-            onStartSharer: () => { this.props.navigation.navigate(WelcomeScreen.KEY) },
-            onStartAdmin: () => { },
+            onStartSharer: () => { this.navigateToLogIn(AssociateToMinistryScreen.KEY, HomeScreen.KEY) },
+            onStartAdmin: () => { this.navigateToLogIn(CreateMinistryScreen.KEY, AdminHomeScreen.KEY) },
+
+            // TODO
             onLearnMore: () => { }
+        })
+    }
+
+    navigateToLogIn(onSignupScreenKey, onSignInScreenKey) {
+        this.props.navigation.navigate(LogInScreen.KEY, {
+            onSignupScreenKey,
+            onSignInScreenKey
         })
     }
 }

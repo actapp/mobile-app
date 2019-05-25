@@ -4,9 +4,11 @@ import firebase from 'react-native-firebase'
  * Start a phone auth process
  * 
  * Returns a "confirmation" object which should be kept for use when confirming / verifying the code via verifyCode
+ * 
+ * TODO: PREFIXES "+1" to the number (assumes this is a U.S. phone number--Firebase needs a country code)
  */
 export async function startPhoneLogIn(mdn) {
-    return await firebase.auth().signInWithPhoneNumber(mdn)
+    return await firebase.auth().signInWithPhoneNumber('+1' + mdn)
 }
 
 /**
@@ -31,4 +33,8 @@ export function setAuthenticationListener(listener) {
 
 export function getCurrentUser() {
     return firebase.auth().currentUser
+}
+
+export async function logOut() {
+    return await firebase.auth().signOut()
 }
