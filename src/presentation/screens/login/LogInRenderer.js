@@ -1,11 +1,9 @@
-import React, { Component } from 'react'
-import { View } from 'react-native'
-import { Footer, FooterTab, Form, Item, Input, Label, Text, Button } from 'native-base';
+import React from 'react'
+import { Form, Item, Input, Label, Text, Button } from 'native-base';
 import HeaderlessRootContainer from '../../components/HeaderlessRootContainer'
 import { StaticHeader, subtitle } from '../../components/Welcome'
 import { LoadingIndicator } from '../../components/Foundation'
 
-import Styles from '../../style/Styles'
 import { AuthStatus } from '../../redux/Auth';
 
 export default function renderContent({
@@ -32,7 +30,8 @@ const inputState = {
 function contentAndSubtitle({
     authStatus,
     onPhoneNumberSubmitted,
-    onCodeSubmitted
+    onCodeSubmitted,
+    onBackButtonPressed
 }) {
     if (authStatus == AuthStatus.LOGGED_IN) {
         return { subtitle: 'Please wait...', body: accountLoading() }
@@ -45,7 +44,7 @@ function contentAndSubtitle({
             case AuthStatus.VERIFYING_CODE:
                 return { subtitle: 'Verifying...', body: authLoading() }
             default:
-                return { subtitle: 'Enter your phone number', body: signInForm(onPhoneNumberSubmitted) }
+                return { subtitle: 'Enter your phone number', body: signInForm(onPhoneNumberSubmitted, onBackButtonPressed) }
         }
     }
 }

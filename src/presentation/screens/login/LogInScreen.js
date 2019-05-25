@@ -9,10 +9,9 @@ import { alertError } from '../../alerts/Alerts'
 import { AuthStatus } from '../../redux/Auth';
 import { AccountStatus } from '../../redux/Account';
 
-import { goToMinistryAssociationByRole, goToDashboardByRole } from '../util/NavigationHelpers'
 import { Roles } from '../../../core/account/AccountInteractor';
 
-import { StackActions, NavigationAction } from 'react-navigation'
+import { StackActions, NavigationActions } from 'react-navigation'
 import AssociateToMinistryScreen from '../welcome/sharer/AssociateToMinistryScreen';
 import CreateMinistryScreen from '../welcome/admin/CreateMinistryScreen';
 import HomeScreen from '../home/HomeScreen';
@@ -112,7 +111,7 @@ class LogInScreen extends Component {
     resetTo(screenKey) {
         const resetAction = StackActions.reset({
             index: 0,
-            key: screenKey
+            actions: [NavigationActions.navigate({ routeName: screenKey })],
         });
 
         this.props.navigation.dispatch(resetAction);

@@ -18,6 +18,10 @@ import { LoadingIndicator } from './presentation/components/Foundation'
 import Styles from './presentation/style/Styles'
 import AppConfig from './AppConfig';
 
+import handleError, { AUTH_ERROR } from './utils/GlobalErrorHandler'
+import { alertError } from './presentation/alerts/Alerts'
+import { AccountStatus } from './presentation/redux/Account';
+
 class App extends Component {
     static ERROR_SOURCE = 'App'
 
@@ -58,35 +62,56 @@ class App extends Component {
     handleAuthState = () => {
         const { authStatus } = this.props
 
-        console.log('Auth status updated: ' + authStatus)
+        if (AppConfig.FORCE_FRESH_START) {
+            this.replaceScreen(GetStartedScreen.KEY)
+            return
+        }
 
-        this.replaceScreen(GetStartedScreen.KEY)
-        // switch(authStatus) {
-        //     case AuthStatus.LOGGED_IN:
-        //         // TODO - go to respective dashboard
-        //         console.log('Logged in')
-        //         break
-        //     case AuthStatus.LOGGED_OUT:
-        //         // No user logged in - go to get started
-        //         this.replaceScreen(GetStartedScreen.KEY)
-        //         break
-        //     case AuthStatus.ERROR:
-        //         // Handle error, then just go to get started screen? Maybe show alert / toast first
-        //         // TODO - handleError()
-        //         this.replaceScreen(GetStartedScreen.KEY)
-        //         break
-        //     case AuthStatus.NOT_READY:
-        //     default:
-        //         console.log('No log in status available')
-        //         // Do nothing - just keep showing the loading bar until some log in status is obtained, or timeout
-        //         break
-        // }
+        switch (authStatus) {
+            case AuthStatus.LOGGED_IN:
+                this.handleLoggedIn()
+                break
+            case AuthStatus.LOGGED_OUT:
+                // No user logged in - go to get started
+                this.replaceScreen(GetStartedScreen.KEY)
+                break
+            case AuthStatus.ERROR:
+                // Handle error, then just go to get started screen? Maybe show alert / toast first
+                handleError(AUTH_ERROR, this.props.auth.error)
+                alertError(this.props.auth.error.message)
+                this.replaceScreen(GetStartedScreen.KEY)
+                break
+            case AuthStatus.NOT_READY:
+            default:
+                console.log('No log in status available')
+                // Do nothing - just keep showing the loading bar until some log in status is obtained, or timeout
+                break
+        }
     }
 
     replaceScreen(key) {
         // Clear the timeout for initializing, then go to the designated screen
         clearTimeout(this.appInitializeTimeout)
         this.props.navigation.replace(key)
+    }
+
+    handleLoggedIn = () => {
+        const { user, accountStatus, accountData } = this.props
+        switch (accountStatus) {
+            case AccountStatus.NOT_READY:
+                this.props.fetchAccount(user.uid)
+                break
+            case AccountStatus.READY:
+                this.goToDashboard(accountData.role)
+                break
+            default:
+                this.replaceScreen(GetStartedScreen.KEY)
+                break
+        }
+    }
+
+    goToDashboard = (accountRole) => {
+        
     }
 }
 

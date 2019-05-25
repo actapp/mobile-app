@@ -26,6 +26,12 @@ async function updateAccount(uid, account) {
     return account
 }
 
+async function deleteAccount(uid) {
+    const { doc, ref } = await getDoc(uid)
+
+    await ref.delete()
+}
+
 export default {
     createAccount: createAccount,
     getAccount: getAccount,
