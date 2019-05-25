@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+
+import GetStartedConnect from './GetStartedConnect'
+
 import renderContent, { subtitleViewRef, startOptionsViewRef } from './GetStartedScreenRenderer'
 
 import LogInScreen from '../login/LogInScreen';
@@ -9,7 +12,7 @@ import HomeScreen from '../home/HomeScreen'
 
 import AppConfig from '../../../AppConfig'
 
-export default class GetStartedScreen extends Component {
+class GetStartedScreen extends Component {
     static KEY = 'GetStartedScreen'
 
     static navigationOptions = ({ navigation }) => ({
@@ -93,10 +96,11 @@ export default class GetStartedScreen extends Component {
         })
     }
 
-    navigateToLogIn(onSignupScreenKey, onSignInScreenKey) {
-        this.props.navigation.navigate(LogInScreen.KEY, {
-            onSignupScreenKey,
-            onSignInScreenKey
-        })
+    startLogInRoute(intendedRole) {
+        // Dispatch notifying the user intends a certain role so the flow can be adjusted after login/signup
+        this.props.roleIntended(intendedRole)
+        this.props.navigation.navigate(LogInScreen.KEY)
     }
 }
+
+export default GetStartedConnect.connect(GetStartedScreen)

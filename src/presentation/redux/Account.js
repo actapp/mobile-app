@@ -4,6 +4,16 @@ import { actionCreator } from './util/Util'
 
 function accountReducer(state = {
     status: AccountStatus.NOT_READY,
+
+    /**
+     * What role the user chooses on first start.
+     * 
+     * This will change if the user already has an account with a different role.
+     * 
+     * This is useful in the first start flow for when a new account is being created
+     */
+    intendedRole: null,
+
     data: null,
     error: null
 }, action) {
@@ -11,16 +21,14 @@ function accountReducer(state = {
         return state
     }
 
-    const newState = { ...state, status: action.type, error: null }
+    // Always clear error after it has been dispatched
+    const newState = { ...state, error: null }
 
-    if (AccountStatus.isAccountAvailable(action.type)) {
-        // Action meaning the account is now available for use (created, fetched, updated)
-        newState['data'] = action.payload
-    } else if (action.type == AccountStatus.ERROR) {
-        newState['error'] = action.payload
+    if (!isAccountStatusAction(action)) {
+        return reduceNonStatusAction(newState, action)
+    } else {
+        return reduceStatusAction(newState, action)
     }
-
-    return newState
 }
 
 function isAccountAction(action) {
@@ -31,18 +39,58 @@ function isAccountAction(action) {
     return false
 }
 
+function isAccountStatusAction(action) {
+    if (action && action.type) {
+        return action.type.startsWith('account/status/')
+    }
+
+    return false
+}
+
+function reduceNonStatusAction(newState, action) {
+    switch (action.type) {
+        case ActionTypes.ROLE_INTEDED:
+            newState['intendedRole'] = action.payload
+            break
+        case ActionTypes.CLEAR_ROLE_INTENDED:
+            newState['intendedRole'] = null
+            break
+        default:
+            break
+    }
+
+    return newState
+}
+
+function reduceStatusAction(newState, action) {
+    switch (action.type) {
+        case AccountStatus.CREATED:
+        case AccountStatus.UPDATED:
+        case AccountStatus.READY:
+            newState['data'] = action.payload
+            break
+        case AccountStatus.ERROR:
+            newState['error'] = action.payload
+            break
+        default:
+            break
+    }
+
+    return newState
+}
+
 class AccountStatus {
-    static NOT_READY = 'account/not_ready'
-    static CREATING = 'account/creating'
-    static GETTING = 'account/getting'
-    static UPDATING = 'account/updating'
+    static NOT_READY = 'account/status/not_ready'
+    static CREATING = 'account/status/creating'
+    static GETTING = 'account/status/getting'
+    static UPDATING = 'account/status/updating'
 
-    static CREATED = 'account/created'
-    static UPDATED = 'account/updated'
+    static CREATED = 'account/status/created'
+    static UPDATED = 'account/status/updated'
 
-    static READY = 'account/ready'
+    static READY = 'account/status/ready'
 
-    static ERROR = 'account/error'
+    static ERROR = 'account/status/error'
 
     static isAccountAvailable = (status) => {
         return status == AccountStatus.CREATED
@@ -51,13 +99,17 @@ class AccountStatus {
     }
 }
 
+
 class AccountActions {
-    static createAccount = (uid) => {
+    static roleIntended = (role) => actionCreator(ActionTypes.ROLE_INTEDED, role)
+
+    static createAccount = (uid, role) => {
         return (dispatch, getState) => {
             dispatch(InternalActions.creating())
 
-            createAccount(uid)
+            createAccount(uid, role)
                 .then(createdAccount => {
+                    dispatch(InternalActions.clearRoleIntended())
                     dispatch(InternalActions.created(createdAccount))
                 })
                 .catch(error => {
@@ -72,6 +124,7 @@ class AccountActions {
 
             getAccount(uid)
                 .then(account => {
+                    dispatch(InternalActions.clearRoleIntended())
                     dispatch(InternalActions.ready(account))
                 })
                 .catch(error => {
@@ -104,7 +157,14 @@ class InternalActions {
     static updated = (updatedAccount) => actionCreator(AccountStatus.UPDATED, updatedAccount)
     static ready = (account) => actionCreator(AccountStatus.READY, account)
 
+    static clearRoleIntended = () => actionCreator(ActionTypes.CLEAR_ROLE_INTENDED)
+
     static error = (error) => actionCreator(AccountStatus.ERROR, error)
+}
+
+class ActionTypes {
+    static ROLE_INTEDED = 'account/role_intended'
+    static CLEAR_ROLE_INTENDED = 'account/clear_role_intended'
 }
 
 export { AccountStatus, AccountActions, accountReducer }

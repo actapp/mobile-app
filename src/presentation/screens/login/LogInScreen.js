@@ -42,8 +42,7 @@ class LogInScreen extends Component {
 
     checkLoggedIn = () => {
         if (this.props.authStatus == AuthStatus.LOGGED_IN) {
-            // Go to next screen (should've been passed in navigation params)
-            const nextScreen = this.props.navigation.getParam('postLoginScreenKey', null)
+            
             this.props.navigation.replace(nextScreen)
         }
     }
