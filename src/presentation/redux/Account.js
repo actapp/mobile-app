@@ -105,6 +105,18 @@ class AccountStatus {
     static NO_ACCOUNT = 'account/status/none'
 
     static ERROR = 'account/status/error'
+
+    static isAssociated = (status) => {
+        switch (status) {
+            case AccountStatus.CREATED:
+            case AccountStatus.UPDATED:
+            case AccountStatus.ASSOCIATED:
+            case AccountStatus.READY:
+                return true
+            default:
+                return false
+        }
+    }
 }
 
 

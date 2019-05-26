@@ -37,6 +37,7 @@ class CreateMinistryScreen extends Component {
     render() {
         return renderContent({
             ministryStatus: this.props.ministryStatus,
+            ministryData: this.props.ministryData,
             accountStatus: this.props.accountStatus,
             onMinistryNameSubmitted: this.onMinistryNameSubmitted
         })
@@ -56,11 +57,14 @@ class CreateMinistryScreen extends Component {
         }
 
         if (this.props.ministryStatus == MinistryStatus.CREATED) {
-            if (this.props.accountStatus == AccountStatus.CREATED
-                || this.props.accountStatus == AccountStatus.ASSOCIATED) {
-                // Everything's ready to go--go to dashboard
-                this.props.navigation.dispatch(resetToDashboardAction(this.props.accountData.role))
-            } else if (
+            // if (this.props.accountStatus == AccountStatus.CREATED
+            //     || this.props.accountStatus == AccountStatus.ASSOCIATED) {
+            //     // Everything's ready to go; display the code to the user and then go to dashboard
+                
+            // } else if (){}
+            
+            // Account exists but needs to be associated to the created ministry
+            if (
                 this.props.accountStatus == AccountStatus.READY_UNASSOCIATED
                 || this.props.accountStatus == AccountStatus.CREATED_UNASSOCIATED
             ) {

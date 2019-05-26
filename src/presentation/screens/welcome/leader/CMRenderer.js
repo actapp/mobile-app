@@ -13,10 +13,11 @@ const inputState = {
 
 export default function renderContent({
     ministryStatus,
+    ministryData,
     accountStatus,
     onMinistryNameSubmitted
 }) {
-    const content = contentAndSubtitle({ ministryStatus, accountStatus, onMinistryNameSubmitted })
+    const content = contentAndSubtitle({ ministryStatus, ministryData, accountStatus, onMinistryNameSubmitted })
 
     return (
         <HeaderlessRootContainer style={{ paddingTop: 80, paddingLeft: 50, paddingRight: 50 }}>
@@ -27,13 +28,20 @@ export default function renderContent({
     )
 }
 
-function contentAndSubtitle({ ministryStatus, accountStatus, onMinistryNameSubmitted }) {
+function contentAndSubtitle({ ministryStatus, ministryData, accountStatus, onMinistryNameSubmitted }) {
     if (ministryStatus == MinistryStatus.CREATING) {
         return { subtitle: 'Creating ministry...', body: loading() }
     }
 
     if (accountStatus == AccountStatus.ASSOCIATING) {
         return { subtitle: 'Setting up your account...', body: loading() }
+    }
+
+    if (ministryStatus == MinistryStatus.CREATED && AccountStatus.isAssociated(accountStatus)) {
+        return {
+            subtitle: 'This is your ministry code. Share it with anyone you want to be a member of your ministry (like a referral code).\n\nFeel free to copy it or write it down. But don\'t worry: you can view it in MySharePal at any time.',
+            body: ministryIdDisplay(ministryData.id)
+        }
     }
 
     return { subtitle: 'What is the name of your ministry?', body: ministryNameForm(onMinistryNameSubmitted) }
@@ -72,6 +80,26 @@ function ministryNameInput(onMinistryNameSubmitted) {
                 onSubmitEditing={(event) => { onMinistryNameSubmitted(event.nativeEvent.text) }}
             />
         </Item>
+    )
+}
+
+function ministryIdDisplay(mid) {
+    return (
+        <Text
+            selectable={true}
+            style={
+                {
+                    fontSize: 30,
+                    color: 'white',
+                    textDecorationLine: 'underline',
+                    textDecorationColor: 'white',
+                    textDecorationStyle: 'solid',
+                    textAlign: 'center',
+                    fontWeight: 'bold'
+                }
+            }>
+            {mid}
+        </Text>
     )
 }
 
