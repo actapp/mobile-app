@@ -8,7 +8,6 @@ import handleError from '../../../../utils/GlobalErrorHandler'
 import { alertError } from '../../../alerts/Alerts'
 import { ASSOCIATE_ACCOUNT_ERROR } from '../../../../utils/GlobalErrorHandler';
 import { AccountStatus } from '../../../redux/Account';
-import { Roles } from '../../../../core/account/AccountInteractor';
 import { resetToDashboardAction } from '../RoleBasedRouter'
 
 class AssociateToMinistryScreen extends Component {

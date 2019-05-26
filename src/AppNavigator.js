@@ -9,7 +9,7 @@ import LearnScreen from './presentation/screens/learn/LearnScreen';
 import AdminHomeScreen from './presentation/screens/home/AdminHomeScreen';
 import GetStartedScreen from './presentation/screens/welcome/GetStartedScreen';
 import LogInScreen from './presentation/screens/login/LogInScreen';
-import CreateMinistryScreen from './presentation/screens/welcome/admin/CreateMinistryScreen'
+import CreateMinistryScreen from './presentation/screens/welcome/leader/CreateMinistryScreen'
 import AssociateToMinistryScreen from './presentation/screens/welcome/sharer/AssociateToMinistryScreen'
 
 export default createAppNavigator = (connectedAppComponent) => (createStackNavigator({

@@ -6,7 +6,7 @@ import renderContent, { subtitleViewRef, startOptionsViewRef } from './GetStarte
 
 import LogInScreen from '../login/LogInScreen';
 import AssociateToMinistryScreen from '../welcome/sharer/AssociateToMinistryScreen'
-import CreateMinistryScreen from '../welcome/admin/CreateMinistryScreen'
+import CreateMinistryScreen from '../welcome/leader/CreateMinistryScreen'
 import AdminHomeScreen from '../home/AdminHomeScreen'
 import HomeScreen from '../home/HomeScreen'
 

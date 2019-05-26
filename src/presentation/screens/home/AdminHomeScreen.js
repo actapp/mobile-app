@@ -15,13 +15,7 @@ class AdminHomeScreen extends Component {
         return (
             <View style={Styles.rootContainer}>
                 <View style={{ height: 250, width: '100%' }}>
-                    <WebView
-                        javaScriptEnabled={true}
-                        domStorageEnabled={true}
-                        source={{ html: `${charts[0].embed}` }}
-                        useWebKit={true}
-                        style={{ backgroundColor: 'black' }}
-                    />
+
                 </View>
             </View>
         )

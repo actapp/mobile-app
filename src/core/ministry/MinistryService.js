@@ -1,85 +1,49 @@
-import firebase from 'react-native-firebase'
+import { getCollectionRef, getDocAndRefs } from '../util/DocManagement'
 
-import getDoc from '../util/DocManagement'
+const COLLECTION_NAME = 'ministries'
 
 export default class MinistryService {
-    static setMinistryId = async (uid, ministryId) => {
-        const { ref } = await getDoc(uid)
-        await ref.update({ ministryId: ministryId })
-    }
-
-    static getMinistryId = async (uid) => {
-        const { doc } = await getDoc(uid)
-
-        console.log('Got doc')
-
-        const ministryId = doc.data().ministryId
-        if (ministryId != null) {
-            return ministryId
+    static addMinistry = async ministry => {
+        const ministryDoc = await getDocAndRefs(COLLECTION_NAME, ministry.id)
+        if (!isEmptyOrNonExistentDoc(ministryDoc)) {
+            throw new Error('Ministry with ID ' + ministry.id + ' already exists!')
         }
 
-        return ''
+        await ministryDoc.docRef.set(ministry)
+
+        return ministry
     }
 
-    static isAdmin = async (phoneNumber, mid) => {
-        const ref = docRef(mid)
-        const doc = await ref.get()
+    static getMinistry = async mid => {
+        const ministryDoc = await getDocAndRefs(COLLECTION_NAME, mid)
 
-        validateMinistryDoc(doc, mid)
-        return _isAdmin(doc, phoneNumber)
-    }
-
-    static getCharts = async (phoneNumber, mid) => {
-        const ref = docRef(mid)
-        const doc = await ref.get()
-
-        validateMinistryDoc(doc, mid)
-        const isAdminUser = _isAdmin(doc, phoneNumber)
-
-        if(!isAdminUser) {
-            return []
+        if (isEmptyOrNonExistentDoc(ministryDoc.doc)) {
+            return null
         }
 
-        const adminChartsRef = ref.collection('admin').doc('charts')
-        const chartsDoc = await adminChartsRef.get()
+        return ministryDoc.doc.data()
+    }
 
-        if(!chartsDoc.exists) {
-            return []
+    static updateMinistry = async ministry => {
+        const ministryDoc = await getDocAndRefs(COLLECTION_NAME, ministry.id)
+        if (isEmptyOrNonExistentDoc(ministryDoc)) {
+            await addMinistry(ministry)
+        } else {
+            ministryDoc.docRef.update(ministry)
         }
+    }
 
-        const chartsObj = chartsDoc.data()
+    static listMinistryIds = async () => {
+        const snapshot = await getCollectionRef(COLLECTION_NAME).get()
+        const existingMinistryIds = snapshot.docs.map(doc => doc.id)
 
-        // Return an array of chart objects
-        return Object.keys(chartsObj).map(key => {
-            return chartsObj[key]
-        })
+        return existingMinistryIds
     }
 }
 
-function docRef(mid) {
-    console.log('Getting doc for MID: ' + mid)
-
-    return firebase.firestore().collection('ministries').doc(mid)
-}
-
-function adminChartsRef(mid) {
-    return docRef(mid).collection('admin').doc('charts')
-}
-
-function validateMinistryDoc(doc, mid) {
-    if (!doc.exists || !doc.data()) {
-        throw new Error('Invalid ministry ID: ' + mid)
-    }
-}
-
-function _isAdmin(doc, phoneNumber) {
-    const adminUsers = doc.data().adminUsers
-
-    if(adminUsers == null) {
-        return false
-    }
-
-    return adminUsers.find(element => {
-        return element == phoneNumber
-    }) != null
+function isEmptyOrNonExistentDoc(docSnapshot) {
+    return !(docSnapshot != null
+        && docSnapshot.exists
+        && docSnapshot.doc.data() != null
+        && Object.keys(docSnapshot.doc.data()).length === 0)
 }

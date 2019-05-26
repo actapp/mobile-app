@@ -1,4 +1,4 @@
-import { createAccount, getAccount, updateAccount, associateAccount } from '../../core/account/AccountInteractor'
+import { createAccount, getAccount, updateAccount, associateAccount, createAccountWithMinistryId } from '../../core/account/AccountInteractor'
 
 import { actionCreator } from './util/Util'
 
@@ -117,18 +117,24 @@ class AccountActions {
 
             createAccount(uid, role)
                 .then(createdAccount => {
-                    dispatch(InternalActions.clearRoleIntended())
-
-                    if (isAccountAssociated(createdAccount)) {
-                        dispatch(InternalActions.created(createdAccount))
-                    } else {
-                        dispatch(InternalActions.createdUnassociated(createdAccount))
-                    }
+                    onAccountCreated(dispatch, createdAccount)
                 })
                 .catch(error => {
                     dispatch(InternalActions.error(error))
                 })
         }
+    }
+
+    static createAccountWithMinistryId = (uid, role, mid) => {
+        dispatch(InternalActions.creating())
+
+        createAccountWithMinistryId(uid, role, mid)
+            .then(createdAccount => {
+                onAccountCreated(dispatch, createdAccount)
+            })
+            .catch(error => {
+                dispatch(InternalActions.error(error))
+            })
     }
 
     static getAccount = (uid) => {
@@ -208,6 +214,16 @@ class InternalActions {
 class ActionTypes {
     static ROLE_INTENDED = 'account/role_intended'
     static CLEAR_ROLE_INTENDED = 'account/clear_role_intended'
+}
+
+function onAccountCreated(dispatch, createdAccount) {
+    dispatch(InternalActions.clearRoleIntended())
+
+    if (isAccountAssociated(createdAccount)) {
+        dispatch(InternalActions.created(createdAccount))
+    } else {
+        dispatch(InternalActions.createdUnassociated(createdAccount))
+    }
 }
 
 function isAccountAssociated(account) {

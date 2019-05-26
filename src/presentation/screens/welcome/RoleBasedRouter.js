@@ -3,7 +3,7 @@ import { buildResetToRouteAction } from '../../../AppNavigator'
 import HomeScreen from '../home/HomeScreen';
 import AdminHomeScreen from '../home/AdminHomeScreen';
 import AssociateToMinistryScreen from './sharer/AssociateToMinistryScreen';
-import CreateMinistryScreen from './admin/CreateMinistryScreen';
+import CreateMinistryScreen from './leader/CreateMinistryScreen';
 
 export function resetToDashboardAction(accountRole) {
     if(accountRole == Roles.SHARER) {

@@ -30,7 +30,7 @@ function contentAndSubtitle({ accountStatus, onMinistryIdSubmitted }) {
         return { subtitle: 'Please wait...', body: updatingAccount() }
     }
 
-    return { subtitle: 'Enter the 5-digit ministry code given to you by your ministry leader. It should look something like \"MIN001\".', body: ministryIdForm(onMinistryIdSubmitted) }
+    return { subtitle: 'Enter the 5-digit ministry code given to you by your ministry leader. It should look something like \"MIN01\".', body: ministryIdForm(onMinistryIdSubmitted) }
 }
 
 function updatingAccount() {

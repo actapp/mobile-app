@@ -35,5 +35,6 @@ async function deleteAccount(uid) {
 export default {
     createAccount: createAccount,
     getAccount: getAccount,
-    updateAccount: updateAccount
+    updateAccount: updateAccount,
+    deleteAccount: deleteAccount
 }

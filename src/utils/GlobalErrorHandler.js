@@ -13,6 +13,7 @@ export const GET_MINISTRY_STATUS_ERROR = 'GET_MINISTRY_STATUS_ERROR'
 export const CHECK_ADMIN_ERROR = 'CHECK_ADMIN_ERROR'
 
 export const ASSOCIATE_ACCOUNT_ERROR = 'ASSOCIATE_ACCT_ERROR'
+export const CREATE_MINISTRY_ERROR = 'CREATE_MINISTRY_ERROR'
 
 const breadcrumbs = []
 export function logBreadcrumb(breadcrumb) {
