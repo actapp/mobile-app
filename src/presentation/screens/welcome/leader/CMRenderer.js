@@ -15,9 +15,10 @@ export default function renderContent({
     ministryStatus,
     ministryData,
     accountStatus,
-    onMinistryNameSubmitted
+    onMinistryNameSubmitted,
+    onDonePressed
 }) {
-    const content = contentAndSubtitle({ ministryStatus, ministryData, accountStatus, onMinistryNameSubmitted })
+    const content = contentAndSubtitle({ ministryStatus, ministryData, accountStatus, onMinistryNameSubmitted, onDonePressed })
 
     return (
         <HeaderlessRootContainer style={{ paddingTop: 80, paddingLeft: 50, paddingRight: 50 }}>
@@ -28,7 +29,7 @@ export default function renderContent({
     )
 }
 
-function contentAndSubtitle({ ministryStatus, ministryData, accountStatus, onMinistryNameSubmitted }) {
+function contentAndSubtitle({ ministryStatus, ministryData, accountStatus, onMinistryNameSubmitted, onDonePressed }) {
     if (ministryStatus == MinistryStatus.CREATING) {
         return { subtitle: 'Creating ministry...', body: loading() }
     }
@@ -40,7 +41,7 @@ function contentAndSubtitle({ ministryStatus, ministryData, accountStatus, onMin
     if (ministryStatus == MinistryStatus.CREATED && AccountStatus.isAssociated(accountStatus)) {
         return {
             subtitle: 'This is your ministry code. Share it with anyone you want to be a member of your ministry (like a referral code).\n\nFeel free to copy it or write it down. But don\'t worry: you can view it in MySharePal at any time.',
-            body: ministryIdDisplay(ministryData.id)
+            body: ministryIdView(ministryData.id, onDonePressed)
         }
     }
 
@@ -83,12 +84,22 @@ function ministryNameInput(onMinistryNameSubmitted) {
     )
 }
 
-function ministryIdDisplay(mid) {
+function ministryIdView(mid, onDonePressed) {
+    return (
+        <Form>
+            {ministryIdDisplay(mid, { marginBottom: 20 })}
+            {doneButton(onDonePressed)}
+        </Form>
+    )
+}
+
+function ministryIdDisplay(mid, additionalStyling) {
     return (
         <Text
             selectable={true}
             style={
                 {
+                    ...additionalStyling,
                     fontSize: 30,
                     color: 'white',
                     textDecorationLine: 'underline',
@@ -111,6 +122,19 @@ function nextButton(onMinistryNameSubmitted) {
             onPress={() => { onMinistryNameSubmitted(inputState.ministryName) }}>
             <Text style={{ color: 'white' }}>
                 Next
+            </Text>
+        </Button>
+    )
+}
+
+function doneButton(onDonePressed) {
+    return (
+        <Button
+            full
+            primary
+            onPress={onDonePressed}>
+            <Text style={{ color: 'white' }}>
+                Done
             </Text>
         </Button>
     )
