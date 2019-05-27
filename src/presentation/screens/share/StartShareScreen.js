@@ -75,7 +75,7 @@ class StartShareScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.logIn.user
+  user: state.auth.user
 })
 
 const mapDispatchToProps = dispatch => ({

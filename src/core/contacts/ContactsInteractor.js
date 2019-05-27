@@ -1,17 +1,20 @@
-import ContactsService from './ContactsService'
+import AccountService from '../account/AccountService'
 import StepsService from '../share/StepsService'
 import uuidv4 from '../../utils/UUID'
 
 export async function getContacts(userId) {
-    let contacts = await ContactsService.getContacts(userId)
+    let account = await AccountService.getAccount(userId)
+    if(!account)
 
-    if (!contacts || !contacts.length) {
-        // no contacts
-        await ContactsService.setContacts([])
-        contacts = []
-    }
+    // let contacts = await ContactsService.getContacts(userId)
 
-    return keyContacts(contacts)
+    // if (!contacts || !contacts.length) {
+    //     // no contacts
+    //     await ContactsService.setContacts([])
+    //     contacts = []
+    // }
+
+    // return keyContacts(contacts)
 }
 
 export async function addContact(name, phone, userId) {

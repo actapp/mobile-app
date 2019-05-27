@@ -8,6 +8,7 @@ import LogInScreen from '../login/LogInScreen';
 
 import AppConfig from '../../../AppConfig'
 import { Roles } from '../../../core/account/AccountInteractor';
+import LearnScreen from '../learn/LearnScreen';
 
 class GetStartedScreen extends Component {
     static KEY = 'GetStartedScreen'
@@ -87,9 +88,7 @@ class GetStartedScreen extends Component {
 
             onStartSharer: () => { this.startLogInRoute(Roles.SHARER) },
             onStartAdmin: () => { this.startLogInRoute(Roles.LEADER) },
-
-            // TODO
-            onLearnMore: () => { }
+            onLearnMore: () => { this.props.navigation.navigate(LearnScreen.KEY) }
         })
     }
 

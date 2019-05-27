@@ -7,7 +7,7 @@ export const Roles = {
 }
 
 export async function createAccount(uid, role) {
-    return await AccountService.createAccount(uid, createNewAccountModel(role))
+    return await AccountService.createAccount(uid, createNewAccountModel(uid, role))
 }
 
 export async function createAccountWithMinistryId(uid, role, mid) {
@@ -39,8 +39,9 @@ export async function deleteAccount(uid) {
     return await AccountService.deleteAccount(uid)
 }
 
-function createNewAccountModel(role) {
+function createNewAccountModel(uid, role) {
     return {
+        id: uid,
         role: role,
         ministryId: null,
         data: {}
