@@ -8,7 +8,8 @@ export default {
         authError: state.auth.error,
         user: state.auth.user,
         accountStatus: state.account.status,
-        accountData: state.account.data
+        accountData: state.account.data,
+        genericError: state.errors.genericError
     }),
 
     mapDispatchToProps: dispatch => ({

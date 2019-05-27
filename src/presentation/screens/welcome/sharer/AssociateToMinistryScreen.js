@@ -37,7 +37,7 @@ class AssociateToMinistryScreen extends Component {
     }
 
     onMinistryIdSubmitted = (mid) => {
-        this.props.associateAccount(this.props.uid)
+        this.props.associateAccount(this.props.uid, mid)
     }
 }
 

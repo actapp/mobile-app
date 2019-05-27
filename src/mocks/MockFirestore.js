@@ -7,8 +7,40 @@ function dump() {
     console.log(collections)
 }
 
-const MockFirestore = {
-    collection: name => {
+function populateCollectionsFromConfig(initialCollections) {
+    const keyedCollections = Object.keys(initialCollections).map(key => ({ key, ...initialCollections[key] }))
+
+    console.log(keyedCollections)
+    for (let i = 0; i < keyedCollections.length; i++) {
+        const newCollection = new MockCollectionRef(keyedCollections[i].key)
+        populateMockCollectionRefFromConfig(initialCollections[keyedCollections[i].key], newCollection)
+        collectionRefs[keyedCollections[i].key] = newCollection
+    }
+}
+
+function populateMockCollectionRefFromConfig(configCollection, mockCollectionRef) {
+    const keyedDocs = Object.keys(configCollection).map(key => ({ key, ...configCollection[key] }))
+    for (let i = 0; i < keyedDocs.length; i++) {
+        const newDocRef = mockCollectionRef.doc(keyedDocs[i].key)
+        newDocRef.setSync(configCollection[keyedDocs[i].key])
+    }
+}
+
+class MockFirestore {
+    constructor(config) {
+        this.config = config
+        if (this.config.collections) {
+            console.log('Has collections to populate:')
+            console.log(this.config)
+
+            populateCollectionsFromConfig(this.config.collections)
+
+            console.log('Populated collections from config')
+            dump()
+        }
+    }
+
+    collection = name => {
         console.log('Getting collection ' + name)
 
         if (!collectionRefs[name]) {
@@ -50,9 +82,7 @@ class MockDocRef {
         this.dataObj = null
     }
 
-    set = async data => {
-        this.dataObj = data
-    }
+    set = async data => setSync(data)
 
     // Doc snapshot
     get = async () => this.getSync()
@@ -64,6 +94,10 @@ class MockDocRef {
         data: () => this.dataObj,
         dataObj: this.dataObj
     })
+
+    setSync = data => {
+        this.dataObj = data
+    }
 }
 
 export default MockFirestore

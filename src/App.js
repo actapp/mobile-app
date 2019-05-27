@@ -18,9 +18,11 @@ import { LoadingIndicator } from './presentation/components/Foundation'
 import Styles from './presentation/style/Styles'
 import AppConfig from './AppConfig';
 
-import handleError, { AUTH_ERROR } from './utils/GlobalErrorHandler'
+import handleError, { GENERIC_ERROR, AUTH_ERROR } from './utils/GlobalErrorHandler'
 import { alertError } from './presentation/alerts/Alerts'
 import { AccountStatus } from './presentation/redux/Account';
+
+import { resetToDashboardAction } from './presentation/screens/welcome/RoleBasedRouter'
 
 class App extends Component {
     static ERROR_SOURCE = 'App'
@@ -35,7 +37,7 @@ class App extends Component {
         StatusBar.setBarStyle('light-content')
 
         this.props.listenForAuthChanges()
-        this.handleAuthState()
+        this.handleState()
 
         this.appInitializeTimeout = setTimeout(() => {
             this.props.timeout(App.ERROR_SOURCE)
@@ -43,7 +45,7 @@ class App extends Component {
     }
 
     componentDidUpdate() {
-        this.handleAuthState()
+        this.handleState()
     }
 
     componentWillUnmount() {
@@ -59,12 +61,16 @@ class App extends Component {
         )
     }
 
-    handleAuthState = () => {
+    handleState = () => {
         const { authStatus } = this.props
 
         if (AppConfig.FORCE_FRESH_START) {
             this.replaceScreen(GetStartedScreen.KEY)
             return
+        }
+
+        if (this.props.genericError != null) {
+            this.handleError(GENERIC_ERROR, this.props.genericError)
         }
 
         switch (authStatus) {
@@ -76,10 +82,7 @@ class App extends Component {
                 this.replaceScreen(GetStartedScreen.KEY)
                 break
             case AuthStatus.ERROR:
-                // Handle error, then just go to get started screen? Maybe show alert / toast first
-                handleError(AUTH_ERROR, this.props.auth.error)
-                alertError(this.props.auth.error.message)
-                this.replaceScreen(GetStartedScreen.KEY)
+                this.handleError(AUTH_ERROR, this.props.authError)
                 break
             case AuthStatus.NOT_READY:
             default:
@@ -87,6 +90,13 @@ class App extends Component {
                 // Do nothing - just keep showing the loading bar until some log in status is obtained, or timeout
                 break
         }
+    }
+
+    handleError = (name, error) => {
+        // Handle error, then just go to get started screen? Maybe show alert / toast first
+        handleError(name, error)
+        alertError(error.message)
+        this.replaceScreen(GetStartedScreen.KEY)
     }
 
     replaceScreen(key) {
@@ -97,21 +107,23 @@ class App extends Component {
 
     handleLoggedIn = () => {
         const { user, accountStatus, accountData } = this.props
+
+        console.log('Handling account status: ' + accountStatus)
+
         switch (accountStatus) {
             case AccountStatus.NOT_READY:
                 this.props.fetchAccount(user.uid)
                 break
             case AccountStatus.READY:
-                this.goToDashboard(accountData.role)
+                this.props.navigation.dispatch(resetToDashboardAction(accountData.role))
+                break
+            case AccountStatus.GETTING:
+                // Do nothing while account is being fetched
                 break
             default:
                 this.replaceScreen(GetStartedScreen.KEY)
                 break
         }
-    }
-
-    goToDashboard = (accountRole) => {
-        
     }
 }
 

@@ -1,8 +1,14 @@
 export default class MockAuth {
-    constructor() {
-        this.user = null
+    constructor(config) {
+        this.config = config
         this.phoneNumberSigningIn = null
         this.listeners = []
+
+        this.user = null
+
+        if (this.config.loggedInUser != null) {
+            this.user = new MockUser(this.config.loggedInUser.uid, this.config.loggedInUser.phoneNumber)
+        }
     }
 
     updateUser = user => {
@@ -14,6 +20,7 @@ export default class MockAuth {
 
     onAuthStateChanged = listener => {
         this.listeners.push(listener)
+        listener(this.user)
     }
 
     signInWithPhoneNumber = async phoneNumber => {
@@ -25,7 +32,12 @@ export default class MockAuth {
 
     confirm = async code => {
         // Confirm everything
-        this.user = new MockUser('123', this.phoneNumberSigningIn)
+        if (this.config.existingUser != null && this.config.existingUser.phoneNumber == this.phoneNumberSigningIn) {
+            this.user = new MockUser(this.config.existingUser.uid, this.config.existingUser.phoneNumber)
+        } else {
+            this.user = new MockUser(this.phoneNumberSigningIn.substring(0, 3), this.phoneNumberSigningIn)
+        }
+        
         this.phoneNumberSigningIn = null
 
         return this.user

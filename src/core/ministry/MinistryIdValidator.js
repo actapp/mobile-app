@@ -25,7 +25,7 @@ export default function validateMinsitryId(ministryId) {
     const invalidReason = checkForInvalidReason(ministryId)
 
     if (invalidReason != null) {
-        throw new Error('Invalid ministry code ' + ministryId + '. ' + reason)
+        throw new Error('Invalid ministry code ' + ministryId + '. ' + invalidReason)
     }
 }
 

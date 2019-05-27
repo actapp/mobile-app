@@ -5,10 +5,6 @@ import GetStartedConnect from './GetStartedConnect'
 import renderContent, { subtitleViewRef, startOptionsViewRef } from './GetStartedScreenRenderer'
 
 import LogInScreen from '../login/LogInScreen';
-import AssociateToMinistryScreen from '../welcome/sharer/AssociateToMinistryScreen'
-import CreateMinistryScreen from '../welcome/leader/CreateMinistryScreen'
-import AdminHomeScreen from '../home/AdminHomeScreen'
-import HomeScreen from '../home/HomeScreen'
 
 import AppConfig from '../../../AppConfig'
 import { Roles } from '../../../core/account/AccountInteractor';

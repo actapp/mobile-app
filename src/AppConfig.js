@@ -4,11 +4,44 @@ import { deleteAccount } from './core/account/AccountInteractor'
 export default AppConfig = {
     initialize: initializeConfiguration,
 
+    MOCK_SERVICES: {
+        'react-native-firebase': {
+            auth: {
+                // User to have logged in upon start
+                loggedInUser: null,
+
+                // User that exists on the 'back end', but is not logged in locally
+                existingUser: {
+                    uid: '123',
+                    phoneNumber: '+15555555555'
+                }
+            },
+            firestore: {
+                collections: {
+                    users: {
+                        '123': {
+                            account: {
+                                role: 'LEADER',
+                                ministryId: 'AA000'
+                            }
+                        }
+                    },
+                    ministries: {
+                        'AA000': {
+                            id: 'AA000',
+                            data: {}
+                        }
+                    }
+                }
+            }
+        }
+    },
+
     // App
-    FORCE_FRESH_START: __DEV__,
+    FORCE_FRESH_START: false,
 
     // Authentication
-    FORCE_LOGOUT: __DEV__,
+    FORCE_LOGOUT: false,
 
     // Account
     FORCE_NEW_ACCOUNT: __DEV__,

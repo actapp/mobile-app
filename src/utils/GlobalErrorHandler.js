@@ -20,17 +20,25 @@ export function logBreadcrumb(breadcrumb) {
     breadcrumbs.push(breadcrumb)
 }
 
-export default function handleError(name = GENERIC_ERROR, error, params) {
+export default function handleError(name = GENERIC_ERROR, error, params, source) {
     console.log('Handling error: ' + name)
 
     StackTrace.fromError(error)
         .then(stack => {
-            reportError(name, error.message, params, hashError(stackToStringArrays(stack)), stackToString(stack), collectBreadcrumbs())
+            reportError(qualifiedErrorName(name, source), error.message, params, hashError(stackToStringArrays(stack)), stackToString(stack), collectBreadcrumbs())
         })
         .catch(stackError => {
-            reportError(name, error.message, params, hashError(breadcrumbs), 'FAILED TO OBTAIN STACK!', collectBreadcrumbs())
+            reportError(qualifiedErrorName(name, source), error.message, params, hashError(breadcrumbs), 'FAILED TO OBTAIN STACK!', collectBreadcrumbs())
         })
 
+}
+
+function qualifiedErrorName(errorName, source) {
+    if (source) {
+        return source + '/' + errorName
+    }
+
+    return errorName
 }
 
 function reportError(name, message, params, errorId, stack, breadcrumbs) {

@@ -23,7 +23,7 @@ export default class GlobalRedux {
         logIn: LogInRedux.reducer,
         contacts: ContactsRedux.reducer,
         share: ShareRedux.reducer,
-        // ministry: MinistryMgmtRedux.reducer,
+        
         errors: ErrorRedux.reducer
     })
 

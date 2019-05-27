@@ -1,5 +1,7 @@
-const config = {
-    mockFirebase: true
-}
+import AppConfig from './AppConfig';
 
-export const firebase = config.mockFirebase ? require('./mocks/react-native-firebase').firebase : require('react-native-firebase')
+export const firebase = shouldMock('react-native-firebase') ? require('./mocks/react-native-firebase').firebase : require('react-native-firebase')
+
+function shouldMock(moduleName) {
+    return AppConfig.MOCK_SERVICES[moduleName] != null
+}
