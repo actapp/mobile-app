@@ -11,6 +11,9 @@ async function createAccount(uid, account) {
 async function getAccount(uid) {
     const { doc, ref } = await getDoc(uid)
 
+    console.log('Get account:')
+    console.log(doc)
+
     if (!doc.exists || doc.data() == null || doc.data().account == null) {
         return null
     }

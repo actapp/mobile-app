@@ -22,6 +22,10 @@ export default AppConfig = {
  * Run any custom initialization 
  */
 function initializeConfiguration() {
+    global.objLog = {
+        log: obj => console.log(JSON.stringify(obj))
+    }
+
     if (AppConfig.FORCE_FRESH_START || AppConfig.FORCE_NEW_ACCOUNT) {
         const user = getCurrentUser()
 

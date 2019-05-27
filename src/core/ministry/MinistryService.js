@@ -5,6 +5,7 @@ const COLLECTION_NAME = 'ministries'
 export default class MinistryService {
     static addMinistry = async ministry => {
         const ministryDoc = await getDocAndRefs(COLLECTION_NAME, ministry.id)
+
         if (!isEmptyOrNonExistentDoc(ministryDoc)) {
             throw new Error('Ministry with ID ' + ministry.id + ' already exists!')
         }

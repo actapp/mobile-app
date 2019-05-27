@@ -1,4 +1,4 @@
-import firebase from 'react-native-firebase'
+import { firebase } from '../AppDI'
 
 /**
  * Start a phone auth process
