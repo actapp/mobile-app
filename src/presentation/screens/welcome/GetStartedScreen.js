@@ -27,11 +27,11 @@ class GetStartedScreen extends Component {
 
     animation = {
         fadeInSubtitle:
-            () => subtitleViewRef.fadeIn(AppConfig.DEFAULT_ANIM_DURATION),
+            () => subtitleViewRef.fadeIn(AppConfig.defaultAnimDuration()),
         fadeOutSubtitle:
-            () => subtitleViewRef.fadeOut(AppConfig.DEFAULT_ANIM_DURATION),
+            () => subtitleViewRef.fadeOut(AppConfig.defaultAnimDuration()),
         fadeInStartOptions:
-            () => startOptionsViewRef.fadeIn(AppConfig.DEFAULT_ANIM_DURATION)
+            () => startOptionsViewRef.fadeIn(AppConfig.defaultAnimDuration())
     }
 
     flipSubtitle = () => {

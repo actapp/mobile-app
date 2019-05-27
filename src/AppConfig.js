@@ -6,6 +6,8 @@ export default AppConfig = {
 
     MOCK_SERVICES: {
         'react-native-firebase': {
+            shouldUse: false,
+
             auth: {
                 // User to have logged in upon start
                 loggedInUser: null,
@@ -47,7 +49,8 @@ export default AppConfig = {
     FORCE_NEW_ACCOUNT: __DEV__,
 
     // Animation
-    DEFAULT_ANIM_DURATION: duration(1000),
+    SKIP_ANIMATIONS: true,
+    defaultAnimDuration: () => duration(1000),
     animDuration: duration
 }
 
@@ -76,5 +79,5 @@ function initializeConfiguration() {
  * Given a duration, will make it instantaneous if currently in DEV environment
  */
 function duration(duration) {
-    return (__DEV__) ? 1 : duration
+    return AppConfig.SKIP_ANIMATIONS ? 1 : duration
 }

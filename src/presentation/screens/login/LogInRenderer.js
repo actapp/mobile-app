@@ -9,7 +9,8 @@ import { AuthStatus } from '../../redux/Auth';
 export default function renderContent({
     authStatus,
     onPhoneNumberSubmitted,
-    onCodeSubmitted
+    onCodeSubmitted,
+    onCancelPressed
 }) {
     const content = contentAndSubtitle({ authStatus, onPhoneNumberSubmitted, onCodeSubmitted })
 
@@ -18,6 +19,7 @@ export default function renderContent({
             <StaticHeader style={{ marginBottom: 50 }} />
             {subtitle(content.subtitle, { width: '100%', marginBottom: 25 })}
             {content.body}
+            {cancelButton(onCancelPressed, { marginTop: 15 })}
         </HeaderlessRootContainer>
     )
 }
@@ -136,6 +138,21 @@ function verifyCodeButton(onCodeSubmitted) {
             onPress={() => { onCodeSubmitted(inputState.code) }}>
             <Text style={{ color: 'white' }}>
                 Verify
+            </Text>
+        </Button>
+    )
+}
+
+function cancelButton(onCancelPressed, additionalStyling) {
+    return (
+        <Button
+            full
+            primary
+            bordered
+            style={additionalStyling}
+            onPress={onCancelPressed}>
+            <Text style={{ color: 'white' }}>
+                Cancel
             </Text>
         </Button>
     )

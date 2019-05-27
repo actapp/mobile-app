@@ -36,7 +36,8 @@ class LogInScreen extends Component {
         return renderContent({
             authStatus: this.props.auth.status,
             onPhoneNumberSubmitted: this.onPhoneNumberSubmitted,
-            onCodeSubmitted: this.onCodeSubmitted
+            onCodeSubmitted: this.onCodeSubmitted,
+            onCancelPressed: this.onCancelPressed
         })
     }
 
@@ -86,6 +87,10 @@ class LogInScreen extends Component {
 
     onCodeSubmitted = (code) => {
         this.props.verifyCode(code)
+    }
+
+    onCancelPressed = () => {
+        this.props.navigation.goBack()
     }
 
     goToMinistryAssociationByRole(role) {
