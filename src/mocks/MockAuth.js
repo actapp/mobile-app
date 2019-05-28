@@ -1,3 +1,5 @@
+import { mockDelay } from './Util'
+
 export default class MockAuth {
     constructor(config) {
         this.config = config
@@ -24,6 +26,7 @@ export default class MockAuth {
     }
 
     signInWithPhoneNumber = async phoneNumber => {
+        await mockDelay()
         this.phoneNumberSigningIn = phoneNumber
         return {
             confirm: this.confirm
@@ -31,6 +34,8 @@ export default class MockAuth {
     }
 
     confirm = async code => {
+        await mockDelay()
+        
         // Confirm everything
         if (this.config.existingUser != null && this.config.existingUser.phoneNumber == this.phoneNumberSigningIn) {
             this.user = new MockUser(this.config.existingUser.uid, this.config.existingUser.phoneNumber)

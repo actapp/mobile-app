@@ -8,13 +8,14 @@ import { LoadingIndicator } from '../../../components/Foundation'
 import { AccountStatus } from '../../../redux/Account';
 
 import { PlatformIcons } from '../../../style/Icons'
+import { MinistryStatus } from '../../../redux/Ministry';
 
 const inputState = {
     ministryId: null
 }
 
-export default function renderContent({ accountStatus, onMinistryIdSubmitted }) {
-    const content = contentAndSubtitle({ accountStatus, onMinistryIdSubmitted })
+export default function renderContent({ accountStatus, ministryStatus, onMinistryIdSubmitted }) {
+    const content = contentAndSubtitle({ accountStatus, ministryStatus, onMinistryIdSubmitted })
 
     return (
         <HeaderlessRootContainer style={{ paddingTop: 80, paddingLeft: 50, paddingRight: 50 }}>
@@ -25,15 +26,16 @@ export default function renderContent({ accountStatus, onMinistryIdSubmitted }) 
     )
 }
 
-function contentAndSubtitle({ accountStatus, onMinistryIdSubmitted }) {
-    if (accountStatus == AccountStatus.ASSOCIATING) {
-        return { subtitle: 'Please wait...', body: updatingAccount() }
+function contentAndSubtitle({ accountStatus, ministryStatus, onMinistryIdSubmitted }) {
+    if (accountStatus == AccountStatus.ASSOCIATING
+        || ministryStatus == MinistryStatus.GETTING) {
+        return { subtitle: 'Please wait...', body: loading() }
     }
 
-    return { subtitle: 'Enter the 5-digit ministry code given to you by your ministry leader. It should look something like \"MIN01\".', body: ministryIdForm(onMinistryIdSubmitted) }
+    return { subtitle: 'Enter the 5-digit ministry code given to you by your ministry leader. It should look something like \"AB001\".', body: ministryIdForm(onMinistryIdSubmitted) }
 }
 
-function updatingAccount() {
+function loading() {
     return (
         <LoadingIndicator />
     )
@@ -56,7 +58,7 @@ function ministryIdInput(onMinistryIdSubmitted) {
 
             // NativeBase has some weird padding thing that shows up on left
             style={{ marginLeft: 0, paddingLeft: 0, marginBottom: 15 }}>
-            <Label>Ministry ID</Label>
+            <Label>Ministry code</Label>
             <Input
                 maxLength={5}
                 keyboardType={"default"}

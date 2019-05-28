@@ -1,3 +1,5 @@
+import { mockDelay } from './Util'
+
 const collectionRefs = {
 
 }
@@ -69,6 +71,7 @@ class MockCollectionRef {
 
     // QuerySnapshot
     get = async () => {
+        await mockDelay()
         const docs = Object.keys(this.docRefs).map(key => this.docRefs[key].getSync())
         return {
             docs
@@ -82,12 +85,21 @@ class MockDocRef {
         this.dataObj = null
     }
 
-    set = async data => this.setSync(data)
+    set = async data => {
+        await mockDelay()
+        this.setSync(data)
+    }
 
     // Doc snapshot
-    get = async () => this.getSync()
+    get = async () => {
+        await mockDelay()
+        return this.getSync()
+    }
 
-    update = async data => this.dataObj = { ...this.dataObj, ...data }
+    update = async data => {
+        await mockDelay()
+        this.dataObj = { ...this.dataObj, ...data }
+    }
 
     getSync = () => ({
         exists: this.dataObj != null,

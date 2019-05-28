@@ -10,16 +10,16 @@ export default AppConfig = {
 
             auth: {
                 // User to have logged in upon start
-                // loggedInUser: {
-                //     uid: '123',
-                //     phoneNumber: '+15555555555'
-                // },
-
-                // User that exists on the 'back end', but is not logged in locally
-                existingUser: {
+                loggedInUser: {
                     uid: '123',
                     phoneNumber: '+15555555555'
-                }
+                },
+
+                // User that exists on the 'back end', but is not logged in locally
+                // existingUser: {
+                //     uid: '123',
+                //     phoneNumber: '+15555555555'
+                // }
             },
             firestore: {
                 collections: {
@@ -45,6 +45,9 @@ export default AppConfig = {
             }
         }
     },
+
+    // Mock delay for loading (i.e. when using mock firestore)
+    MOCK_DELAY: 1000,
 
     // App
     FORCE_FRESH_START: false,

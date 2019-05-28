@@ -27,6 +27,7 @@ class AssociateToMinistryScreen extends Component {
     render() {
         return renderContent({
             accountStatus: this.props.accountStatus,
+            ministryStatus: this.props.ministryStatus,
             onMinistryIdSubmitted: this.onMinistryIdSubmitted
         })
     }
