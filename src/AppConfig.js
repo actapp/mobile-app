@@ -6,11 +6,14 @@ export default AppConfig = {
 
     MOCK_SERVICES: {
         'react-native-firebase': {
-            shouldUse: false,
+            shouldUse: true,
 
             auth: {
                 // User to have logged in upon start
-                loggedInUser: null,
+                // loggedInUser: {
+                //     uid: '123',
+                //     phoneNumber: '+15555555555'
+                // },
 
                 // User that exists on the 'back end', but is not logged in locally
                 existingUser: {
@@ -20,16 +23,20 @@ export default AppConfig = {
             },
             firestore: {
                 collections: {
+                    // Existing users in "back end"
                     users: {
                         '123': {
                             account: {
-                                role: 'LEADER',
+                                role: 'SHARER',
                                 ministryId: 'AA000'
                             }
                         }
                     },
+
+                    // Existing ministries in "back end"
                     ministries: {
                         'AA000': {
+                            name: 'My Cool Ministry',
                             id: 'AA000',
                             data: {}
                         }
@@ -49,7 +56,7 @@ export default AppConfig = {
     FORCE_NEW_ACCOUNT: __DEV__,
 
     // Animation
-    SKIP_ANIMATIONS: true,
+    SKIP_ANIMATIONS: false,
     defaultAnimDuration: () => duration(1000),
     animDuration: duration
 }

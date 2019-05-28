@@ -4,11 +4,14 @@ import ATMConnect from './ATMConnect'
 
 import renderContent from './ATMRenderer'
 
-import handleError from '../../../../utils/GlobalErrorHandler'
+import handleError, { GET_MINISTRY_ERROR } from '../../../../utils/GlobalErrorHandler'
 import { alertError } from '../../../alerts/Alerts'
+import handleUnknownState from '../../utils/UnknownStateErrorHandler'
+
 import { ASSOCIATE_ACCOUNT_ERROR } from '../../../../utils/GlobalErrorHandler';
 import { AccountStatus } from '../../../redux/Account';
 import { resetToDashboardAction } from '../RoleBasedRouter'
+import { MinistryStatus } from '../../../redux/Ministry';
 
 class AssociateToMinistryScreen extends Component {
     static KEY = 'ATMScreen'
@@ -18,15 +21,7 @@ class AssociateToMinistryScreen extends Component {
     })
 
     componentDidUpdate() {
-        if (this.props.error != null) {
-            handleError(ASSOCIATE_ACCOUNT_ERROR, this.props.error)
-            alertError(this.props.error.message)
-        }
-
-        if (this.props.accountStatus == AccountStatus.ASSOCIATED) {
-            // Account now associated
-            this.props.navigation.dispatch(resetToDashboardAction(this.props.accountData.role))
-        }
+        this.handleState()
     }
 
     render() {
@@ -38,6 +33,43 @@ class AssociateToMinistryScreen extends Component {
 
     onMinistryIdSubmitted = (mid) => {
         this.props.associateAccount(this.props.uid, mid)
+    }
+
+    handleState = () => {
+        if (this.props.accountError != null) {
+            handleError(ASSOCIATE_ACCOUNT_ERROR, this.props.account.error)
+            alertError(this.props.account.error.message)
+        }
+
+        if (this.props.ministryError != null) {
+            handleError(GET_MINISTRY_ERROR, this.props.ministry.error)
+            alertError(this.props.ministry.error.message)
+        }
+
+        if (this.props.accountStatus == AccountStatus.ASSOCIATED) {
+            this.handleAccountAssociated()
+        }
+    }
+
+    handleAccountAssociated = () => {
+        // Account now associated--fetch the ministry data
+        switch (this.props.ministryStatus) {
+            case MinistryStatus.NOT_READY:
+                this.props.fetchMinistry(this.props.accountData.ministryId)
+                break
+            case MinistryStatus.READY:
+                this.props.navigation.dispatch(resetToDashboardAction(this.props.accountData.role))
+                break
+            case MinistryStatus.GETTING:
+                // Do nothing
+                break
+            case MinistryStatus.ERROR:
+                // Ignore; was handled above
+                break
+            default:
+                handleUnknownState(this.props.ministryStatus, 'ATMScreen')
+                break
+        }
     }
 }
 

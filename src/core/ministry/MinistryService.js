@@ -18,10 +18,15 @@ export default class MinistryService {
     static getMinistry = async mid => {
         const ministryDoc = await getDocAndRefs(COLLECTION_NAME, mid)
 
+        console.log(ministryDoc)
+
         if (isEmptyOrNonExistentDoc(ministryDoc.doc)) {
+            console.log('Returning null')
             return null
         }
 
+        console.log('Returning...')
+        console.log(ministryDoc.doc.data())
         return ministryDoc.doc.data()
     }
 
@@ -45,6 +50,6 @@ export default class MinistryService {
 function isEmptyOrNonExistentDoc(docSnapshot) {
     return !(docSnapshot != null
         && docSnapshot.exists
-        && docSnapshot.doc.data() != null
-        && Object.keys(docSnapshot.doc.data()).length === 0)
+        && docSnapshot.data() != null
+        && Object.keys(docSnapshot.data()).length > 0)
 }

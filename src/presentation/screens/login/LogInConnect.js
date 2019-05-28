@@ -1,5 +1,6 @@
 import { AuthActions } from '../../redux/Auth'
 import { AccountActions } from '../../redux/Account';
+import { MinistryActions } from '../../redux/Ministry';
 
 export default LogInConnect = {
     mapStateToProps: state => ({
@@ -13,6 +14,10 @@ export default LogInConnect = {
             intendedRole: state.account.intendedRole,
             data: state.account.data,
             error: state.account.error
+        },
+        ministry: {
+            status: state.ministry.status,
+            error: state.ministry.error
         }
     }),
 
@@ -21,6 +26,8 @@ export default LogInConnect = {
         verifyCode: (code) => dispatch(AuthActions.verifyCode(code)),
 
         createAccount: (uid, role) => dispatch(AccountActions.createAccount(uid, role)),
-        fetchAccount: (uid) => dispatch(AccountActions.getAccount(uid))
+        fetchAccount: (uid) => dispatch(AccountActions.getAccount(uid)),
+
+        fetchMinistry: mid => dispatch(MinistryActions.fetch(mid))
     })
 }

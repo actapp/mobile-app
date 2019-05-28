@@ -11,6 +11,7 @@ import GetStartedScreen from './presentation/screens/welcome/GetStartedScreen';
 import LogInScreen from './presentation/screens/login/LogInScreen';
 import CreateMinistryScreen from './presentation/screens/welcome/leader/CreateMinistryScreen'
 import AssociateToMinistryScreen from './presentation/screens/welcome/sharer/AssociateToMinistryScreen'
+import DashboardScreen from './presentation/screens/home/DashboardScreen';
 
 export default createAppNavigator = (connectedAppComponent) => (createStackNavigator({
     App: {
@@ -47,6 +48,9 @@ export default createAppNavigator = (connectedAppComponent) => (createStackNavig
     },
     [AssociateToMinistryScreen.KEY]: {
         screen: AssociateToMinistryScreen
+    },
+    [DashboardScreen.KEY]: {
+        screen: DashboardScreen
     }
 },
     {

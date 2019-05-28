@@ -18,11 +18,12 @@ import { LoadingIndicator } from './presentation/components/Foundation'
 import Styles from './presentation/style/Styles'
 import AppConfig from './AppConfig';
 
-import handleError, { GENERIC_ERROR, AUTH_ERROR } from './utils/GlobalErrorHandler'
+import handleError, { GENERIC_ERROR, AUTH_ERROR, GET_ACCOUNT_ERROR, GET_MINISTRY_ERROR, UNKNOWN_STATE_ERROR } from './utils/GlobalErrorHandler'
 import { alertError } from './presentation/alerts/Alerts'
 import { AccountStatus } from './presentation/redux/Account';
 
 import { resetToDashboardAction } from './presentation/screens/welcome/RoleBasedRouter'
+import { MinistryStatus } from './presentation/redux/Ministry';
 
 class App extends Component {
     static ERROR_SOURCE = 'App'
@@ -62,18 +63,18 @@ class App extends Component {
     }
 
     handleState = () => {
-        const { authStatus } = this.props
+        const { auth, genericError } = this.props
 
         if (AppConfig.FORCE_FRESH_START) {
             this.replaceScreen(GetStartedScreen.KEY)
             return
         }
 
-        if (this.props.genericError != null) {
-            this.handleError(GENERIC_ERROR, this.props.genericError)
+        if (genericError != null) {
+            this.handleError(GENERIC_ERROR, genericError)
         }
 
-        switch (authStatus) {
+        switch (auth.status) {
             case AuthStatus.LOGGED_IN:
                 this.handleLoggedIn()
                 break
@@ -82,7 +83,7 @@ class App extends Component {
                 this.replaceScreen(GetStartedScreen.KEY)
                 break
             case AuthStatus.ERROR:
-                this.handleError(AUTH_ERROR, this.props.authError)
+                this.handleError(AUTH_ERROR, this.props.auth.error)
                 break
             case AuthStatus.NOT_READY:
             default:
@@ -106,24 +107,54 @@ class App extends Component {
     }
 
     handleLoggedIn = () => {
-        const { user, accountStatus, accountData } = this.props
+        const { auth, account } = this.props
 
-        console.log('Handling account status: ' + accountStatus)
+        console.log('Handling account status: ' + account.status)
 
-        switch (accountStatus) {
+        switch (account.status) {
             case AccountStatus.NOT_READY:
-                this.props.fetchAccount(user.uid)
+                this.props.fetchAccount(auth.user.uid)
                 break
             case AccountStatus.READY:
-                this.props.navigation.dispatch(resetToDashboardAction(accountData.role))
+                this.handleAccountReady()
                 break
             case AccountStatus.GETTING:
                 // Do nothing while account is being fetched
                 break
+            case AccountStatus.ERROR:
+                this.handleError(GET_ACCOUNT_ERROR, this.props.account.error)
+                break
             default:
-                this.replaceScreen(GetStartedScreen.KEY)
+                this.handleUnknownState(account.status)
                 break
         }
+    }
+
+    handleAccountReady = () => {
+        const { ministry, account } = this.props
+
+        switch (ministry.status) {
+            case MinistryStatus.NOT_READY:
+                this.props.fetchMinistry(account.data.ministryId)
+                break
+            case MinistryStatus.GETTING:
+                // Do nothing
+                break
+            case MinistryStatus.READY:
+                this.props.navigation.dispatch(resetToDashboardAction(account.data.role))
+                break
+            case MinistryStatus.ERROR:
+                this.handleError(GET_MINISTRY_ERROR, ministry.error)
+                break
+            default:
+                this.handleUnknownState(ministryStatus)
+                break
+        }
+    }
+
+    handleUnknownState = (state) => {
+        this.replaceScreen(GetStartedScreen.KEY)
+        handleError(UNKNOWN_STATE_ERROR, new Error('Unknown state: ' + state), ERROR_SOURCE)
     }
 }
 

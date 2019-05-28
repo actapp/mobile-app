@@ -5,6 +5,8 @@ import LogInConnect from './LogInConnect'
 
 import renderContent from './LogInRenderer'
 
+import handleError, { AUTH_ERROR, GET_ACCOUNT_ERROR, GET_MINISTRY_ERROR } from '../../../utils/GlobalErrorHandler'
+import handleUnknownState from '../utils/UnknownStateErrorHandler'
 import { alertError } from '../../alerts/Alerts'
 import { AuthStatus } from '../../redux/Auth';
 import { AccountStatus } from '../../redux/Account';
@@ -16,6 +18,8 @@ import AssociateToMinistryScreen from '../welcome/sharer/AssociateToMinistryScre
 import CreateMinistryScreen from '../welcome/leader/CreateMinistryScreen';
 import HomeScreen from '../home/HomeScreen';
 import AdminHomeScreen from '../home/AdminHomeScreen';
+import { MinistryStatus } from '../../redux/Ministry';
+import DashboardScreen from '../home/DashboardScreen';
 
 class LogInScreen extends Component {
     static KEY = 'LogInScreen'
@@ -45,11 +49,15 @@ class LogInScreen extends Component {
         this.checkLoggedIn()
 
         if (this.props.auth.error != null) {
-            alertError(this.props.auth.error.message)
+            this.handleError(AUTH_ERROR, this.props.auth.error.message)
         }
 
         if (this.props.account.error != null) {
-            alertError(this.props.account.error.message)
+            this.handleError(GET_ACCOUNT_ERROR, this.props.account.error.message)
+        }
+
+        if (this.props.ministry.error != null) {
+            alertError(GET_MINISTRY_ERROR, this.props.ministry.error.message)
         }
     }
 
@@ -75,8 +83,7 @@ class LogInScreen extends Component {
                 break
             case AccountStatus.READY:
             case AccountStatus.CREATED:
-                // Go to dashboard
-                this.goToDashboardByRole(this.props.account.data.role)
+                this.handleAccountReady()
                 break
         }
     }
@@ -103,13 +110,24 @@ class LogInScreen extends Component {
         }
     }
 
-    goToDashboardByRole(role) {
-        console.log('Going home by role: ' + role)
-
-        if (role == Roles.SHARER) {
-            this.resetTo(HomeScreen.KEY)
-        } else {
-            this.resetTo(AdminHomeScreen.KEY)
+    handleAccountReady = () => {
+        const { account, ministry } = this.props
+        switch(ministry.status) {
+            case MinistryStatus.NOT_READY:
+                this.props.fetchMinistry(account.data.ministryId)
+                break
+            case MinistryStatus.READY:
+                this.resetTo(DashboardScreen.KEY)
+                break
+            case MinistryStatus.GETTING:
+                // Do nothing
+                break
+            case MinistryStatus.ERROR:
+                // Do nothing, already handled
+                break
+            default:
+                handleUnknownState(ministry.status, 'LogInScreen')
+                break
         }
     }
 
@@ -122,6 +140,11 @@ class LogInScreen extends Component {
         });
 
         this.props.navigation.dispatch(resetAction);
+    }
+
+    handleError = (name, error) => {
+        alertError(error.message)
+        handleError(name, error, 'LogInScreen')
     }
 }
 

@@ -1,14 +1,16 @@
 import { AuthActions } from './presentation/redux/Auth'
 import { ErrorActions } from './presentation/redux/Errors'
 import { AccountActions } from './presentation/redux/Account';
+import { MinistryActions } from './presentation/redux/Ministry';
 
 export default {
     mapStateToProps: state => ({
-        authStatus: state.auth.status,
-        authError: state.auth.error,
-        user: state.auth.user,
-        accountStatus: state.account.status,
-        accountData: state.account.data,
+        auth: state.auth,
+        
+        account: state.account,
+
+        ministry: state.ministry,
+
         genericError: state.errors.genericError
     }),
 
@@ -16,6 +18,7 @@ export default {
         listenForAuthChanges: () => dispatch(AuthActions.listenForAuthChanges()),
         stopListeningForAuthChanges: () => dispatch(AuthActions.stopListeningForAuthChanges()),
         fetchAccount: (uid) => dispatch(AccountActions.getAccount(uid)),
+        fetchMinistry: (mid) => dispatch(MinistryActions.fetch(mid)),
         timeout: (source) => dispatch(ErrorActions.timeout(source))
     })
 }

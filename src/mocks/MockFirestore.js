@@ -82,7 +82,7 @@ class MockDocRef {
         this.dataObj = null
     }
 
-    set = async data => setSync(data)
+    set = async data => this.setSync(data)
 
     // Doc snapshot
     get = async () => this.getSync()
