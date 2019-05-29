@@ -10,10 +10,16 @@ class DashboardScreen extends Component {
         header: null
     })
 
+    componentDidMount() {
+        const { account } = this.props
+        this.props.fetchStats(account.id, account.ministryId, account.role)
+    }
+
     render() {
         return renderContent({
             account: this.props.account,
-            ministry: this.props.ministry
+            ministry: this.props.ministry,
+            stats: this.props.stats
         })
     }
 }

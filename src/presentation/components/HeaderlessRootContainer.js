@@ -7,13 +7,20 @@ import Styles from '../style/Styles'
 export default class HeaderlessRootContainer extends Component {
     render() {
         const containerStyle = this.props.style
-        const { headerContent, footerContent } = this.props
+        const {
+            headerContent,
+            footerContent,
+            padder
+        } = this.props
 
         return (
             <StyleProvider style={getTheme()}>
                 <Container>
                     {headerContent}
-                    <Content contentContainerStyle={{ ...Styles.rootContainer, width: '100%', ...containerStyle }}>
+                    <Content
+                        
+                        contentContainerStyle={{ alignItems: 'center', ...containerStyle }}
+                    >
                         {this.props.children}
                     </Content>
                     {footerContent}

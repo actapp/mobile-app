@@ -3,6 +3,7 @@ package com.mysharepal;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 
 import io.invertase.firebase.RNFirebasePackage;
@@ -40,6 +41,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SvgPackage(),
             new RNDeviceInfo(),
             //new RNGoogleSigninPackage(),
             new RNFirebasePackage(),

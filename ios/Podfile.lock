@@ -148,6 +148,9 @@ PODS:
     - React/Core
   - React/RCTBlob (0.59.8):
     - React/Core
+  - React/RCTImage (0.59.8):
+    - React/Core
+    - React/RCTNetwork
   - React/RCTNetwork (0.59.8):
     - React/Core
   - React/RCTText (0.59.8):
@@ -157,6 +160,8 @@ PODS:
     - React/fishhook
     - React/RCTBlob
   - RNDeviceInfo (1.6.2):
+    - React
+  - RNSVG (9.4.0):
     - React
   - yoga (0.59.8.React)
 
@@ -174,10 +179,12 @@ DEPENDENCIES:
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
   - React/RCTAnimation (from `../node_modules/react-native`)
+  - React/RCTImage (from `../node_modules/react-native`)
   - React/RCTNetwork (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -213,6 +220,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -241,8 +250,9 @@ SPEC CHECKSUMS:
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   React: 76e6aa2b87d05eb6cccb6926d72685c9a07df152
   RNDeviceInfo: ca8f87abf132a03b9f13f02e00bb9e4a4044fcae
+  RNSVG: 9cb6e958c4b6a1f58185ac72a350b148947d6fed
   yoga: 92b2102c3d373d1a790db4ab761d2b0ffc634f64
 
-PODFILE CHECKSUM: 2ee2af3afc99fbd2062b2307165104a01d44883a
+PODFILE CHECKSUM: 32d9feb7952f4a4bef691ab0f8bfa508d57c6c8a
 
 COCOAPODS: 1.7.0

@@ -43,6 +43,72 @@ export default AppConfig = {
                     }
                 }
             }
+        },
+        'stats': {
+            shouldUse: true,
+
+            leader: {
+
+            },
+
+            sharer: {
+                charts: [
+                    {
+                        label: 'Totals',
+                        type: 'COUNTS',
+                        data: [
+                            {
+                                label: 'Saved',
+                                data: 100
+                            },
+                            {
+                                label: 'Unsaved',
+                                data: 50
+                            },
+                            {
+                                label: 'Undecided',
+                                data: 30
+                            }
+                        ]
+                    },
+                    {
+                        label: 'This month',
+                        type: 'PIE',
+                        data: [
+                            {
+                                label: 'Saved',
+                                data: 10
+                            },
+                            {
+                                label: 'Unsaved',
+                                data: 5
+                            },
+                            {
+                                label: 'Undecided',
+                                data: 2
+                            }
+                        ]
+                    },
+                    {
+                        label: 'This year',
+                        type: 'STACKED',
+                        data: [
+                            {
+                                label: 'Saved',
+                                data: 50
+                            },
+                            {
+                                label: 'Unsaved',
+                                data: 10
+                            },
+                            {
+                                label: 'Undecided',
+                                data: 15
+                            }
+                        ]
+                    }
+                ]
+            }
         }
     },
 
@@ -90,4 +156,4 @@ function initializeConfiguration() {
  */
 function duration(duration) {
     return AppConfig.SKIP_ANIMATIONS ? 1 : duration
-}
+}   

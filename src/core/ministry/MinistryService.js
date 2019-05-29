@@ -41,7 +41,12 @@ export default class MinistryService {
 
     static listMinistryIds = async () => {
         const snapshot = await getCollectionRef(COLLECTION_NAME).get()
-        const existingMinistryIds = snapshot.docs.map(doc => doc.id)
+
+        console.log(snapshot)
+
+        const existingMinistryIds = snapshot.docs.map(doc => doc.data().id)
+
+        console.log(existingMinistryIds)
 
         return existingMinistryIds
     }
