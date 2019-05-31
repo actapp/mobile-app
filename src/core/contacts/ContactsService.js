@@ -1,22 +1,33 @@
-import getDoc from '../util/DocManagement'
+import { getDocAndRefs, isEmptyOrNonExistentDoc } from '../util/DocManagement'
+
+const COLLECTION_NAME = 'users'
+
+async function getUserDocAndRefs(uid) {
+    return await getDocAndRefs(COLLECTION_NAME, uid)
+}
 
 export default class ContactsService {
     static getContacts = async userId => {
-        const { doc } = await getDoc(userId)
+        const { doc } = await getUserDocAndRefs(userId)
+
+        if (isEmptyOrNonExistentDoc(doc)) {
+            return null
+        }
+
         return doc.data().contacts
     }
 
     static setContacts = async (contacts, userId) => {
-        const { doc, ref } = await getDoc(userId)
-        await ref.update({ contacts: contacts })
+        const { docRef } = await getUserDocAndRefs(userId)
+        await docRef.update({ contacts })
     }
 
     static addContact = async (contact, userId) => {
-        const { doc, ref } = await getDoc(userId)
+        const { doc, docRef } = await getUserDocAndRefs(userId)
 
-        if (doc.data().contacts == null) {
+        if (isEmptyOrNonExistentDoc(doc) || doc.data().contacts == null) {
             console.log('No contacts exist yet--setting')
-            await ref.update({ contacts: [contact] })
+            await docRef.update({ contacts: [contact] })
             return [contact]
         }
 
@@ -32,16 +43,16 @@ export default class ContactsService {
 
         contacts.push(contact)
 
-        await ref.update({ contacts: contacts })
+        await docRef.update({ contacts })
 
         return contacts
     }
 
     static updateContact = async (contact, userId) => {
-        const { doc, ref } = await getDoc(userId)
-    
-        if (doc.data().contacts == null) {
-            await ref.update({ contacts: [contact] })
+        const { doc, docRef } = await getUserDocAndRefs(userId)
+
+        if (isEmptyOrNonExistentDoc(doc) || doc.data().contacts == null) {
+            await docRef.update({ contacts: [contact] })
             return [contact]
         }
 
@@ -52,7 +63,7 @@ export default class ContactsService {
             }
         }
 
-        await ref.update({ contacts: contacts })
+        await docRef.update({ contacts: contacts })
 
         return contacts
     }

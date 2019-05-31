@@ -21,6 +21,15 @@ export async function getDocAndRefs(collectionName, docName) {
     return { collectionRef, docRef, doc }
 }
 
+/**
+ * Given a doc snapshot, returns whether it has data
+ */
+export function isEmptyOrNonExistentDoc(docSnapshot) {
+    return !(docSnapshot != null
+        && docSnapshot.exists
+        && docSnapshot.data() != null
+        && Object.keys(docSnapshot.data()).length > 0)
+}
 
 // TODO - this should be  refactored below here
 import { getSteps } from '../share/ShareInteractor'

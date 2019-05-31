@@ -1,137 +1,93 @@
 import React from 'react'
 
-import { StatsStatus } from '../../redux/Stats'
-
-import { View, Dimensions, ScrollView } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 
 import {
     Header,
     Title,
     Footer,
     FooterTab,
-    Icon,
     Button,
     Left,
     Right,
     Body,
-    Text,
-    Card,
-    CardItem,
-    List,
-    Container,
-    StyleProvider,
-    Content
+    Text
 } from 'native-base'
-import getTheme from '../../../../native-base-theme/components'
+
+import Icon from 'react-native-vector-icons/Ionicons'
 
 import HeaderlessRootContainer from '../../components/HeaderlessRootContainer'
 
-import { LoadingIndicator } from '../../components/Foundation'
+import OptionsMenu from "react-native-options-menu";
 
+import { PlatformIcons } from '../../style/Icons'
 import Colors from '../../style/Colors';
-import renderChart from './ChartRenderer';
-import ListItem from '../../../../native-base-theme/components/ListItem';
 
-const CONTAINER_PADDING = 10
-const CARD_PADDING = 10
+import StatsPage from './stats/StatsPage';
+import SharePage from './contacts/SharePage';
+
+export const TABS = {
+    STATS: {
+        index: 0,
+        label: 'Stats',
+        iconName: PlatformIcons.name('stats')
+    },
+    SHARE: {
+        index: 1,
+        label: 'Share',
+        iconName: PlatformIcons.name('heart')
+    }
+}
 
 export default function renderContent({
     ministry,
-    stats
+    stats,
+    contacts,
+    component
 }) {
-    const content = statsContent(stats)
+    const activeTab = component.state.activeTabIndex
+    const content = renderTab(activeTab, stats, contacts)
 
-    // return (
-    //     <StyleProvider style={getTheme()}>
-    //         <Container>
-    //             {header(ministry.name)}
-    //             <Content style={{padding: 10}}>
-    //                 {content}
-    //             </Content>
-    //             {footer()}
-    //         </Container>
-    //     </StyleProvider>
-    // )
     return (
-
         <HeaderlessRootContainer
             headerContent={header(ministry.data.name)}
-            footerContent={footer()}
-            style={{ padding: 10, alignItems: null }}>
+            footerContent={footer(activeTab, component, renderAdditionalFooterContent(activeTab))}
+            style={{ alignItems: null }}>
             {content}
         </HeaderlessRootContainer>
     )
 }
 
-function statsContent(stats) {
-    const statsStatus = stats.status
-    const statsData = stats.data
-
-    console.log('Got data')
-    console.log(statsData)
-
-    switch (statsStatus) {
-        case StatsStatus.GETTING:
-            return loading()
-        case StatsStatus.READY:
-            return renderCharts(statsData)
-        case StatsStatus.NONE:
-            return loading()
-        case StatsStatus.ERROR:
-            return loading()
+function renderTab(activeTabIndex) {
+    switch (activeTabIndex) {
+        case TABS.STATS.index:
+            return <StatsPage />
+        case TABS.SHARE.index:
+            return <SharePage />
+        default:
+            throw new Error('Unknown tab: ' + activeTabIndex)
     }
 }
 
-function loading() {
-    return (
-        <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-            <LoadingIndicator />
-        </View>
-    )
-}
 
-const chartWidth = Dimensions.get('window').width - CONTAINER_PADDING - CARD_PADDING
+/**
+ * Will appear on top of tab bar
+ */
+function renderAdditionalFooterContent(activeTabIndex) {
+    if (activeTabIndex == TABS.SHARE.index) {
+        return (
+            <Button
+                full
+                primary
+                iconRight
+                style={{height: 55}}>
+                    <Text style={{color: 'white'}}>Share now</Text>
+                    <Icon name={PlatformIcons.name('arrow-forward')} size={20} color='white' />
+            </Button>
+        )
+    }
 
-function renderCharts(statsArray) {
-    let chartCards =
-        statsArray
-            .map(stat => {
-                return {
-                    label: stat.label,
-                    chart: renderChart(stat.type, stat.data, chartWidth)
-                }
-            })
-            .map(({ label, chart }) => renderChartCard(label, chart))
-    // .map(chartCard => (<ListItem>{chartCard}</ListItem>))
-    console.log(chartCards)
-
-    return (
-
-        chartCards
-
-    )
-}
-
-function renderChartCard(label, chart) {
-    // return (
-    //     <View style={{ flex: 1 }}>
-    //         {chart}
-    //     </View>
-    // )
-    return (
-
-        <Card style={{ flex: 1 }} key={Math.random()}>
-            <CardItem header bordered>
-                <Text style={{ color: 'white' }}>{label}</Text>
-            </CardItem>
-            <CardItem>
-                <Body>
-                    {chart}
-                </Body>
-            </CardItem>
-        </Card>
-
-    )
+    return null
 }
 
 function header(ministryName) {
@@ -145,33 +101,69 @@ function header(ministryName) {
             <Body style={{ flex: 3 }}>
                 <Title>{ministryName}</Title>
             </Body>
-            <Right />
+            <Right>
+                {renderOptionsIcon(['Learn more', 'About'], [() => { }, () => { }])}
+            </Right>
         </Header>
     )
 }
 
-function footer() {
+function renderOptionsIcon(options, optionActions) {
     return (
-        <Footer>
-            <FooterTab>
-                <Button vertical active>
-                    <Icon name="stats" />
-                    <Text>Stats</Text>
-                </Button>
-                <Button vertical>
-                    <Icon name="heart" />
-                    <Text>Share</Text>
-                </Button>
-            </FooterTab>
-        </Footer>
+        <OptionsMenu
+            customButton={<Icon name={PlatformIcons.name('more')} size={25} color='white' style={{ marginRight: 20 }} />}
+            options={options}
+            actions={optionActions} />
     )
-    // return (
-    //     <Footer style={{ backgroundColor: Colors.primary }}>
-    //         <FooterTab>
-    //             <Button full primary>
-    //                 <Text style={{ color: 'white', fontSize: 16 }}>Share now</Text>
-    //             </Button>
-    //         </FooterTab>
-    //     </Footer>
-    // )
+}
+
+function footer(activeTabIndex, component, additionalFooterContent) {
+    return (
+        <View style={{ width: '100%', }}>
+            {additionalFooterContent}
+            <Footer>
+                <View style={{ height: 10 }} />
+                <FooterTab>
+                    {footerTabButtons(activeTabIndex, component)}
+                </FooterTab>
+            </Footer>
+        </View>
+    )
+}
+
+function footerTabButtons(activeTabIndex, component) {
+    return Object.keys(TABS)
+        .map(key => TABS[key])
+        .map((tab, index) => ({
+            ...tab,
+            key: tab.label + index,
+            isActive: (activeTabIndex == index),
+            onPress: () => { component.setState({ activeTabIndex: index }) }
+        }))
+        .map(tab => footerTabButton(tab))
+}
+
+function footerTabButton({
+    key,
+    label,
+    iconName,
+    isActive,
+    onPress
+}) {
+    let textAndIconColor = 'white'
+    if (isActive) {
+        textAndIconColor = Colors.primary
+    }
+
+    return (
+        <Button
+            key={key}
+            vertical
+            active={isActive}
+            onPress={onPress}
+        >
+            <Icon name={iconName} color={textAndIconColor} size={25} />
+            <Text style={{ color: textAndIconColor }}>{label}</Text>
+        </Button>
+    )
 }

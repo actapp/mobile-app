@@ -3,10 +3,9 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { authReducer } from './Auth'
 import { accountReducer } from './Account'
 import { ministryReducer } from './Ministry'
-import { statsReducer } from './Stats';
+import { statsReducer } from './Stats'
+import { contactsReducer } from './Contacts2'
 
-import LogInRedux from './LogIn'
-import ContactsRedux from './Contacts'
 import ShareRedux from './Share'
 import ErrorRedux from './Errors'
 
@@ -19,12 +18,10 @@ export default class GlobalRedux {
         account: accountReducer,
         ministry: ministryReducer,
         stats: statsReducer,
+        contacts: contactsReducer,
         share: ShareRedux.reducer,
-        errors: ErrorRedux.reducer,
 
-        // Old
-        logIn: LogInRedux.reducer,
-        contacts: ContactsRedux.reducer
+        errors: ErrorRedux.reducer
     })
 
     static store = createStore(

@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 
 import DashboardConnect from './DashboardConnect'
-import renderContent from './DashboardRenderer'
+import renderContent, { TABS } from './DashboardRenderer'
 
 class DashboardScreen extends Component {
     static KEY = 'DashboardScreen'
+
+    state = {
+        activeTabIndex: TABS.STATS.index
+    }
 
     static navigationOptions = ({ navigation }) => ({
         header: null
@@ -12,14 +16,20 @@ class DashboardScreen extends Component {
 
     componentDidMount() {
         const { account } = this.props
-        this.props.fetchStats(account.id, account.ministryId, account.role)
+        this.props.fetchStats(account.data.id, account.data.ministryId, account.data.role)
+        this.props.fetchContacts(account.data.id)
+    }
+
+    componentDidUpdate() {
+        console.log(this.props)
     }
 
     render() {
         return renderContent({
-            account: this.props.account,
             ministry: this.props.ministry,
-            stats: this.props.stats
+            stats: this.props.stats,
+            contacts: this.props.contacts,
+            component: this
         })
     }
 }

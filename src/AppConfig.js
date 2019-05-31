@@ -27,9 +27,82 @@ export default AppConfig = {
                     users: {
                         '123': {
                             account: {
+                                id: '123',
                                 role: 'SHARER',
                                 ministryId: 'AA000'
-                            }
+                            },
+                            contacts: [
+                                {
+                                    name: 'Joe',
+                                    phone: '5134033455',
+                                    currentStepIndex: 0,
+                                    currentStepDesc: 'Spiritual beliefs',
+                                    id: '456'
+                                },
+                                {
+                                    name: 'Joe',
+                                    phone: '5134033455',
+                                    currentStepIndex: 0,
+                                    currentStepDesc: 'Spiritual beliefs',
+                                    id: '456'
+                                },
+                                {
+                                    name: 'Joe',
+                                    phone: '5134033455',
+                                    currentStepIndex: 0,
+                                    currentStepDesc: 'Spiritual beliefs',
+                                    id: '456'
+                                },
+                                {
+                                    name: 'Joe',
+                                    phone: '5134033455',
+                                    currentStepIndex: 0,
+                                    currentStepDesc: 'Spiritual beliefs',
+                                    id: '456'
+                                },
+                                {
+                                    name: 'Joe',
+                                    phone: '5134033455',
+                                    currentStepIndex: 0,
+                                    currentStepDesc: 'Spiritual beliefs',
+                                    id: '456'
+                                },
+                                {
+                                    name: 'Joe',
+                                    phone: '5134033455',
+                                    currentStepIndex: 0,
+                                    currentStepDesc: 'Spiritual beliefs',
+                                    id: '456'
+                                },
+                                {
+                                    name: 'Joe',
+                                    phone: '5134033455',
+                                    currentStepIndex: 0,
+                                    currentStepDesc: 'Spiritual beliefs',
+                                    id: '456'
+                                },
+                                {
+                                    name: 'Joe',
+                                    phone: '5134033455',
+                                    currentStepIndex: 0,
+                                    currentStepDesc: 'Spiritual beliefs',
+                                    id: '456'
+                                },
+                                {
+                                    name: 'Joe',
+                                    phone: '5134033455',
+                                    currentStepIndex: 0,
+                                    currentStepDesc: 'Spiritual beliefs',
+                                    id: '456'
+                                },
+                                {
+                                    name: 'Joe',
+                                    phone: '5134033455',
+                                    currentStepIndex: 0,
+                                    currentStepDesc: 'Spiritual beliefs',
+                                    id: '456'
+                                },
+                            ]
                         }
                     },
 
@@ -54,20 +127,23 @@ export default AppConfig = {
             sharer: {
                 charts: [
                     {
-                        label: 'Totals',
+                        label: 'Lifetime',
                         type: 'COUNTS',
                         data: [
                             {
                                 label: 'Saved',
-                                data: 100
+                                data: 100,
+                                color: '#48a999'
                             },
                             {
                                 label: 'Unsaved',
-                                data: 50
+                                data: 50,
+                                color: '#ffb04c'
                             },
                             {
                                 label: 'Undecided',
-                                data: 30
+                                data: 30,
+                                color: '#fff263'
                             }
                         ]
                     },
@@ -77,15 +153,18 @@ export default AppConfig = {
                         data: [
                             {
                                 label: 'Saved',
-                                data: 10
+                                data: 12,
+                                color: '#48a999'
                             },
                             {
                                 label: 'Unsaved',
-                                data: 5
+                                data: 3,
+                                color: '#ffb04c'
                             },
                             {
                                 label: 'Undecided',
-                                data: 2
+                                data: 9,
+                                color: '#fff263'
                             }
                         ]
                     },
@@ -94,17 +173,67 @@ export default AppConfig = {
                         type: 'STACKED',
                         data: [
                             {
-                                label: 'Saved',
-                                data: 50
+                                label: 'Q1',
+                                data: [
+                                    {
+                                        label: 'Saved',
+                                        data: 50,
+                                        color: 'white'
+                                    },
+                                    {
+                                        label: 'Unsaved',
+                                        data: 10,
+                                        color: 'red'
+                                    },
+                                    {
+                                        label: 'Undecided',
+                                        data: 15,
+                                        color: 'yellow'
+                                    }
+                                ]
                             },
+
                             {
-                                label: 'Unsaved',
-                                data: 10
+                                label: 'Q2',
+                                data: [
+                                    {
+                                        label: 'Saved',
+                                        data: 60,
+                                        color: 'white'
+                                    },
+                                    {
+                                        label: 'Unsaved',
+                                        data: 7,
+                                        color: 'red'
+                                    },
+                                    {
+                                        label: 'Undecided',
+                                        data: 25,
+                                        color: 'yellow'
+                                    }
+                                ]
                             },
+
                             {
-                                label: 'Undecided',
-                                data: 15
-                            }
+                                label: 'Q3',
+                                data: [
+                                    {
+                                        label: 'Saved',
+                                        data: 30,
+                                        color: 'white'
+                                    },
+                                    {
+                                        label: 'Unsaved',
+                                        data: 1,
+                                        color: 'red'
+                                    },
+                                    {
+                                        label: 'Undecided',
+                                        data: 25,
+                                        color: 'yellow'
+                                    }
+                                ]
+                            },
                         ]
                     }
                 ]
@@ -113,7 +242,7 @@ export default AppConfig = {
     },
 
     // Mock delay for loading (i.e. when using mock firestore)
-    MOCK_DELAY: 1000,
+    MOCK_DELAY: 0,
 
     // App
     FORCE_FRESH_START: false,

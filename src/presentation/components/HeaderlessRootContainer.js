@@ -18,7 +18,6 @@ export default class HeaderlessRootContainer extends Component {
                 <Container>
                     {headerContent}
                     <Content
-                        
                         contentContainerStyle={{ alignItems: 'center', ...containerStyle }}
                     >
                         {this.props.children}

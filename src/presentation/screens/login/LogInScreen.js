@@ -13,13 +13,12 @@ import { AccountStatus } from '../../redux/Account';
 
 import { Roles } from '../../../core/account/AccountInteractor';
 
-import { StackActions, NavigationActions } from 'react-navigation'
+
 import AssociateToMinistryScreen from '../welcome/sharer/AssociateToMinistryScreen';
 import CreateMinistryScreen from '../welcome/leader/CreateMinistryScreen';
-import HomeScreen from '../home/HomeScreen';
-import AdminHomeScreen from '../home/AdminHomeScreen';
 import { MinistryStatus } from '../../redux/Ministry';
 import DashboardScreen from '../home/DashboardScreen';
+import { buildResetToRouteAction } from '../../../AppNavigator';
 
 class LogInScreen extends Component {
     static KEY = 'LogInScreen'
@@ -134,11 +133,8 @@ class LogInScreen extends Component {
     resetTo(screenKey) {
         console.log('Resetting to ' + screenKey)
 
-        const resetAction = StackActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({ routeName: screenKey })],
-        });
-
+        const resetAction = buildResetToRouteAction(screenKey)
+        
         this.props.navigation.dispatch(resetAction);
     }
 

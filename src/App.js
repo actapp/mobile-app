@@ -5,8 +5,8 @@ import { StatusBar, View } from 'react-native'
 import { connect } from 'react-redux'
 import { AuthStatus } from './presentation/redux/Auth'
 
-import { createAppContainer } from 'react-navigation'
-import createAppNavigator from './AppNavigator'
+import { createAppContainer, StackActions } from 'react-navigation'
+import createAppNavigator, { buildResetToRouteAction } from './AppNavigator'
 
 import codePush from 'react-native-code-push'
 
@@ -22,8 +22,8 @@ import handleError, { GENERIC_ERROR, AUTH_ERROR, GET_ACCOUNT_ERROR, GET_MINISTRY
 import { alertError } from './presentation/alerts/Alerts'
 import { AccountStatus } from './presentation/redux/Account';
 
-import { resetToDashboardAction } from './presentation/screens/welcome/RoleBasedRouter'
 import { MinistryStatus } from './presentation/redux/Ministry';
+import DashboardScreen from './presentation/screens/home/DashboardScreen';
 
 class App extends Component {
     static ERROR_SOURCE = 'App'
@@ -141,7 +141,7 @@ class App extends Component {
                 // Do nothing
                 break
             case MinistryStatus.READY:
-                this.props.navigation.dispatch(resetToDashboardAction(account.data.role))
+                this.props.navigation.dispatch(buildResetToRouteAction(DashboardScreen.KEY))
                 break
             case MinistryStatus.ERROR:
                 this.handleError(GET_MINISTRY_ERROR, ministry.error)

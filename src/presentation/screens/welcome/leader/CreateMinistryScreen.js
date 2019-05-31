@@ -9,8 +9,10 @@ import { alertError } from '../../../alerts/Alerts'
 
 import { CREATE_MINISTRY_ERROR, ASSOCIATE_ACCOUNT_ERROR } from '../../../../utils/GlobalErrorHandler';
 import { AccountStatus } from '../../../redux/Account';
-import { resetToDashboardAction } from '../RoleBasedRouter'
 import { MinistryStatus } from '../../../redux/Ministry';
+
+import { buildResetToRouteAction } from '../../../../AppNavigator'
+import DashboardScreen from '../../home/DashboardScreen';
 
 /**
  * 1.) Take ministry name
@@ -49,7 +51,7 @@ class CreateMinistryScreen extends Component {
     }
 
     onDonePressed = () => {
-        this.props.navigation.dispatch(resetToDashboardAction(this.props.accountData.role))
+        this.props.navigation.dispatch(buildResetToRouteAction(DashboardScreen.KEY))
     }
 
     handleState = () => {

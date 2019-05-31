@@ -10,8 +10,10 @@ import handleUnknownState from '../../utils/UnknownStateErrorHandler'
 
 import { ASSOCIATE_ACCOUNT_ERROR } from '../../../../utils/GlobalErrorHandler';
 import { AccountStatus } from '../../../redux/Account';
-import { resetToDashboardAction } from '../RoleBasedRouter'
+
+import { buildResetToRouteAction } from '../../../../AppNavigator'
 import { MinistryStatus } from '../../../redux/Ministry';
+import DashboardScreen from '../../home/DashboardScreen';
 
 class AssociateToMinistryScreen extends Component {
     static KEY = 'ATMScreen'
@@ -59,7 +61,7 @@ class AssociateToMinistryScreen extends Component {
                 this.props.fetchMinistry(this.props.accountData.ministryId)
                 break
             case MinistryStatus.READY:
-                this.props.navigation.dispatch(resetToDashboardAction(this.props.accountData.role))
+                this.props.navigation.dispatch(buildResetToRouteAction(DashboardScreen.KEY))
                 break
             case MinistryStatus.GETTING:
                 // Do nothing

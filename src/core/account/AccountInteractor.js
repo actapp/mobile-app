@@ -44,6 +44,8 @@ function createNewAccountModel(uid, role) {
         id: uid,
         role: role,
         ministryId: null,
-        data: {}
+        data: {
+            contacts: []
+        }
     }
 }
