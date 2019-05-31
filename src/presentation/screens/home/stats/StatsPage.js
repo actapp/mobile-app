@@ -5,11 +5,14 @@ import StatsPageConnect from './StatsPageConnect'
 import { withNavigation } from 'react-navigation';
 
 import renderStatsContent from './StatsPageRenderer';
+import { StatsStatus } from '../../../redux/Stats';
 
 class StatsPage extends Component {
     componentDidMount = () => {
-        // Fetch stats
-        this.props.fetch(this.props.accountData)
+        if (this.props.stats.status == StatsStatus.NOT_READY) {
+            // Fetch stats
+            this.props.fetch(this.props.accountData)
+        }
     }
 
     render = () => renderStatsContent(this.props.stats)

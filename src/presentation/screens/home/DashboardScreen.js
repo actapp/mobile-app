@@ -14,21 +14,9 @@ class DashboardScreen extends Component {
         header: null
     })
 
-    componentDidMount() {
-        const { account } = this.props
-        this.props.fetchStats(account.data.id, account.data.ministryId, account.data.role)
-        this.props.fetchContacts(account.data.id)
-    }
-
-    componentDidUpdate() {
-        console.log(this.props)
-    }
-
     render() {
         return renderContent({
             ministry: this.props.ministry,
-            stats: this.props.stats,
-            contacts: this.props.contacts,
             component: this
         })
     }

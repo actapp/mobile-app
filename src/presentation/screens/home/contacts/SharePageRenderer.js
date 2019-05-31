@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ContactsStatus } from '../../../redux/Contacts2'
+import { ContactsStatus } from '../../../redux/Contacts'
 
 import { View, FlatList, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { LoadingIndicator } from '../../../components/Foundation'
@@ -18,6 +18,7 @@ export default function renderShareContent({
     const contactsStatus = contacts.status
 
     switch (contactsStatus) {
+        case ContactsStatus.NOT_READY:
         case ContactsStatus.GETTING:
             return loading()
         case ContactsStatus.READY:

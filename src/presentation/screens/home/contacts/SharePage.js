@@ -5,11 +5,13 @@ import SharePageConnect from './SharePageConnect'
 import { withNavigation } from 'react-navigation'
 
 import renderShareContent from './SharePageRenderer'
+import { ContactsStatus } from '../../../redux/Contacts';
 
 class SharePage extends Component {
     componentDidMount = () => {
-        console.log('Comp mounted')
-        console.log(this.props.contacts)
+        if (this.props.contacts.status == ContactsStatus.NOT_READY) {
+            this.props.fetch(this.props.account.data.id)
+        }
     }
 
     render = () => renderShareContent({

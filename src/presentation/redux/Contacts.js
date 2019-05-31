@@ -1,147 +1,108 @@
+import { actionCreator } from './util/Util'
+
 import { getContacts, addContact, updateContact } from '../../core/contacts/ContactsInteractor'
 
-export default class ContactsRedux {
-    static reducer = (state = {
-        contactsState: ContactsStates.NOT_READY,
-        contacts: null
-    }, action) => {
-        if (!ContactsRedux.isContactsAction(action)) {
-            return state
-        }
-
-        switch (action.type) {
-            case ActionTypes.LOADING_CONTACTS:
-                return { ...state, contactsState: ContactsStates.LOADING }
-            case ActionTypes.CONTACTS_UPDATED:
-                return { ...state, contactsState: ContactsStates.READY, contacts: action.payload }
-            default:
-                if (ActionTypes.isError(action.type)) {
-                    return { ...state, contactsState: ContactsStates.ERROR, error: action.payload }
-                } else {
-                    return state
-                }
-        }
+function contactsReducer(state = {
+    status: ContactsStatus.NOT_READY,
+    data: null,
+    error: null
+}, action) {
+    if (!isContactsAction(action)) {
+        return state
     }
 
-    static isContactsAction = (action) => {
-        return action.type.startsWith(ActionTypes.CONTACTS_PREFIX)
+    const newState = { ...state, status: action.type, error: null }
+
+    switch(action.type) {
+        case ContactsStatus.NONE:
+        case ContactsStatus.READY:
+        case ContactsStatus.ADDED:
+        case ContactsStatus.UPDATED:
+            newState['data'] = action.payload
+            break
+        case ContactsStatus.ERROR:
+            newState['error'] = action.payload
+            break
     }
+
+    return newState
 }
 
-export class ContactsActions {
-    static refreshContacts = (userId) => {
-        return function (dispatch) {
-            dispatch(ContactsActions.gettingContacts())
+function isContactsAction(action) {
+    if (action && action.type) {
+        return action.type.startsWith('contacts/')
+    }
 
-            const getContactsTimeout = setTimeout(() => {
-                dispatch(ContactsActions.getContactsError(new Error('Timeout')))
-            }, 10000)
+    return false
+}
 
-            getContacts(userId)
+class ContactsStatus {
+    static NOT_READY = 'contacts/not_ready'
+    static GETTING = 'contacts/getting'
+    static READY = 'contacts/ready'
+    static NONE = 'contacts/none'
+
+    static ADDING = 'contacts/adding'
+    static ADDED = 'contacts/added'
+
+    static UPDATING = 'contacts/updating'
+    static UPDATED = 'contacts/updated'
+
+    static ERROR = 'contacts/error'
+}
+
+class ContactsActions {
+    static fetch = (uid) => {
+        return (dispatch, getState) => {
+            console.log('Getting for ' + uid)
+
+            dispatch(InternalActions.getting())
+
+            getContacts(uid)
                 .then(contacts => {
-                    clearTimeout(getContactsTimeout)
-                    dispatch(ContactsActions.contactsUpdated(contacts))
+                    if (contacts && contacts.length && contacts.length > 0) {
+                        dispatch(InternalActions.ready(contacts))
+                    } else {
+                        dispatch(InternalActions.none())
+                    }
                 })
-                .catch(error => {
-                    clearTimeout(getContactsTimeout)
-                    dispatch(ContactsActions.getContactsError(error))
-                })
+                .catch(error => dispatch(InternalActions.error(error)))
         }
     }
 
-    static gettingContacts = () => ({
-        type: ActionTypes.LOADING_CONTACTS
-    })
+    static addContact = (uid, name, phone) => {
+        return (dispatch, getState) => {
+            dispatch(InternalActions.getting())
 
-    static addContact = (name, phone, userId) => {
-        return async function (dispatch, getState) {
-            return addContact(name, phone, userId)
-                .then(updatedContacts => {
-                    dispatch(ContactsActions.contactsUpdated(updatedContacts))
-
-                    return updatedContacts.find(element => {
-                        return element.phone == phone
-                    })
-                })
-                .catch(error => {
-                    throw error
-                })
+            addContact(uid, name, phone)
+                .then(newContacts => dispatch(InternalActions.added(newContacts)))
+                .catch(error => InternalActions.error(error))
         }
     }
 
-    static addingContact = () => ({
-        type: ActionTypes.LOADING_CONTACTS
-    })
-
-    static updateContact = (contact, uid) => {
-        return async function (dispatch) {
-            return updateContact(contact, uid)
-                .then((updatedContacts) => {
-                    dispatch(ContactsActions.contactsUpdated(updatedContacts))
-                })
-                .catch(error => {
-                    throw error
-                })
-        }
-    }
-
-    static updatingContact = () => ({
-        type: ActionTypes.LOADING_CONTACTS
-    })
-
-    static contactsUpdated = (contacts) => {
-        return {
-            type: ActionTypes.CONTACTS_UPDATED,
-            payload: contacts
-        }
-    }
-
-    static getContactsError = error => ({
-        type: ActionTypes.GET_CONTACTS_ERROR,
-        payload: error
-    })
-
-    static addContactsError = error => ({
-        type: ActionTypes.ADD_CONTACT_ERROR,
-        payload: error
-    })
-
-    static updateContactError = error => ({
-        type: ActionTypes.UPDATE_CONTACT_ERROR,
-        payload: error
-    })
-}
-
-export class ContactsStates {
-    static LOADING = 'loading'
-    static NOT_READY = 'not_ready'
-    static READY = 'ready'
-    static ERROR = 'error'
-}
-
-class ActionTypes {
-    static CONTACTS_PREFIX = 'contacts/'
-
-    static LOADING_CONTACTS = ActionTypes.create('loading')
-    static CONTACT_ADDED = ActionTypes.create('contact_added')
-    static CONTACTS_UPDATED = ActionTypes.create('contacts_updated')
-
-    static GET_CONTACTS_ERROR = ActionTypes.create('get_contacts_error')
-    static UPDATE_CONTACT_ERROR = ActionTypes.create('update_contacts_error')
-    static ADD_CONTACT_ERROR = ActionTypes.create('add_contact_error')
-
-    static create(baseType) {
-        return ActionTypes.CONTACTS_PREFIX + baseType
-    }
-
-    static isError = (type) => {
-        switch (type) {
-            case ActionTypes.UPDATE_CONTACT_ERROR:
-            case ActionTypes.GET_CONTACTS_ERROR:
-            case ActionTypes.ADD_CONTACT_ERROR:
-                return true
-            default:
-                return false
+    static updateContact = (uid, contact) => {
+        return (dispatch, getState) => {
+            dispatch(InternalActions.updating)
+            
+            updateContact(uid, contact)
+                .then(newContacts => InternalActions.updated(newContacts))
+                .catch(error => InternalActions.error(error))
         }
     }
 }
+
+class InternalActions {
+    static getting = () => actionCreator(ContactsStatus.GETTING)
+    static ready = contacts => actionCreator(ContactsStatus.READY, contacts)
+    static none = () => actionCreator(ContactsStatus.NONE, [])
+
+    static adding = () => actionCreator(ContactsStatus.ADDING)
+    static added = newContacts => actionCreator(ContactsStatus.ADDED, newContacts)
+    
+    static updating = () => actionCreator(ContactsStatus.UPDATING)
+    static updated = newContacts => actionCreator(ContactsStatus.UPDATED, newContacts)
+
+    static error = error => actionCreator(ContactsStatus.ERROR, error)
+}
+
+export { contactsReducer, ContactsStatus, ContactsActions }

@@ -50,17 +50,15 @@ export const TABS = {
 
 export default function renderContent({
     ministry,
-    stats,
-    contacts,
     component
 }) {
     const activeTab = component.state.activeTabIndex
-    const content = renderTab(activeTab, stats, contacts)
+    const content = renderTab(activeTab)
 
     return (
         <HeaderlessRootContainer
             headerContent={header(ministry.data.name)}
-            footerContent={footer(activeTab, component, renderAdditionalFooterContent(activeTab))}
+            footerContent={footer(activeTab, component, renderAdditionalFooterContent(activeTab, ministry.data.id))}
             style={{ alignItems: null }}>
             {content}
         </HeaderlessRootContainer>
@@ -75,11 +73,11 @@ function renderTab(activeTabIndex) {
 /**
  * Will appear on top of tab bar
  */
-function renderAdditionalFooterContent(activeTabIndex) {
+function renderAdditionalFooterContent(activeTabIndex, ministryId) {
     if (activeTabIndex == TABS.SHARE.index) {
         return topFooterButton('Share now', () => { }, <Icon name={PlatformIcons.name('arrow-forward')} size={20} color='white' />)
     } else if (activeTabIndex == TABS.INVITE.index) {
-        return topFooterButton('Send code', () => { })
+        return topFooterButton('Send code', () => { InvitePage.ON_FOOTER_BUTTON_PRESSED(ministryId) })
     }
 
     return null

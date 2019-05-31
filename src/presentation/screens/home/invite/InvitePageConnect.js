@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { ContactsActions } from '../../../redux/Contacts2';
+import { ContactsActions } from '../../../redux/Contacts';
 
 const mapStateToProps = state => ({
     ministry: state.ministry

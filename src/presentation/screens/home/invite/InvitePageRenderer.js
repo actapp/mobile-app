@@ -4,8 +4,7 @@ import { View, Text } from 'react-native'
 
 export default function renderContent({
     ministryId,
-    ministryName,
-    onInviteClicked
+    ministryName
 }) {
     const inviteMessage = 'Invite others to join ' + ministryName + ' on MySharePal.'
 

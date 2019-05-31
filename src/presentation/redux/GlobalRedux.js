@@ -1,10 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { authReducer } from './Auth'
 import { accountReducer } from './Account'
 import { ministryReducer } from './Ministry'
 import { statsReducer } from './Stats'
-import { contactsReducer } from './Contacts2'
+import { contactsReducer } from './Contacts'
 
 import ShareRedux from './Share'
 import ErrorRedux from './Errors'
@@ -26,10 +27,13 @@ export default class GlobalRedux {
 
     static store = createStore(
         GlobalRedux.reducer,
-        applyMiddleware(
-            thunk,
-            logger,
-            ErrorRedux.breadcrumbMiddleware
+        
+        composeWithDevTools(
+            applyMiddleware(
+                thunk,
+                logger,
+                ErrorRedux.breadcrumbMiddleware
+            )
         )
     )
 }
