@@ -25,17 +25,26 @@ import Colors from '../../style/Colors';
 
 import StatsPage from './stats/StatsPage';
 import SharePage from './contacts/SharePage';
+import InvitePage from './invite/InvitePage';
 
 export const TABS = {
     STATS: {
         index: 0,
         label: 'Stats',
-        iconName: PlatformIcons.name('stats')
+        iconName: PlatformIcons.name('stats'),
+        component: <StatsPage />
     },
     SHARE: {
         index: 1,
         label: 'Share',
-        iconName: PlatformIcons.name('heart')
+        iconName: PlatformIcons.name('chatbubbles'),
+        component: <SharePage />
+    },
+    INVITE: {
+        index: 2,
+        label: 'Invite',
+        iconName: PlatformIcons.name('people'),
+        component: <InvitePage />
     }
 }
 
@@ -59,14 +68,7 @@ export default function renderContent({
 }
 
 function renderTab(activeTabIndex) {
-    switch (activeTabIndex) {
-        case TABS.STATS.index:
-            return <StatsPage />
-        case TABS.SHARE.index:
-            return <SharePage />
-        default:
-            throw new Error('Unknown tab: ' + activeTabIndex)
-    }
+    return Object.keys(TABS).map(key => TABS[key])[activeTabIndex].component
 }
 
 
@@ -75,19 +77,26 @@ function renderTab(activeTabIndex) {
  */
 function renderAdditionalFooterContent(activeTabIndex) {
     if (activeTabIndex == TABS.SHARE.index) {
-        return (
-            <Button
-                full
-                primary
-                iconRight
-                style={{height: 55}}>
-                    <Text style={{color: 'white'}}>Share now</Text>
-                    <Icon name={PlatformIcons.name('arrow-forward')} size={20} color='white' />
-            </Button>
-        )
+        return topFooterButton('Share now', () => { }, <Icon name={PlatformIcons.name('arrow-forward')} size={20} color='white' />)
+    } else if (activeTabIndex == TABS.INVITE.index) {
+        return topFooterButton('Send code', () => { })
     }
 
     return null
+}
+
+function topFooterButton(label, onPress, iconComponent) {
+    return (
+        <Button
+            full
+            primary
+            iconRight
+            style={{ height: 55 }}
+            onPress={onPress}>
+            <Text style={{ color: 'white' }}>{label}</Text>
+            {iconComponent}
+        </Button>
+    )
 }
 
 function header(ministryName) {
@@ -119,7 +128,7 @@ function renderOptionsIcon(options, optionActions) {
 
 function footer(activeTabIndex, component, additionalFooterContent) {
     return (
-        <View style={{ width: '100%', }}>
+        <View style={{ width: '100%' }}>
             {additionalFooterContent}
             <Footer>
                 <View style={{ height: 10 }} />
