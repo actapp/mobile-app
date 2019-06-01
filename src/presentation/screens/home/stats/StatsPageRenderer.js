@@ -51,7 +51,7 @@ function renderCharts(statsArray) {
             .map(stat => {
                 return {
                     label: stat.label,
-                    chart: renderChart(stat.type, stat.data, chartWidth)
+                    chart: renderChart(stat.data, chartWidth)
                 }
             })
             .map(({ label, chart }) => renderChartCard(label, chart))

@@ -127,113 +127,48 @@ export default AppConfig = {
             sharer: {
                 charts: [
                     {
-                        label: 'Lifetime',
-                        type: 'COUNTS',
+                        label: 'MySharePal Community',
                         data: [
                             {
-                                label: 'Saved',
-                                data: 100,
-                                color: '#48a999'
+                                label: 'Spiritual convos',
+                                data: 423,
+                                color: '#7a7cff'
                             },
                             {
-                                label: 'Unsaved',
+                                label: 'Accepted Christ',
+                                data: 315,
+                                color: '#0026ca'
+                            }
+                        ]
+                    },
+                    {
+                        label: 'My Cool Ministry',
+                        data: [
+                            {
+                                label: 'Spiritual convos',
+                                data: 115,
+                                color: '#7a7cff'
+                            },
+                            {
+                                label: 'Saved',
                                 data: 50,
-                                color: '#ffb04c'
-                            },
-                            {
-                                label: 'Undecided',
-                                data: 30,
-                                color: '#fff263'
+                                color: '#0026ca'
                             }
                         ]
                     },
                     {
-                        label: 'This month',
-                        type: 'PIE',
+                        label: 'Me',
                         data: [
+                            {
+                                label: 'Spiritual convos',
+                                data: 33,
+                                color: '#7a7cff'
+                            },
                             {
                                 label: 'Saved',
-                                data: 12,
-                                color: '#48a999'
-                            },
-                            {
-                                label: 'Unsaved',
-                                data: 3,
-                                color: '#ffb04c'
-                            },
-                            {
-                                label: 'Undecided',
-                                data: 9,
-                                color: '#fff263'
+                                data: 10,
+                                color: '#0026ca'
                             }
-                        ]
-                    },
-                    {
-                        label: 'This year',
-                        type: 'STACKED',
-                        data: [
-                            {
-                                label: 'Q1',
-                                data: [
-                                    {
-                                        label: 'Saved',
-                                        data: 50,
-                                        color: 'white'
-                                    },
-                                    {
-                                        label: 'Unsaved',
-                                        data: 10,
-                                        color: 'red'
-                                    },
-                                    {
-                                        label: 'Undecided',
-                                        data: 15,
-                                        color: 'yellow'
-                                    }
-                                ]
-                            },
-
-                            {
-                                label: 'Q2',
-                                data: [
-                                    {
-                                        label: 'Saved',
-                                        data: 60,
-                                        color: 'white'
-                                    },
-                                    {
-                                        label: 'Unsaved',
-                                        data: 7,
-                                        color: 'red'
-                                    },
-                                    {
-                                        label: 'Undecided',
-                                        data: 25,
-                                        color: 'yellow'
-                                    }
-                                ]
-                            },
-
-                            {
-                                label: 'Q3',
-                                data: [
-                                    {
-                                        label: 'Saved',
-                                        data: 30,
-                                        color: 'white'
-                                    },
-                                    {
-                                        label: 'Unsaved',
-                                        data: 1,
-                                        color: 'red'
-                                    },
-                                    {
-                                        label: 'Undecided',
-                                        data: 25,
-                                        color: 'yellow'
-                                    }
-                                ]
-                            },
                         ]
                     }
                 ]

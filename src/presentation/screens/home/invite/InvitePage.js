@@ -12,7 +12,7 @@ class InvitePage extends Component {
     static INVITE_MESSAGE = ''
 
     static ON_FOOTER_BUTTON_PRESSED = (ministryId) => {
-        sendMessageWithBody(null, ministryId)
+        sendMessageWithBody('', ministryId)
     }
 
     render = () => renderContent({
