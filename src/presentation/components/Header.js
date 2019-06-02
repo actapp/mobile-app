@@ -32,31 +32,30 @@ export default class Header extends Component {
 
         return (
             <NBHeader>
-                {this.renderLeftContent(goBackFunction, exitInsteadOfBack)}
+                <Left>
+                    {this.renderLeftContent(goBackFunction, exitInsteadOfBack)}
+                </Left>
                 <Body style={{ flex: 5 }}>
                     <Title>{title}</Title>
                 </Body>
-                {this.renderRightContent(options, customRightContent)}
+                <Right>
+                    {this.renderRightContent(options, customRightContent)}
+                </Right>
             </NBHeader>
         )
     }
 
     renderLeftContent = (goBackFunction, exitInsteadOfBack) => {
-        let upButton = null
         if (goBackFunction) {
-            upButton = this.renderUpButton(goBackFunction, exitInsteadOfBack)
+            return this.renderUpButton(goBackFunction, exitInsteadOfBack)
         }
 
-        return (
-            <Left>
-                {upButton}
-            </Left>
-        )
+        return null
     }
 
     renderRightContent = (options, customRightContent) => {
         if (customRightContent) {
-            return <Right>{customRightContent}</Right>
+            return customRightContent
         }
 
         if (!options || !options.length || options.length < 1) {
@@ -67,18 +66,16 @@ export default class Header extends Component {
         const optionsActions = options.map(option => option.action)
 
         return (
-            <Right>
-                <OptionsMenu
-                    customButton={<Icon name={PlatformIcons.name('more')} size={25} color='white' style={{ marginRight: 20 }} />}
-                    options={optionsLabels}
-                    actions={optionsActions} />
-            </Right>
+            <OptionsMenu
+                customButton={<Icon name={PlatformIcons.name('more')} size={25} color='white' style={{ marginRight: 20 }} />}
+                options={optionsLabels}
+                actions={optionsActions} />
         )
     }
 
     renderUpButton = (onPress, exitInsteadOfBack) => {
         let iconName
-        if(exitInsteadOfBack) {
+        if (exitInsteadOfBack) {
             iconName = PlatformIcons.name('close')
         } else {
             iconName = PlatformIcons.name('arrow-back')
@@ -93,8 +90,8 @@ export default class Header extends Component {
                 <Icon
                     name={iconName}
                     color='white'
-                    size={25}
-                    style={{ paddingRight: 10 }}
+                    size={35}
+                    style={{ marginLeft: 10, paddingRight: 10 }}
                 />
             </Button>
         )

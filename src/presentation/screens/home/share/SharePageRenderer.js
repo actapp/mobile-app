@@ -12,8 +12,7 @@ import Styles from '../../../style/Styles'
 export default function renderShareContent({
     contacts,
     onContactClicked,
-    onContactMessageClicked,
-    onShareNowClicked
+    onContactMessageClicked
 }) {
     const contactsStatus = contacts.status
 
@@ -31,16 +30,7 @@ export default function renderShareContent({
             return renderContactsList({
                 contacts: contacts.data,
                 onContactClicked,
-                onContactMessageClicked,
-                onShareNowClicked
-            })
-
-            // TODO
-            return renderContactsList({
-                contacts: contacts.data,
-                onContactClicked,
-                onContactMessageClicked,
-                onShareNowClicked
+                onContactMessageClicked
             })
         case ContactsStatus.ERROR:
         case ContactsStatus.ADD_ERROR:
@@ -60,8 +50,7 @@ function loading() {
 function renderContactsList({
     contacts,
     onContactClicked,
-    onContactMessageClicked,
-    onShareNowClicked
+    onContactMessageClicked
 }) {
     return (
         <View style={{ flex: 1 }}>

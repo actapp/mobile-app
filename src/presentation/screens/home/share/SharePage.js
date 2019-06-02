@@ -7,6 +7,7 @@ import { withNavigation } from 'react-navigation'
 import renderShareContent from './SharePageRenderer'
 import { ContactsStatus } from '../../../redux/Contacts';
 import StartShareScreen from '../../share2/StartShareScreen';
+import ShareScreen from '../../share2/ShareScreen';
 
 class SharePage extends Component {
     static ON_FOOTER_BUTTON_PRESSED = (navigation) => {
@@ -22,20 +23,15 @@ class SharePage extends Component {
     render = () => renderShareContent({
         contacts: this.props.contacts,
         onContactClicked: this.onContactClicked,
-        onContactMessageClicked: this.onContactMessageClicked,
-        onShareNowClicked: this.onShareNowClicked
+        onContactMessageClicked: this.onContactMessageClicked
     })
 
     onContactClicked = (contact) => {
-
+        this.props.navigation.navigate(ShareScreen.KEY)
     }
 
     onContactMessageClicked = (contact) => {
-
-    }
-
-    onShareNowClicked = () => {
-
+        // TODO
     }
 }
 

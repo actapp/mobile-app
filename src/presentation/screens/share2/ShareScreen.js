@@ -3,6 +3,8 @@ import ShareConnect from './ShareConnect';
 import renderContent from './ShareRenderer';
 import { ShareStatus } from '../../redux/Share2';
 
+import { alert } from '../../alerts/Alerts'
+
 class ShareScreen extends Component {
     static KEY = 'ShareScreen'
 
@@ -32,7 +34,7 @@ class ShareScreen extends Component {
     })
 
     onTipPressed = (tipContent) => {
-        // TODO
+        alert('Tip', tipContent)
     }
 
     onBackPressed = () => {

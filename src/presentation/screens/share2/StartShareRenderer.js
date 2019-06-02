@@ -4,7 +4,8 @@ import { ContactsStatus } from '../../redux/Contacts'
 
 import ThemedContainer from '../../components/ThemedContainer'
 
-import { Header, Content, Form, Item, Input, Label, Text, Button, Icon, Left, Right, Body, Title } from 'native-base'
+import { Content, Form, Item, Input, Label, Text, Button, Icon, Left, Right, Body, Title } from 'native-base'
+import Header from '../../components/Header'
 import { LoadingIndicator } from '../../components/Foundation'
 import HeaderUpCaret from '../../components/HeaderUpCaret';
 
@@ -33,26 +34,15 @@ export default function renderContent({
 
     return (
         <ThemedContainer>
-            {header(onBackPressed)}
+            <Header
+                title='Who are you sharing with?'
+                goBackFunction={onBackPressed}
+                exitInsteadOfBack={true}
+                />
             <Content contentContainerStyle={{ flex: 1, flexGrow: 1, padding: 10 }}>
                 {content}
             </Content>
         </ThemedContainer>
-    )
-}
-
-function header(onBackPressed) {
-    // Flex 5 allows for long title in header
-    return (
-        <Header>
-            <Left>
-                <HeaderUpCaret onPress={onBackPressed} />
-            </Left>
-            <Body style={{ flex: 5 }}>
-                <Title>Who are you sharing with?</Title>
-            </Body>
-            <Right />
-        </Header>
     )
 }
 

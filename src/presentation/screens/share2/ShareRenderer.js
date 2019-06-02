@@ -2,7 +2,7 @@ import React from 'react'
 
 import { ShareStatus } from '../../redux/Share2';
 
-import { Content, Button, Footer, FooterTab, Text } from 'native-base'
+import { Content, Button, Footer, Text } from 'native-base'
 import ThemedContainer from '../../components/ThemedContainer'
 import Header from '../../components/Header'
 import { LoadingIndicator } from '../../components/Foundation'
@@ -22,7 +22,7 @@ export default function renderContent({
     let tipButton = null
     let footer = null
     if (shareStatus == ShareStatus.PROGRESS_UPDATED) {
-        content = renderShareContent(progress.step)
+        content = lineItemsToTexts(progress.step)
         title = progress.step.title
         tipButton = rightHeaderTipButton(progress.step, onTipPressed)
         footer = footerNavigation({
@@ -41,9 +41,11 @@ export default function renderContent({
                 goBackFunction={onExitShare}
                 exitInsteadOfBack={true}
                 customRightContent={tipButton} />
-            <Content>
+
+            <Content contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', flexGrow: 1, padding: 20 }}>
                 {content}
             </Content>
+
             {footer}
         </ThemedContainer>
     )
@@ -74,12 +76,30 @@ function loading() {
     return <LoadingIndicator />
 }
 
-function renderShareContent(step) {
-    return (
-        <Content contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}>
+function lineItemsToTexts(step) {
+    const { lineItems } = step
+    const texts = []
 
-        </Content>
-    )
+    let alignment = step.alignment
+    if (alignment == null) {
+        alignment = 'left'
+    }
+
+    for (let i = 0; i < lineItems.length; i++) {
+        const itemKey = step.key + "_" + i
+        let marginBottom = 25
+        if (i == lineItems.length - 1) {
+            marginBottom = 0
+        }
+
+        texts.push(
+            <Text key={itemKey} style={{ color: 'white', fontSize: 22, fontWeight: '300', textAlign: alignment, marginBottom: marginBottom }}>
+                {lineItems[i]}
+            </Text>
+        )
+    }
+
+    return texts
 }
 
 function footerNavigation({
@@ -88,7 +108,7 @@ function footerNavigation({
     onForwardPressed
 }) {
     return (
-        <Footer style={{ justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20 , paddingTop: 2, paddingBottom: 10}}>
+        <Footer style={{ justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20, paddingTop: 2, paddingBottom: 10 }}>
 
             {backButton(progress.canGoBack, onBackPressed)}
             {forwardButton(progress.canGoForward, onForwardPressed)}
