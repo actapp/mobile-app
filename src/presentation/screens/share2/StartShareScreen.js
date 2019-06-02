@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import StartShareConnect from './StartShareConnect'
 
-import renderContent from './StartShareRenderer2'
+import renderContent from './StartShareRenderer'
 
 import { alertError } from '../../alerts/Alerts'
 

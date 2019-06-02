@@ -1,92 +1,131 @@
 import React from 'react'
 
-import { ContactsStatus } from "../../redux/Contacts";
+import { ContactsStatus } from '../../redux/Contacts'
 
-import { View, Text, TextInput, StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native'
+import ThemedContainer from '../../components/ThemedContainer'
 
-import { LoadingIndicator, WizardButton } from '../../components/Foundation'
-import { PlatformIcons } from '../../style/Icons'
+import { Header, Content, Form, Item, Input, Label, Text, Button, Icon, Left, Right, Body, Title } from 'native-base'
+import { LoadingIndicator } from '../../components/Foundation'
+import HeaderUpCaret from '../../components/HeaderUpCaret';
 
-import Colors from '../../style/Colors'
-import Styles from '../../style/Styles'
-
-const NAME_REF = 'name'
-const NUMBER_REF = 'number'
-
-const formState = {
+const inputState = {
     name: null,
     phone: null
 }
 
-export default function renderContent(
-    focusToRef,
+const inputRefs = {
+    name: null,
+    phone: null
+}
+
+export default function renderContent({
     contactsStatus,
-    onContactAdded
-) {
+    onContactAdded,
+    onBackPressed
+}) {
+
+    let content = null
     if (contactsStatus == ContactsStatus.ADDING) {
-        return renderAddingContact()
+        content = addingContact()
+    } else {
+        content = addContactForm(onContactAdded)
     }
 
-    return renderAddContact(focusToRef, onContactAdded)
-}
-
-function renderAddingContact() {
-    return wrapIntoRootView(
-        <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-            <LoadingIndicator />
-        </View>
-    )
-}
-
-function renderAddContact(focusToRef, onContactAdded) {
-    return wrapIntoRootView(
-        <View style={{ width: '100%' }}>
-            {textField('Name', 'default', 'next', 10, NAME_REF, (text) => { formState.name = text }, (event) => { focusToRef(NUMBER_REF) })}
-            {textField('Phone number', 'numeric', 'go', 30, NUMBER_REF, (text) => { formState.phone = text }, (event) => { onContactAdded(formState.name, formState.phone) })}
-
-            <WizardButton onPress={() => { onContactAdded(formState.name, formState.phone) }} label='Start' style={{ width: '100%' }} iconOnRight={true} iconName={PlatformIcons.name('arrow-forward')} />
-        </View>
-    )
-}
-
-function textField(label, keyboardType, returnKeyType, marginBottom, ref, onChangeText, onSubmitEditing, maxLength) {
     return (
-        <View>
-            <Text style={styles.labelText}>{label}</Text>
-            <TextInput
-                ref={ref}
-                returnKeyType={returnKeyType == null ? 'done' : returnKeyType}
-                keyboardType={keyboardType == null ? 'default' : keyboardType}
-                style={{ ...Styles.textInput, width: '100%', marginBottom: marginBottom }}
-                placeholderTextColor={Colors.placeholderText} placeholder={label}
-                onSubmitEditing={onSubmitEditing}
-                onChangeText={onChangeText}
-                maxLength={maxLength} />
-        </View>
-    )
-}
-
-function wrapIntoRootView(content) {
-    return (
-        <ScrollView style={{ backgroundColor: Colors.rootBackgroundColor }}>
-            <KeyboardAvoidingView style={styles.keyboardAvoidingView}>
+        <ThemedContainer>
+            {header(onBackPressed)}
+            <Content contentContainerStyle={{ flex: 1, flexGrow: 1, padding: 10 }}>
                 {content}
-            </KeyboardAvoidingView>
-        </ScrollView>
+            </Content>
+        </ThemedContainer>
     )
 }
 
-const styles = StyleSheet.create({
-    keyboardAvoidingView: {
-        ...Styles.rootContainer,
-        paddingLeft: 25,
-        paddingRight: 20,
-        paddingTop: 20
-    },
-    labelText: {
-        color: 'white',
-        fontSize: 14,
-        fontWeight: 'bold',
-        marginBottom: 2
-    }
-})
+function header(onBackPressed) {
+    // Flex 5 allows for long title in header
+    return (
+        <Header>
+            <Left>
+                <HeaderUpCaret onPress={onBackPressed} />
+            </Left>
+            <Body style={{ flex: 5 }}>
+                <Title>Who are you sharing with?</Title>
+            </Body>
+            <Right />
+        </Header>
+    )
+}
+
+function addingContact() {
+    return <LoadingIndicator />
+}
+
+function addContactForm(onContactAdded) {
+    return (
+        <Form style={{ width: '100%' }}>
+            {nameInput()}
+            {phoneInput(onContactAdded)}
+            {submitButton(onContactAdded)}
+        </Form>
+    )
+}
+
+function nameInput() {
+    return (
+        <Item
+            floatingLabel
+            bordered
+
+            // NativeBase has some weird padding thing that shows up on left
+            style={{ marginLeft: 0, paddingLeft: 0, marginBottom: 10 }}>
+            <Label>Name</Label>
+            <Input
+                ref={ref => inputRefs.name = ref}
+                maxLength={30}
+                keyboardType={"default"}
+                returnKeyType='done'
+                returnKeyLabel='Next'
+                onChangeText={contactName => { inputState.name = contactName }}
+                onSubmitEditing={(event) => { inputRefs.phone.focus() }}
+            />
+        </Item>
+    )
+}
+
+function phoneInput(onContactAdded) {
+    return (
+        <Item
+            floatingLabel
+            bordered
+
+            // NativeBase has some weird padding thing that shows up on left
+            style={{ marginLeft: 0, paddingLeft: 0, marginBottom: 20 }}>
+            <Label>Phone number</Label>
+            <Input
+                ref={ref => inputRefs.phone = ref}
+                maxLength={10}
+                keyboardType={'number-pad'}
+                returnKeyType='done'
+                returnKeyLabel='Done'
+                onChangeText={contactPhone => { inputState.phone = contactPhone }}
+                onSubmitEditing={(event) => { onContactAdded(inputState.name, inputState.phone) }}
+            />
+        </Item>
+    )
+}
+
+function submitButton(onContactAdded) {
+    return (
+        <Button
+            full
+            transparent
+            bordered
+            light
+            iconRight
+            onPress={() => onContactAdded(inputState.name, inputState.phone)}
+        >
+            <Text style={{ color: 'white' }}>Start</Text>
+            <Icon name='arrow-forward' color='white' />
+        </Button>
+    )
+}

@@ -40,16 +40,20 @@ function reduceSessionAction(newState, action) {
     let progress
     switch (action.type) {
         case InternalActions.START:
+            newState['status'] = ShareStatus.PROGRESS_UPDATED
             progress = buildNewProgress(steps, 0)
             break
         case InternalActions.GO_FORWARD:
+            newState['status'] = ShareStatus.PROGRESS_UPDATED
             progress = buildNewProgress(steps, newState.progress.index + 1)
             break
         case InternalActions.GO_BACK:
+            newState['status'] = ShareStatus.PROGRESS_UPDATED
             progress = buildNewProgress(steps, newState.progress.index - 1)
             break
         case InternalActions.RESET:
-            progress = null
+            newState['status'] = ShareStatus.READY
+            progress = buildNewProgress(steps, 0)
     }
 
     newState['progress'] = progress
@@ -67,6 +71,8 @@ function buildNewProgress(steps, index) {
 }
 
 function reduceStatusAction(newState, action) {
+    newState['status'] = action.type
+
     switch (action.type) {
         case ShareStatus.READY:
             newState['steps'] = action.payload
@@ -97,8 +103,8 @@ class ShareActions {
         dispatch(InternalActions.getting())
 
         getSteps()
-            .then(steps => InternalActions.ready(steps))
-            .catch(error => InternalActions.error(error))
+            .then(steps => dispatch(InternalActions.ready(steps)))
+            .catch(error => dispatch(InternalActions.error(error)))
     }
 
     static start = () => actionCreator(InternalActions.START)

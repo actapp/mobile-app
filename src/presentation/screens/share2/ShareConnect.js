@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     fetch: () => dispatch(ShareActions.fetch()),
+    start: () => dispatch(ShareActions.start()),
     goForward: () => dispatch(ShareActions.goForward()),
     goBack: () => dispatch(ShareActions.goBack()),
     reset: () => dispatch(ShareActions.resetProgress())
