@@ -22,6 +22,11 @@ export default function renderShareContent({
         case ContactsStatus.GETTING:
             return loading()
         case ContactsStatus.READY:
+        case ContactsStatus.ADDED:
+        case ContactsStatus.ADDING:
+        case ContactsStatus.NONE:
+        case ContactsStatus.UPDATED:
+        case ContactsStatus.UPDATING:
             // TODO
             return renderContactsList({
                 contacts: contacts.data,
@@ -29,7 +34,7 @@ export default function renderShareContent({
                 onContactMessageClicked,
                 onShareNowClicked
             })
-        case ContactsStatus.NONE:
+
             // TODO
             return renderContactsList({
                 contacts: contacts.data,
@@ -38,6 +43,7 @@ export default function renderShareContent({
                 onShareNowClicked
             })
         case ContactsStatus.ERROR:
+        case ContactsStatus.ADD_ERROR:
             // TODO
             return loading()
     }

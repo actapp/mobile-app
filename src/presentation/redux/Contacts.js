@@ -13,7 +13,7 @@ function contactsReducer(state = {
 
     const newState = { ...state, status: action.type, error: null }
 
-    switch(action.type) {
+    switch (action.type) {
         case ContactsStatus.NONE:
         case ContactsStatus.READY:
         case ContactsStatus.ADDED:
@@ -21,6 +21,7 @@ function contactsReducer(state = {
             newState['data'] = action.payload
             break
         case ContactsStatus.ERROR:
+        case ContactsStatus.ADD_ERROR:
             newState['error'] = action.payload
             break
     }
@@ -49,6 +50,8 @@ class ContactsStatus {
     static UPDATED = 'contacts/updated'
 
     static ERROR = 'contacts/error'
+
+    static ADD_ERROR = 'contacts/error/add'
 }
 
 class ContactsActions {
@@ -72,18 +75,23 @@ class ContactsActions {
 
     static addContact = (uid, name, phone) => {
         return (dispatch, getState) => {
-            dispatch(InternalActions.getting())
+            dispatch(InternalActions.adding())
 
             addContact(uid, name, phone)
-                .then(newContacts => dispatch(InternalActions.added(newContacts)))
-                .catch(error => InternalActions.error(error))
+                .then(newContacts => {
+                    dispatch(InternalActions.added(newContacts))
+
+                    // Only keep "added" status once--go back to ready once consumed
+                    dispatch(InternalActions.ready(newContacts))
+                })
+                .catch(error => dispatch(InternalActions.addError(error)))
         }
     }
-
+    
     static updateContact = (uid, contact) => {
         return (dispatch, getState) => {
-            dispatch(InternalActions.updating)
-            
+            dispatch(InternalActions.updating())
+
             updateContact(uid, contact)
                 .then(newContacts => InternalActions.updated(newContacts))
                 .catch(error => InternalActions.error(error))
@@ -98,11 +106,12 @@ class InternalActions {
 
     static adding = () => actionCreator(ContactsStatus.ADDING)
     static added = newContacts => actionCreator(ContactsStatus.ADDED, newContacts)
-    
+
     static updating = () => actionCreator(ContactsStatus.UPDATING)
     static updated = newContacts => actionCreator(ContactsStatus.UPDATED, newContacts)
 
     static error = error => actionCreator(ContactsStatus.ERROR, error)
+    static addError = error => actionCreator(ContactsStatus.ADD_ERROR, error)
 }
 
 export { contactsReducer, ContactsStatus, ContactsActions }

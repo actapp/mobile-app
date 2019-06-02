@@ -6,8 +6,13 @@ import { withNavigation } from 'react-navigation'
 
 import renderShareContent from './SharePageRenderer'
 import { ContactsStatus } from '../../../redux/Contacts';
+import StartShareScreen from '../../share2/StartShareScreen';
 
 class SharePage extends Component {
+    static ON_FOOTER_BUTTON_PRESSED = (navigation) => {
+        navigation.navigate(StartShareScreen.KEY)
+    }
+
     componentDidMount = () => {
         if (this.props.contacts.status == ContactsStatus.NOT_READY) {
             this.props.fetch(this.props.account.data.id)

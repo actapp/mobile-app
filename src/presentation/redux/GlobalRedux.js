@@ -6,8 +6,8 @@ import { accountReducer } from './Account'
 import { ministryReducer } from './Ministry'
 import { statsReducer } from './Stats'
 import { contactsReducer } from './Contacts'
+import { shareReducer } from './Share2'
 
-import ShareRedux from './Share'
 import ErrorRedux from './Errors'
 
 import thunk from 'redux-thunk'
@@ -20,7 +20,7 @@ export default class GlobalRedux {
         ministry: ministryReducer,
         stats: statsReducer,
         contacts: contactsReducer,
-        share: ShareRedux.reducer,
+        share: shareReducer,
 
         errors: ErrorRedux.reducer
     })

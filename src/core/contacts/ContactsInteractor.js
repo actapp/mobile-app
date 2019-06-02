@@ -15,9 +15,14 @@ export async function getContacts(userId) {
 }
 
 export async function addContact(uid, name, phone) {
+    console.log('Adding contact')
     validateNameAndNumber(name, phone)
+    console.log('Number validated')
 
     const steps = await StepsService.getSteps()
+
+    console.log(steps)
+
     const newContact = createNewContact(name, phone, 0, steps[0].desc)
     return await ContactsService.addContact(newContact, uid)
 }

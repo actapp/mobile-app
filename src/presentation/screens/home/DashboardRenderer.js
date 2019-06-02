@@ -24,7 +24,7 @@ import { PlatformIcons } from '../../style/Icons'
 import Colors from '../../style/Colors';
 
 import StatsPage from './stats/StatsPage';
-import SharePage from './contacts/SharePage';
+import SharePage from './share/SharePage';
 import InvitePage from './invite/InvitePage';
 
 export const TABS = {
@@ -58,7 +58,7 @@ export default function renderContent({
     return (
         <HeaderlessRootContainer
             headerContent={header(ministry.data.name)}
-            footerContent={footer(activeTab, component, renderAdditionalFooterContent(activeTab, ministry.data.id))}
+            footerContent={footer(activeTab, component, renderAdditionalFooterContent(activeTab, component.props.navigation, ministry.data.id))}
             style={{ alignItems: null }}>
             {content}
         </HeaderlessRootContainer>
@@ -73,9 +73,9 @@ function renderTab(activeTabIndex) {
 /**
  * Will appear on top of tab bar
  */
-function renderAdditionalFooterContent(activeTabIndex, ministryId) {
+function renderAdditionalFooterContent(activeTabIndex, navigation, ministryId) {
     if (activeTabIndex == TABS.SHARE.index) {
-        return topFooterButton('Share now', () => { }, <Icon name={PlatformIcons.name('arrow-forward')} size={20} color='white' />)
+        return topFooterButton('Share now', () => { SharePage.ON_FOOTER_BUTTON_PRESSED(navigation) }, <Icon name={PlatformIcons.name('arrow-forward')} size={20} color='white' />)
     } else if (activeTabIndex == TABS.INVITE.index) {
         return topFooterButton('Send code', () => { InvitePage.ON_FOOTER_BUTTON_PRESSED(ministryId) })
     }

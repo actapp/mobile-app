@@ -23,8 +23,10 @@ export default class ContactsService {
     }
 
     static addContact = async (contact, userId) => {
-        const { doc, docRef } = await getUserDocAndRefs(userId)
-
+        console.log('adding contact')
+        const userDoc = await getUserDocAndRefs(userId)
+        const { doc, docRef } = userDoc
+        console.log(userDoc)
         if (isEmptyOrNonExistentDoc(doc) || doc.data().contacts == null) {
             console.log('No contacts exist yet--setting')
             await docRef.update({ contacts: [contact] })
@@ -43,7 +45,12 @@ export default class ContactsService {
 
         contacts.push(contact)
 
+        console.log()
         await docRef.update({ contacts })
+
+        console.log('Updated contacts')
+        console.log(docRef)
+        console.log(contacts)
 
         return contacts
     }
