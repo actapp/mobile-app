@@ -12,16 +12,16 @@ class ShareScreen extends Component {
         if (this.props.status == ShareStatus.NOT_READY) {
             this.props.fetch()
         } else if (this.props.status == ShareStatus.READY) {
-            this.props.start(this.props.navigation.getParam('contact', null))
+            this.startSession()
         }
     }
 
     componentDidUpdate = () => {
         if (this.props.status == ShareStatus.READY) {
-            this.props.start(this.props.navigation.getParam('contact', null))
+            this.startSession()
         }
 
-        if(this.props.status == ShareStatus.PROGRESS_UPDATED) {
+        if (this.props.status == ShareStatus.PROGRESS_UPDATED) {
             this.props.updateContact(this.props.user.uid, {
                 ...this.getContact(),
                 currentStepIndex: this.props.progress.index,
@@ -42,6 +42,15 @@ class ShareScreen extends Component {
         onForwardPressed: this.onForwardPressed,
         onExitShare: this.onExitShare
     })
+
+    startSession = () => {
+        this.props.start(this.props.navigation.getParam('contact', null))
+        const isFirstConvo = this.props.navigation.getParam('isFirstConvo', false)
+
+        if(isFirstConvo) {
+            this.props.incrementConvos(this.props.user.uid, this.props.account.data.ministryId)
+        }
+    }
 
     onTipPressed = (tipContent) => {
         alert('Tip', tipContent)
@@ -70,6 +79,11 @@ class ShareScreen extends Component {
         confirm('Complete', `Did ${contact.name} accept Christ?`, () => {
             // Yes
             goHome()
+
+            /**
+             * YAY!!!!
+             */
+            this.props.incrementConversions(this.props.user.uid, this.props.account.data.ministryId)
         }, () => {
             // No
             goHome()

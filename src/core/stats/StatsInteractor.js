@@ -9,27 +9,20 @@ import StatsService from './StatsService'
  * If no ministry ID, there will be no ministry stats
  */
 export async function getStats(uid, mid) {
-    let userStats = await StatsService.getStatsForUser(uid)
-    if(userStats == null) {
-        userStats = createDomainSpecificStats()
-        await StatsService.updateStatsForUser(uid, userStats)
-    }
-    
-    let ministryStats = null
-    if(mid != null) {
-        ministryStats = await StatsService.getStatsForMinistry(mid)
-        if(ministryStats == null) {
-            ministryStats = createDomainSpecificStats()
-            await StatsService.updateStatsForMinistry(mid, stats)
-        }
+    const userStats = await StatsService.getOrCreateAllStatsForUser(uid)
+
+
+    let minStats = null
+    if (mid) {
+        minStats = await StatsService.getOrCreateAllStatsForMinistry(mid)
     }
 
     // Global stats should NOT be null
-    const globalStats = await StatsService.getStatsForGlobal()
+    const globalStats = await StatsService.getAllStatsForGlobal()
 
     return {
         user: userStats,
-        ministry: ministryStats,
+        ministry: minStats,
         global: globalStats
     }
 }
@@ -42,18 +35,44 @@ export async function getStats(uid, mid) {
  * 
  * If ministry ID is null, ministry will be ignored
  */
-export async function incrementConversations(uid, mid) {
-    const stats = await getStats(uid, mid)
+export async function incrementConvos(uid, mid) {
+    const newUserStats = await StatsService.incrementConvosForUser(uid)
 
-    const newUserStats = {
-        convos: stats.user.convos + 1,
-        // conversions: stats.
+    let newMinStats = null
+    if (mid) {
+        newMinStats = await StatsService.incrementConvosForMinistry(mid)
+    }
+
+    const newGlobalStats = await StatsService.incrementConvosForGlobal()
+
+    return {
+        user: newUserStats,
+        ministry: newMinStats,
+        global: newGlobalStats
     }
 }
 
-function createDomainSpecificStats() {
+/**
+ * Increment total # of conversions for:
+ * - this user
+ * - this user's ministry
+ * - the global community
+ * 
+ * If ministry ID is null, ministry will be ignored
+ */
+export async function incrementConversions(uid, mid) {
+    const newUserStats = await StatsService.incrementConversionsForUser(uid)
+
+    let newMinStats = null
+    if (mid) {
+        newMinStats = await StatsService.incrementConversionsForMinistry(mid)
+    }
+
+    const newGlobalStats = await StatsService.incrementConversionsForGlobal()
+
     return {
-        convos: 0,
-        conversions: 0
+        user: newUserStats,
+        ministry: newMinStats,
+        global: newGlobalStats
     }
 }

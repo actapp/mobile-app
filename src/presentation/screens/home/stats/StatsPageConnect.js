@@ -2,12 +2,13 @@ import { connect } from 'react-redux'
 import { StatsActions } from '../../../redux/Stats';
 
 const mapStateToProps = state => ({
-    accountData: state.account.data,
+    account: state.account,
+    ministry: state.ministry,
     stats: state.stats
 })
 
 const mapDispatchToProps = dispatch => ({
-    fetch: accountData => dispatch(StatsActions.fetch(accountData.id, accountData.ministryId, accountData.role))
+    fetch: (uid, mid) => dispatch(StatsActions.fetch(uid, mid))
 })
 
 export default {

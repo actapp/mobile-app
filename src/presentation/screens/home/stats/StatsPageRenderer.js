@@ -16,7 +16,7 @@ import renderChart from './ChartRenderer';
 // TODO - find a better way to handle this
 const chartWidth = Dimensions.get('window').width - 20
 
-export default function renderStatsContent(stats) {
+export default function renderStatsContent(stats, ministryName) {
     const statsStatus = stats.status
     const statsData = stats.data
 
@@ -27,7 +27,7 @@ export default function renderStatsContent(stats) {
         case StatsStatus.GETTING:
             return loading()
         case StatsStatus.READY:
-            return renderCharts(statsData)
+            return renderCharts(statsData, ministryName)
         case StatsStatus.NONE:
             // TODO
             return loading()
@@ -45,18 +45,53 @@ function loading() {
     )
 }
 
-function renderCharts(statsArray) {
-    let chartCards =
-        statsArray
-            .map(stat => {
-                return {
-                    label: stat.label,
-                    chart: renderChart(stat.data, chartWidth)
-                }
-            })
-            .map(({ label, chart }) => renderChartCard(label, chart))
+function renderCharts(statsData, ministryName) {
+    const statsDataForCharts = [
+        createChartDataObject('MySharePal Community', statsData.global)
+    ]
 
-    return chartCards
+    if (statsData.ministry) {
+        statsDataForCharts.push(createChartDataObject(ministryName, statsData.ministry))
+    }
+
+    statsDataForCharts.push(createChartDataObject('Me', statsData.user))
+
+    return statsDataForCharts
+        .map(statDataForChart => {
+            return renderChartCard(
+                statDataForChart.label,
+                renderChart(statDataForChart.data, chartWidth)
+            )
+        })
+}
+
+function createChartDataObject(label, statData) {
+    return {
+        label,
+        data: createChartData(statData)
+    }
+}
+
+function createChartData(statData) {
+    const baseStyling = {
+        legendFontColor: 'white',
+        legendFontSize: 10
+    }
+
+    return [
+        {
+            name: 'Spiritual convos',
+            data: statData.convos,
+            color: '#7a7cff',
+            ...baseStyling
+        },
+        {
+            name: 'Accepted Christ',
+            data: statData.conversions,
+            color: '#0026ca',
+            ...baseStyling
+        }
+    ]
 }
 
 function renderChartCard(label, chart) {
