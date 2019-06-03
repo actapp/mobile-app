@@ -98,14 +98,21 @@ class MockDocRef {
 
     update = async data => {
         await mockDelay()
+        console.log('Updating')
+        console.log(data)
         this.dataObj = { ...this.dataObj, ...data }
+        console.log(this.dataObj)
     }
 
-    getSync = () => ({
-        exists: this.dataObj != null,
-        data: () => this.dataObj,
-        dataObj: this.dataObj
-    })
+    getSync = () => {
+        console.log('get')
+        console.log(this.dataObj)
+        return {
+            exists: this.dataObj != null,
+            data: () => this.dataObj,
+            dataObj: this.dataObj
+        }
+    }
 
     setSync = data => {
         this.dataObj = data

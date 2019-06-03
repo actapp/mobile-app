@@ -43,9 +43,6 @@ function createNewAccountModel(uid, role) {
     return {
         id: uid,
         role: role,
-        ministryId: null,
-        data: {
-            contacts: []
-        }
+        ministryId: null
     }
 }

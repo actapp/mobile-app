@@ -118,6 +118,10 @@ class App extends Component {
             case AccountStatus.READY:
                 this.handleAccountReady()
                 break
+            case AccountStatus.NO_ACCOUNT:
+                // User has logged in before, but for some reason no account was created
+                this.replaceScreen(GetStartedScreen.KEY)
+                break
             case AccountStatus.GETTING:
                 // Do nothing while account is being fetched
                 break
@@ -154,7 +158,7 @@ class App extends Component {
 
     handleUnknownState = (state) => {
         this.replaceScreen(GetStartedScreen.KEY)
-        handleError(UNKNOWN_STATE_ERROR, new Error('Unknown state: ' + state), ERROR_SOURCE)
+        handleError(UNKNOWN_STATE_ERROR, new Error('Unknown state: ' + state), App.ERROR_SOURCE)
     }
 }
 

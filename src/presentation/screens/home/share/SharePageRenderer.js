@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 
 import { PlatformIcons } from '../../../style/Icons'
 import Styles from '../../../style/Styles'
+import { Content } from 'native-base';
 
 export default function renderShareContent({
     contacts,
@@ -26,7 +27,6 @@ export default function renderShareContent({
         case ContactsStatus.NONE:
         case ContactsStatus.UPDATED:
         case ContactsStatus.UPDATING:
-            // TODO
             return renderContactsList({
                 contacts: contacts.data,
                 onContactClicked,
@@ -41,9 +41,9 @@ export default function renderShareContent({
 
 function loading() {
     return (
-        <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+        <Content contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }}>
             <LoadingIndicator />
-        </View>
+        </Content>
     )
 }
 

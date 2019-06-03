@@ -1,86 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import { connect } from 'react-redux';
+import StartShareConnect from './StartShareConnect'
 
-import { ContactsActions } from '../../redux/Contacts'
-import { ShareActions } from '../../redux/Share'
-
-import { renderAddingContact, renderAddContact } from './StartShareComponents'
-import { renderUpButton } from '../utils/HeaderComponents'
+import renderContent from './StartShareRenderer'
 
 import { alertError } from '../../alerts/Alerts'
-import handleError, { ADD_CONTACT_ERROR } from '../../../utils/GlobalErrorHandler'
+
+import { ContactsStatus } from '../../redux/Contacts';
 
 import ShareScreen from './ShareScreen'
 
-import { trackShareStarted } from '../../../core/analytics/AnalyticsInteractor'
-
 class StartShareScreen extends Component {
-  static KEY = 'StartShareScreen'
+    static KEY = 'StartShareScreen'
 
-  static navigationOptions = ({ navigation }) => {
-    const goBack = () => navigation.goBack()
+    componentDidUpdate = () => {
+        if (this.props.contacts.status == ContactsStatus.ADD_ERROR) {
+            alertError(this.props.contacts.error.message)
+            return
+        }
 
-    return {
-      title: 'Who are you sharing with?',
-      headerLeft: renderUpButton(goBack)
+        if (this.props.contacts.status == ContactsStatus.ADDED) {
+            // Contact was added, start session
+            // Added contact assumed to be the last in the list
+            const addedContact = this.props.contacts.data[this.props.contacts.data.length - 1]
+            this.props.navigation.replace(ShareScreen.KEY, { contact: addedContact })
+            return
+        }
     }
-  }
 
-  state = {
-    name: null,
-    phone: null,
-    isLoading: false
-  }
+    render = () => renderContent({
+        contactsStatus: this.props.contacts.status,
+        onContactAdded: this.onContactAdded,
+        onBackPressed: this.onBackPressed
+    })
 
-  render() {
-    const { isLoading } = this.state
-    if (isLoading) {
-      return renderAddingContact(this)
-    } else {
-      return renderAddContact(this)
+    onContactAdded = (name, phone) => {
+        this.props.addContact(this.props.user.uid, name, phone)
     }
-  }
 
-  focusToRef(ref) {
-    this.refs[ref].focus()
-  }
-
-  onFormSubmitted = () => {
-    const { name, phone } = this.state
-    const { user } = this.props
-
-    // Add contact
-    // Show loading
-    // When added, start session
-
-    this.setState({ isLoading: true })
-
-    const navToShare = this.props.navigation.replace
-
-    console.log('Adding ' + phone)
-
-    this.props.addContact(name, phone, user.uid)
-      .then(contact => {
-        this.props.checkStepsAndStartSession(contact.id, contact.currentStepIndex)
-        navToShare(ShareScreen.KEY)
-        trackShareStarted(this.props.user.uid, contact.id)
-      })
-      .catch(error => {
-        this.setState({ isLoading: false })
-        alertError(error.message, 'Error')
-        handleError(ADD_CONTACT_ERROR, error)
-      })
-  }
+    onBackPressed = () => {
+        this.props.navigation.goBack()
+    }
 }
 
-const mapStateToProps = state => ({
-  user: state.auth.user
-})
-
-const mapDispatchToProps = dispatch => ({
-  addContact: (name, phone, uid) => dispatch(ContactsActions.addContact(name, phone, uid)),
-  checkStepsAndStartSession: (contactId, startIndex) => dispatch(ShareActions.checkStepsAndStartSession(contactId, startIndex))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(StartShareScreen)
+export default StartShareConnect.connect(StartShareScreen)

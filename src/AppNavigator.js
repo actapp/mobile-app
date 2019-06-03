@@ -3,8 +3,8 @@ import { createStackNavigator, StackActions, NavigationActions } from 'react-nav
 
 import Colors from './presentation/style/Colors'
 
-import StartShareScreen from './presentation/screens/share2/StartShareScreen'
-import ShareScreen from './presentation/screens/share2/ShareScreen'
+import StartShareScreen from './presentation/screens/share/StartShareScreen'
+import ShareScreen from './presentation/screens/share/ShareScreen'
 import LearnScreen from './presentation/screens/learn/LearnScreen';
 
 import GetStartedScreen from './presentation/screens/welcome/GetStartedScreen';

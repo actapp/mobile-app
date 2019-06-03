@@ -1,200 +1,135 @@
 import { getSteps } from '../../core/share/ShareInteractor'
+import { actionCreator } from './util/Util';
 
-export default class ShareRedux {
-    static reducer = (state = {
-        steps: null,
-        error: null,
-        session: {
-            currentStepIndex: 0,
-            canGoBack: false,
-            canGoForward: false
-        },
-        gettingSteps: false,
-    }, action) => {
-        if (!isShareAction(action)) {
-            return state
-        }
+function shareReducer(state = {
+    status: ShareStatus.NOT_READY,
+    steps: null,
+    progress: null,
+    error: null
+}, action) {
+    if (!isShareAction(action)) return state
 
-        const newState = { ...state, gettingSteps: false, error: null }
+    const newState = { ...state, error: null }
 
-        if (action.type == ActionTypes.GETTING_STEPS) {
-            return { ...newState, gettingSteps: true }
-        }
-
-        if (isSessionAction(action)) {
-            return ShareRedux.shareSessionReducer(newState, action)
-        }
-
-        switch (action.type) {
-            case ActionTypes.GOT_STEPS:
-                return { ...newState, steps: action.payload }
-            case ActionTypes.GET_STEPS_ERROR:
-                return { ...newState, error: action.payload }
-            default:
-                return newState
-        }
-    }
-
-    static shareSessionReducer = (state, action) => {
-        switch (action.type) {
-            case ActionTypes.START_SESSION:
-                return startSession(state, action.payload)
-            case ActionTypes.NEXT_STEP:
-                return getNextStep(state)
-            case ActionTypes.PREVIOUS_STEP:
-                return getPreviousStep(state)
-            default:
-                return state
-        }
+    if (isShareSessionAction(action)) {
+        return reduceSessionAction(newState, action)
+    } else {
+        return reduceStatusAction(newState, action)
     }
 }
 
-export class ShareActions {
-    static getSteps = () => {
-        return function (dispatch) {
-            dispatch(ShareActions.gettingSteps())
-
-            getSteps()
-                .then(steps => {
-                    dispatch(ShareActions.gotSteps(steps))
-                })
-                .catch(error => {
-                    dispatch(ShareActions.getStepsError(error))
-                })
-        }
-    }
-
-    static gettingSteps = () => ({
-        type: ActionTypes.GETTING_STEPS
-    })
-
-    static gotSteps = (steps) => ({
-        type: ActionTypes.GOT_STEPS,
-        payload: steps
-    })
-
-    static getStepsError = (error) => ({
-        type: ActionTypes.GET_STEPS_ERROR,
-        payload: error
-    })
-
-    static checkStepsAndStartSession = (contactId, startIndex) => {
-        return function (dispatch, getState) {
-            if (getState.steps == null) {
-                dispatch(ShareActions.gettingSteps())
-
-                getSteps()
-                    .then(steps => {
-                        dispatch(ShareActions.gotSteps(steps))
-                        dispatch(ShareActions.startSession(contactId, startIndex))
-                    })
-                    .catch(error => {
-                        dispatch(ShareActions.getStepsError(error))
-                    })
-            } else {
-                dispatch(ShareActions.startSession(contactId, startIndex))
-            }
-        }
-    }
-
-    static startSession = (contactId, startIndex) => ({
-        type: ActionTypes.START_SESSION,
-        payload: {
-            contactId: contactId,
-            startIndex: startIndex
-        }
-    })
-
-    static nextStep = () => ({
-        type: ActionTypes.NEXT_STEP
-    })
-
-    static previousStep = () => ({
-        type: ActionTypes.PREVIOUS_STEP
-    })
-}
-
-const SHARE_PREFIX = 'share/'
-const SESSION_ACTION_PREFIX = SHARE_PREFIX + 'session/'
 function isShareAction(action) {
-    return action.type.startsWith(SHARE_PREFIX)
-}
-
-function isSessionAction(action) {
-    return action.type.startsWith(SESSION_ACTION_PREFIX)
-}
-
-function startSession(state, startPayload) {
-    const { steps } = state
-    const { contactId, startIndex } = startPayload
-
-    const newSession = {
-        contactId: contactId,
-        currentStepIndex: startIndex,
-        canGoForward: startIndex < steps.length - 1,
-        canGoBack: startIndex > 0
+    if (action && action.type) {
+        return action.type.startsWith('share/')
     }
 
-    return { ...state, session: newSession }
+    return false
 }
 
-function getNextStep(state) {
-    const { steps, session } = state
-    const { canGoBack, canGoForward, currentStepIndex } = session
-
-    let newStepIndex = currentStepIndex
-    let newCanGoForward = canGoForward
-    let newCanGoBack = canGoBack
-    if (currentStepIndex < steps.length - 1) {
-        newStepIndex += 1
-        newCanGoForward = newStepIndex < steps.length - 1
-        newCanGoBack = true
-    } else {
-        // Do nothing
-        newCanGoForward = false
+function isShareSessionAction(action) {
+    if (action && action.type) {
+        return action.type.startsWith('share/session/')
     }
 
-    const newSession = {
-        ...session,
-        currentStepIndex: newStepIndex,
-        canGoBack: newCanGoBack,
-        canGoForward: newCanGoForward
-    }
-
-    return { ...state, session: newSession }
+    return false
 }
 
-function getPreviousStep(state) {
-    const { session } = state
-    const { canGoBack, canGoForward, currentStepIndex } = session
+function reduceSessionAction(newState, action) {
+    const { steps } = newState
 
-    let newStepIndex = currentStepIndex
-    let newCanGoBack = canGoBack
-    let newCanGoForward = canGoForward
-    if (currentStepIndex > 0) {
-        newStepIndex -= 1
-        newCanGoBack = newStepIndex > 0
-        newCanGoForward = true
-    } else {
-        newCanGoBack = false
+    let progress
+    switch (action.type) {
+        case InternalActions.START:
+            newState['status'] = ShareStatus.PROGRESS_UPDATED
+            const contact = action.payload
+
+            // Start off at the contact's current step index (will be 0 if a new contact; otherwise should've been updated during last share session)
+            progress = buildNewProgress(contact, steps, contact.currentStepIndex)
+            break
+        case InternalActions.GO_FORWARD:
+            newState['status'] = ShareStatus.PROGRESS_UPDATED
+            progress = buildNewProgress(newState.progress.contact, steps, newState.progress.index + 1)
+            break
+        case InternalActions.GO_BACK:
+            newState['status'] = ShareStatus.PROGRESS_UPDATED
+            progress = buildNewProgress(newState.progress.contact, steps, newState.progress.index - 1)
+            break
+        case InternalActions.RESET:
+            newState['status'] = ShareStatus.READY
+            progress = buildNewProgress(null, steps, 0)
     }
 
-    const newSession = {
-        ...session,
-        currentStepIndex: newStepIndex,
-        canGoBack: newCanGoBack,
-        canGoForward: newCanGoForward
+    newState['progress'] = progress
+    return newState
+}
+
+
+function buildNewProgress(contact, steps, index) {
+    return {
+        contact,
+        step: steps[index],
+        index,
+        canGoBack: index > 0,
+        canGoForward: index < steps.length - 1
+    }
+}
+
+function reduceStatusAction(newState, action) {
+    newState['status'] = action.type
+
+    switch (action.type) {
+        case ShareStatus.READY:
+            newState['steps'] = action.payload
+            break
+        case ShareStatus.PROGRESS_UPDATED:
+            newState['progress'] = action.payload
+            break
+        case ShareStatus.ERROR:
+            newState['error'] = action.payload
+            break
     }
 
-    return { ...state, session: newSession }
+    return newState
 }
 
-class ActionTypes {
-    static GETTING_STEPS = SHARE_PREFIX + 'getting_steps'
-    static GET_STEPS_ERROR = SHARE_PREFIX + 'get_steps_error'
-    static GOT_STEPS = SHARE_PREFIX + 'steps_retrieved'
+class ShareStatus {
+    static NOT_READY = 'share/not_ready'
+    static GETTING_STEPS = 'share/getting_steps'
+    static READY = 'share/ready'
 
-    static START_SESSION = SESSION_ACTION_PREFIX + 'start'
-    static NEXT_STEP = SESSION_ACTION_PREFIX + 'next'
-    static PREVIOUS_STEP = SESSION_ACTION_PREFIX + 'prev'
+    static PROGRESS_UPDATED = 'share/progress_updated'
+
+    static ERROR = 'share/error'
 }
+
+class ShareActions {
+    static fetch = () => dispatch => {
+        dispatch(InternalActions.getting())
+
+        getSteps()
+            .then(steps => dispatch(InternalActions.ready(steps)))
+            .catch(error => dispatch(InternalActions.error(error)))
+    }
+
+    static start = contact => actionCreator(InternalActions.START, contact)
+
+    static goForward = () => actionCreator(InternalActions.GO_FORWARD)
+
+    static goBack = () => actionCreator(InternalActions.GO_BACK)
+
+    static resetProgress = () => actionCreator(InternalActions.RESET)
+}
+
+class InternalActions {
+    static START = 'share/session/start'
+    static GO_FORWARD = 'share/session/forward'
+    static GO_BACK = 'share/session/back'
+    static RESET = 'share/session/reset'
+
+    static getting = () => actionCreator(ShareStatus.GETTING_STEPS)
+    static ready = steps => actionCreator(ShareStatus.READY, steps)
+
+    static progressUpdated = newProgress => actionCreator(ShareStatus.PROGRESS_UPDATED, newProgress)
+}
+
+export { shareReducer, ShareStatus, ShareActions }

@@ -6,7 +6,7 @@ export default AppConfig = {
 
     MOCK_SERVICES: {
         'react-native-firebase': {
-            shouldUse: true,
+            shouldUse: false,
 
             auth: {
                 // User to have logged in upon start
@@ -186,7 +186,7 @@ export default AppConfig = {
     FORCE_LOGOUT: false,
 
     // Account
-    FORCE_NEW_ACCOUNT: __DEV__,
+    FORCE_NEW_ACCOUNT: false,
 
     // Animation
     SKIP_ANIMATIONS: false,

@@ -5,6 +5,8 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "debug": "open -a 'React Native Debugger.app'",
+    "debug-ios": "npm run debug && react-native run-ios",
     "test": "jest",
     "deploy": "node scripts/Deploy.js",
     "rr": "adb shell input text \"RR\"",

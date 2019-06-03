@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { ContactsActions } from '../../redux/Contacts'
 
 const mapStateToProps = state => ({
+    user: state.auth.user,
     account: state.account,
-    contactsStatus: state.contacts.status,
-    contactsError: state.contacts.error
+    contacts: state.contacts
 })
 
 const mapDispatchToProps = dispatch => ({

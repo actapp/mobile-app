@@ -1,24 +1,19 @@
 import React from 'react'
 
-import { View, TouchableOpacity } from 'react-native'
+import { View } from 'react-native'
 
 import {
-    Header,
-    Title,
     Footer,
     FooterTab,
     Button,
-    Left,
-    Right,
-    Body,
     Text
 } from 'native-base'
+
+import Header from '../../components/Header'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import HeaderlessRootContainer from '../../components/HeaderlessRootContainer'
-
-import OptionsMenu from "react-native-options-menu";
 
 import { PlatformIcons } from '../../style/Icons'
 import Colors from '../../style/Colors';
@@ -50,14 +45,18 @@ export const TABS = {
 
 export default function renderContent({
     ministry,
-    component
+    component,
+
+    // Options to show in options menu
+    // Should be an array of objects, with two properties: name and action
+    options
 }) {
     const activeTab = component.state.activeTabIndex
     const content = renderTab(activeTab)
 
     return (
         <HeaderlessRootContainer
-            headerContent={header(ministry.data.name)}
+            headerContent={header(ministry.data.name, options)}
             footerContent={footer(activeTab, component, renderAdditionalFooterContent(activeTab, component.props.navigation, ministry.data.id))}
             style={{ alignItems: null }}>
             {content}
@@ -97,30 +96,12 @@ function topFooterButton(label, onPress, iconComponent) {
     )
 }
 
-function header(ministryName) {
-    /*
-        Flex 3 allows the title to be longer
-    */
-
+function header(ministryName, options) {
     return (
-        <Header iosBarStyle="light-content">
-            <Left />
-            <Body style={{ flex: 3 }}>
-                <Title>{ministryName}</Title>
-            </Body>
-            <Right>
-                {renderOptionsIcon(['Learn more', 'About'], [() => { }, () => { }])}
-            </Right>
-        </Header>
-    )
-}
-
-function renderOptionsIcon(options, optionActions) {
-    return (
-        <OptionsMenu
-            customButton={<Icon name={PlatformIcons.name('more')} size={25} color='white' style={{ marginRight: 20 }} />}
+        <Header
+            title={ministryName}
             options={options}
-            actions={optionActions} />
+        />
     )
 }
 

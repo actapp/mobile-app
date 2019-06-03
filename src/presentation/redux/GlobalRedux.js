@@ -6,7 +6,7 @@ import { accountReducer } from './Account'
 import { ministryReducer } from './Ministry'
 import { statsReducer } from './Stats'
 import { contactsReducer } from './Contacts'
-import { shareReducer } from './Share2'
+import { shareReducer } from './Share'
 
 import ErrorRedux from './Errors'
 

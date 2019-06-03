@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ShareStatus } from '../../redux/Share2';
+import { ShareStatus } from '../../redux/Share';
 
 import { Content, Button, Footer, Text } from 'native-base'
 import ThemedContainer from '../../components/ThemedContainer'

@@ -74,6 +74,11 @@ class ContactsActions {
     }
 
     static addContact = (uid, name, phone) => {
+        console.log('Adding contact:')
+        console.log(uid)
+        console.log(name)
+        console.log(phone)
+
         return (dispatch, getState) => {
             dispatch(InternalActions.adding())
 
@@ -89,12 +94,17 @@ class ContactsActions {
     }
     
     static updateContact = (uid, contact) => {
+        console.log('Updating contact:')
+        console.log(uid)
+        console.log(contact)
+
+
         return (dispatch, getState) => {
             dispatch(InternalActions.updating())
 
             updateContact(uid, contact)
-                .then(newContacts => InternalActions.updated(newContacts))
-                .catch(error => InternalActions.error(error))
+                .then(newContacts => dispatch(InternalActions.updated(newContacts)))
+                .catch(error => dispatch(InternalActions.error(error)))
         }
     }
 }

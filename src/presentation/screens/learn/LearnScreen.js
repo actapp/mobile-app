@@ -4,13 +4,19 @@
 
 import React, { Component } from 'react';
 
-import { View, WebView, StyleSheet } from 'react-native';
+import { View, WebView, StyleSheet, Dimensions } from 'react-native';
+
+import { Content, Button, Text } from 'native-base'
+import ThemedContainer from '../../components/ThemedContainer'
+import Header from '../../components/Header'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 import { WizardButton } from '../../components/Foundation'
 
 import { PlatformIcons } from '../../style/Icons'
 
 import { renderUpButton } from '../../screens/utils/HeaderComponents'
+
 
 export default class LearnScreen extends Component {
     static KEY = 'LearnScreen'
@@ -55,26 +61,32 @@ export default class LearnScreen extends Component {
         }
 
         return (
-            <View style={styles.container}>
-                <View style={{ height: 250, width: '100%' }}>
-                    <WebView
-                        javaScriptEnabled={true}
-                        domStorageEnabled={true}
-                        source={{ uri: `https://player.vimeo.com/video/${videoId}` }}
-                        useWebKit={true}
-                        style={{ backgroundColor: 'black' }}
-                    />
-                </View>
-                <WizardButton label={buttonText} style={{ width: '90%' }} onPress={this.nextVideo} iconOnRight={true} iconName={buttonIcon} />
-            </View>
+            <ThemedContainer>
+                <Header
+                    title='Learn'
+                    goBackFunction={() => { this.props.navigation.goBack() }}
+                    exitInsteadOfBack={true} />
+                <Content>
+                    <View style={{ height: 250, backgroundColor: 'black' }}>
+                        <WebView
+                            javaScriptEnabled={true}
+                            domStorageEnabled={true}
+                            source={{ uri: `https://player.vimeo.com/video/${videoId}` }}
+                            useWebKit={true}
+                            style={{ backgroundColor: 'black' }}
+                        />
+                    </View>
+                    <Button
+                        bordered
+                        transparent
+                        light
+                        full
+                        iconRight>
+                            <Text style={{color: 'white'}}>{buttonText}</Text>
+                            <Icon name={buttonIcon} size={25} color='white' />
+                    </Button>
+                </Content>
+            </ThemedContainer>
         )
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        backgroundColor: 'black'
-    }
-})

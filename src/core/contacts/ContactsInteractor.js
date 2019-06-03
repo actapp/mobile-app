@@ -7,7 +7,7 @@ export async function getContacts(userId) {
 
     if (!contacts || !contacts.length) {
         // no contacts
-        await ContactsService.setContacts([])
+        await ContactsService.setContacts([], userId)
         contacts = []
     }
 
@@ -15,15 +15,22 @@ export async function getContacts(userId) {
 }
 
 export async function addContact(uid, name, phone) {
-    console.log('Adding contact')
+    console.log('Adding contact:')
+    console.log(uid)
+    console.log(name)
+    console.log(phone)
+
     validateNameAndNumber(name, phone)
+
     console.log('Number validated')
 
     const steps = await StepsService.getSteps()
 
-    console.log(steps)
-
     const newContact = createNewContact(name, phone, 0, steps[0].desc)
+
+    console.log('Created new contact')
+    console.log(newContact)
+
     return await ContactsService.addContact(newContact, uid)
 }
 

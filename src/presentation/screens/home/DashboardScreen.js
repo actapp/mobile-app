@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 
 import DashboardConnect from './DashboardConnect'
+
+import { alert } from '../../alerts/Alerts'
+
 import renderContent, { TABS } from './DashboardRenderer'
+
+import LearnScreen from '../learn/LearnScreen'
+import showAbout from '../utils/AboutPopup'
 
 class DashboardScreen extends Component {
     static KEY = 'DashboardScreen'
@@ -10,14 +16,22 @@ class DashboardScreen extends Component {
         activeTabIndex: TABS.STATS.index
     }
 
-    static navigationOptions = ({ navigation }) => ({
-        header: null
-    })
-
     render() {
         return renderContent({
             ministry: this.props.ministry,
-            component: this
+            component: this,
+            options: [
+                {
+                    name: 'Learn more',
+                    action: () => {
+                        this.props.navigation.navigate(LearnScreen.KEY)
+                     }
+                },
+                {
+                    name: 'About',
+                    action: showAbout
+                }
+            ]
         })
     }
 }
