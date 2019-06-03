@@ -7,34 +7,35 @@ export async function getContacts(userId) {
 
     if (!contacts || !contacts.length) {
         // no contacts
-        await ContactsService.setContacts([])
+        await ContactsService.setContacts([], userId)
         contacts = []
     }
 
-    return keyContacts(contacts)
+    return contacts
 }
 
-export async function addContact(name, phone, userId) {
+export async function addContact(uid, name, phone) {
+    console.log('Adding contact:')
+    console.log(uid)
+    console.log(name)
+    console.log(phone)
+
     validateNameAndNumber(name, phone)
+
+    console.log('Number validated')
+
     const steps = await StepsService.getSteps()
+
     const newContact = createNewContact(name, phone, 0, steps[0].desc)
-    const newContacts = await ContactsService.addContact(newContact, userId)
 
-    return keyContacts(newContacts)
+    console.log('Created new contact')
+    console.log(newContact)
+
+    return await ContactsService.addContact(newContact, uid)
 }
 
-export async function updateContact(contact, userId) {
-    const newContacts = await ContactsService.updateContact(contact, userId)
-    return keyContacts(newContacts)
-}
-
-function keyContacts(contacts) {
-    const keyedContacts = []
-    for (let i = 0; i < contacts.length; i++) {
-        keyedContacts.push({ ...contacts[i], key: contacts[i].id })
-    }
-
-    return keyedContacts
+export async function updateContact(uid, contact) {
+    return await ContactsService.updateContact(contact, uid)
 }
 
 function createNewContact(name, phone, stepIndex, stepDesc) {

@@ -5,8 +5,8 @@ import { StatusBar, View } from 'react-native'
 import { connect } from 'react-redux'
 import { AuthStatus } from './presentation/redux/Auth'
 
-import { createAppContainer } from 'react-navigation'
-import createAppNavigator from './AppRouteConfig'
+import { createAppContainer, StackActions } from 'react-navigation'
+import createAppNavigator, { buildResetToRouteAction } from './AppNavigator'
 
 import codePush from 'react-native-code-push'
 
@@ -16,6 +16,14 @@ import GetStartedScreen from './presentation/screens/welcome/GetStartedScreen';
 
 import { LoadingIndicator } from './presentation/components/Foundation'
 import Styles from './presentation/style/Styles'
+import AppConfig from './AppConfig';
+
+import handleError, { GENERIC_ERROR, AUTH_ERROR, GET_ACCOUNT_ERROR, GET_MINISTRY_ERROR, UNKNOWN_STATE_ERROR } from './utils/GlobalErrorHandler'
+import { alertError } from './presentation/alerts/Alerts'
+import { AccountStatus } from './presentation/redux/Account';
+
+import { MinistryStatus } from './presentation/redux/Ministry';
+import DashboardScreen from './presentation/screens/home/DashboardScreen';
 
 class App extends Component {
     static ERROR_SOURCE = 'App'
@@ -25,10 +33,12 @@ class App extends Component {
     })
 
     componentDidMount() {
+        AppConfig.initialize()
+
         StatusBar.setBarStyle('light-content')
 
         this.props.listenForAuthChanges()
-        this.handleAuthState()
+        this.handleState()
 
         this.appInitializeTimeout = setTimeout(() => {
             this.props.timeout(App.ERROR_SOURCE)
@@ -36,7 +46,7 @@ class App extends Component {
     }
 
     componentDidUpdate() {
-        this.handleAuthState()
+        this.handleState()
     }
 
     componentWillUnmount() {
@@ -52,38 +62,103 @@ class App extends Component {
         )
     }
 
-    handleAuthState = () => {
-        const { authStatus } = this.props
+    handleState = () => {
+        const { auth, genericError } = this.props
 
-        console.log('Auth status updated: ' + authStatus)
+        if (AppConfig.FORCE_FRESH_START) {
+            this.replaceScreen(GetStartedScreen.KEY)
+            return
+        }
 
+        if (genericError != null) {
+            this.handleError(GENERIC_ERROR, genericError)
+        }
+
+        switch (auth.status) {
+            case AuthStatus.LOGGED_IN:
+                this.handleLoggedIn()
+                break
+            case AuthStatus.LOGGED_OUT:
+                // No user logged in - go to get started
+                this.replaceScreen(GetStartedScreen.KEY)
+                break
+            case AuthStatus.ERROR:
+                this.handleError(AUTH_ERROR, this.props.auth.error)
+                break
+            case AuthStatus.NOT_READY:
+            default:
+                console.log('No log in status available')
+                // Do nothing - just keep showing the loading bar until some log in status is obtained, or timeout
+                break
+        }
+    }
+
+    handleError = (name, error) => {
+        // Handle error, then just go to get started screen? Maybe show alert / toast first
+        handleError(name, error)
+        alertError(error.message)
         this.replaceScreen(GetStartedScreen.KEY)
-        // switch(authStatus) {
-        //     case AuthStatus.LOGGED_IN:
-        //         // TODO - go to respective dashboard
-        //         console.log('Logged in')
-        //         break
-        //     case AuthStatus.LOGGED_OUT:
-        //         // No user logged in - go to get started
-        //         this.replaceScreen(GetStartedScreen.KEY)
-        //         break
-        //     case AuthStatus.ERROR:
-        //         // Handle error, then just go to get started screen? Maybe show alert / toast first
-        //         // TODO - handleError()
-        //         this.replaceScreen(GetStartedScreen.KEY)
-        //         break
-        //     case AuthStatus.NOT_READY:
-        //     default:
-        //         console.log('No log in status available')
-        //         // Do nothing - just keep showing the loading bar until some log in status is obtained, or timeout
-        //         break
-        // }
     }
 
     replaceScreen(key) {
         // Clear the timeout for initializing, then go to the designated screen
         clearTimeout(this.appInitializeTimeout)
         this.props.navigation.replace(key)
+    }
+
+    handleLoggedIn = () => {
+        const { auth, account } = this.props
+
+        console.log('Handling account status: ' + account.status)
+
+        switch (account.status) {
+            case AccountStatus.NOT_READY:
+                this.props.fetchAccount(auth.user.uid)
+                break
+            case AccountStatus.READY:
+                this.handleAccountReady()
+                break
+            case AccountStatus.NO_ACCOUNT:
+                // User has logged in before, but for some reason no account was created
+                this.replaceScreen(GetStartedScreen.KEY)
+                break
+            case AccountStatus.GETTING:
+                // Do nothing while account is being fetched
+                break
+            case AccountStatus.ERROR:
+                this.handleError(GET_ACCOUNT_ERROR, this.props.account.error)
+                break
+            default:
+                this.handleUnknownState(account.status)
+                break
+        }
+    }
+
+    handleAccountReady = () => {
+        const { ministry, account } = this.props
+
+        switch (ministry.status) {
+            case MinistryStatus.NOT_READY:
+                this.props.fetchMinistry(account.data.ministryId)
+                break
+            case MinistryStatus.GETTING:
+                // Do nothing
+                break
+            case MinistryStatus.READY:
+                this.props.navigation.dispatch(buildResetToRouteAction(DashboardScreen.KEY))
+                break
+            case MinistryStatus.ERROR:
+                this.handleError(GET_MINISTRY_ERROR, ministry.error)
+                break
+            default:
+                this.handleUnknownState(ministryStatus)
+                break
+        }
+    }
+
+    handleUnknownState = (state) => {
+        this.replaceScreen(GetStartedScreen.KEY)
+        handleError(UNKNOWN_STATE_ERROR, new Error('Unknown state: ' + state), App.ERROR_SOURCE)
     }
 }
 

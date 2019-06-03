@@ -20,20 +20,21 @@ export default class ErrorRedux {
     static reducer = (state = {}, action) => {
         switch (action.type) {
             case ErrorActions.TYPE_TIMEOUT:
-                return { ...state, lastError: action.payload.error, lastErrorSource: action.payload.source }
+                return { ...state, genericError: action.payload.error, genericErrorSource: action.payload.source }
             default:
-                return state
+                // Clear error after it's dispatched once
+                return { ...state, genericError: null, genericErrorSource: null }
         }
     }
 }
 
 export class ErrorActions {
-    static TYPE_TIMEOUT = 'error/tiemout'
+    static TYPE_TIMEOUT = 'error/timeout'
 
     static timeout = (source) => ({
         type: ErrorActions.TYPE_TIMEOUT,
         payload: {
-            error: new Error('Timeout'),
+            error: new Error('Operation timed out'),
             source: source
         }
     })

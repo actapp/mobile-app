@@ -15,6 +15,16 @@ export default {
   platformStyle,
   platform,
 
+  // Color
+  brandBackground: "#111",
+  brandPrimary: "#304ffe",
+  brandInfo: "#62B1F6",
+  brandSuccess: "#5cb85c",
+  brandDanger: "#d9534f",
+  brandWarning: "#f0ad4e",
+  brandDark: "#000",
+  brandLight: "#f4f4f4",
+
   //Accordion
   headerStyle: "#edebed",
   iconStyle: "#000",
@@ -87,7 +97,7 @@ export default {
   },
 
   // Card
-  cardDefaultBg: "#fff",
+  cardDefaultBg: "#222",
   cardBorderColor: "#ccc",
   cardBorderRadius: 2,
   cardItemPadding: platform === "ios" ? 10 : 12,
@@ -103,16 +113,6 @@ export default {
   checkboxBgColor: "#039BE5",
   checkboxSize: 20,
   checkboxTickColor: "#fff",
-
-  // Color
-  brandBackground: "#000",
-  brandPrimary: "#304ffe",
-  brandInfo: "#62B1F6",
-  brandSuccess: "#5cb85c",
-  brandDanger: "#d9534f",
-  brandWarning: "#f0ad4e",
-  brandDark: "#000",
-  brandLight: "#f4f4f4",
 
   //Container
   containerBgColor: "#fff",
@@ -137,20 +137,20 @@ export default {
 
   // Footer
   footerHeight: 55,
-  footerDefaultBg: platform === "ios" ? "#F8F8F8" : this.brandPrimary,
+  footerDefaultBg: '#222',
   footerPaddingBottom: 0,
 
   // FooterTab
   tabBarTextColor: platform === "ios" ? "#6b6b6b" : "#b3c7f9",
   tabBarTextSize: platform === "ios" ? 14 : 11,
-  activeTab: platform === "ios" ? "#007aff" : "#fff",
-  sTabBarActiveTextColor: "#007aff",
-  tabBarActiveTextColor: platform === "ios" ? "#007aff" : "#fff",
-  tabActiveBgColor: platform === "ios" ? "#cde1f9" : this.brandPrimary,
+  activeTab: '#222', // platform === "ios" ? "#007aff" : "#fff",
+  sTabBarActiveTextColor: '#304ffe', // "#007aff",
+  tabBarActiveTextColor: '#304ffe', //platform === "ios" ? "#007aff" : "#fff",
+  tabActiveBgColor: '',//platform === "ios" ? "#cde1f9" : this.brandPrimary,
 
   // Header
-  toolbarBtnColor: platform === "ios" ? "#007aff" : "#fff",
-  toolbarDefaultBg: platform === "ios" ? "#F8F8F8" : this.brandPrimary,
+  toolbarBtnColor: "#fff",
+  toolbarDefaultBg: '#222',
   toolbarHeight: platform === "ios" ? 64 : 56,
   toolbarSearchIconSize: platform === "ios" ? 20 : 23,
   toolbarInputColor: platform === "ios" ? "#CECDD2" : "#fff",
@@ -158,7 +158,8 @@ export default {
   searchBarInputHeight: platform === "ios" ? 30 : 50,
   toolbarBtnTextColor: platform === "ios" ? "#007aff" : "#fff",
   toolbarDefaultBorder: platform === "ios" ? "#a7a6ab" : this.brandPrimary,
-  iosStatusbar: platform === "ios" ? "dark-content" : "light-content",
+  iosStatusbar: "light-content",
+  
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
       .darken(0.2)

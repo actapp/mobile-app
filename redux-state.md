@@ -25,6 +25,11 @@
     - Admin
         - Stats:
             - // TODO
+  - Ministry
+    - Status: NOT_READY, CREATING, GETTING, UPDATING, CREATED, READY, UPDATED, ERROR
+    - data:
+        - // TODO
+        - Chart data
   - Share session
     - Status: STEPS_NOT_READY/GETTING_STEPS/STEPS_READY
     - Steps
@@ -49,6 +54,8 @@
     - createUser => thunk => CREATING_APP_USER => READY / ERROR
     - updateUser => thunk => UPDATING_APP_USER => READY / ERROR
     - fetchUser => thunk => GETTING_APP_USER => READY / ERROR
+- Ministry
+    -
 - ShareSession
     - NOT_READY => { ...state, status: action.type, steps: null, currentStepIndex: 0 }
     - GETTING_STEPS => { ...state, status: action.type, steps: null, currentStepIndex: 0 }
