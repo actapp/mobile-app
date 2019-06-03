@@ -12,29 +12,44 @@ export const GET_STEPS_ERROR = 'GET_STEPS_ERROR'
 export const GET_MINISTRY_STATUS_ERROR = 'GET_MINISTRY_STATUS_ERROR'
 export const CHECK_ADMIN_ERROR = 'CHECK_ADMIN_ERROR'
 
+export const ASSOCIATE_ACCOUNT_ERROR = 'ASSOCIATE_ACCT_ERROR'
+export const GET_ACCOUNT_ERROR = 'GET_ACCT_ERROR'
+export const CREATE_MINISTRY_ERROR = 'CREATE_MINISTRY_ERROR'
+export const GET_MINISTRY_ERROR = 'GET_MINISTRY_ERROR'
+
+export const UNKNOWN_STATE_ERROR = 'UNKNOWN_STATE_ERROR'
+export const UNKNOWN_ERROR = 'UNKNOWN_ERROR'
+
 const breadcrumbs = []
 export function logBreadcrumb(breadcrumb) {
     breadcrumbs.push(breadcrumb)
 }
 
-export default function handleError(name = GENERIC_ERROR, error, params) {
+export default function handleError(name = GENERIC_ERROR, error, source) {
     console.log('Handling error: ' + name)
 
     StackTrace.fromError(error)
         .then(stack => {
-            reportError(name, error.message, params, hashError(stackToStringArrays(stack)), stackToString(stack), collectBreadcrumbs())
+            reportError(qualifiedErrorName(name, source), error.message, hashError(stackToStringArrays(stack)), stackToString(stack), collectBreadcrumbs())
         })
         .catch(stackError => {
-            reportError(name, error.message, params, hashError(breadcrumbs), 'FAILED TO OBTAIN STACK!', collectBreadcrumbs())
+            reportError(qualifiedErrorName(name, source), error.message, hashError(breadcrumbs), 'FAILED TO OBTAIN STACK!', collectBreadcrumbs())
         })
 
 }
 
-function reportError(name, message, params, errorId, stack, breadcrumbs) {
+function qualifiedErrorName(errorName, source) {
+    if (source) {
+        return source + '/' + errorName
+    }
+
+    return errorName
+}
+
+function reportError(name, message, errorId, stack, breadcrumbs) {
     Analytics.trackEvent(
         name,
         {
-            ...params,
             errorId: errorId,
             platform: Platform.OS,
             message: message,

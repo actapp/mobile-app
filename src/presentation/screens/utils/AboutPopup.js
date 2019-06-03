@@ -1,7 +1,7 @@
 import { alert } from '../../alerts/Alerts'
 import { VERSION } from '../../../utils/AppInfo'
 
-export function showAbout() {
+export default function showAbout() {
     alert(
         'About',
         'Version: ' + VERSION

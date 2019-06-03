@@ -75,7 +75,9 @@ export class LogInActions {
             const listener = (user) => {
                 if (user == null) {
                     dispatch(LogInActions.loggedOut())
-                } else if (user.uid !== getState().uid) {
+                } 
+                
+                else if (user.uid !== getState().uid) {
                     dispatch(LogInActions.loggedIn(user))
                 }
             }

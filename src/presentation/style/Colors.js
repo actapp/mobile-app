@@ -1,6 +1,6 @@
 export default Colors = {
     primary: '#304ffe',
-    rootBackgroundColor: '#000000',
+    rootBackgroundColor: '#111',
     disabled: '#aaaa',
     placeholderText: '#aaaa'
 }
