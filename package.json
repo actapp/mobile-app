@@ -1,7 +1,7 @@
 {
   "name": "MySharePal",
-  "version": "1.0.9",
-  "jsVersion": "003",
+  "version": "1.1.0",
+  "jsVersion": "000",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
