@@ -7,7 +7,6 @@
 import React from 'react'
 
 import { PieChart } from 'react-native-chart-kit'
-import { VictoryChart, VictoryLegend, VictoryPie } from 'victory-native'
 
 const chartConfig = {
     // backgroundGradientFrom: '#1E2923',
@@ -18,46 +17,14 @@ const chartConfig = {
 }
 
 export default function renderChart(data, width) {
-    return renderPie(mapData(data), width)
+    return renderPie(data, width)
 }
 
-function mapData(data) {
-    return data.map(dataItem => ({
-        name: dataItem.label,
-        data: dataItem.data,
-        color: dataItem.color,
-        legendFontColor: '#fff',
-        legendFontSize: 10
-    }))
-}
-
-function renderPie(stat, width) {
-    // return (
-    //     <VictoryPie
-    //         style={{
-    //             data: {
-    //                 stroke: (data) => data.y > 75 ? "black" : "none",
-    //                 opacity: (data) => data.y > 75 ? 1 : 0.4
-    //             },
-    //             labels: {
-    //                 fill: "white",
-    //                 fontSize: 10,
-    //                 fontFamily: 'sans-serif'
-    //             }
-    //         }}
-    //         data={stat}
-    //         width={300}
-    //         height={150}
-    //         labels={datum => datum.data}
-    //         x='name'
-    //         y='data'
-    //     />
-    // )
-
+function renderPie(data, width) {
     return (
         <PieChart
             key={Math.random()}
-            data={stat}
+            data={data}
             width={width - 50}
             height={150}
             chartConfig={chartConfig}

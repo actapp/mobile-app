@@ -1,4 +1,4 @@
-import { getStats } from '../../core/stats/StatsInteractor'
+import * as StatsInteractor from '../../core/stats/StatsInteractor'
 
 import { actionCreator } from './util/Util'
 
@@ -16,8 +16,6 @@ function statsReducer(state = {
     switch (action.type) {
         case StatsStatus.READY:
             return { ...newState, data: action.payload }
-        case StatsStatus.NONE:
-            return { ...newState, data: [] }
         case StatsStatus.ERROR:
             return { ...newState, error: action.payload }
         default:
@@ -37,27 +35,38 @@ class StatsStatus {
     static NOT_READY = 'stats/not_ready'
     static GETTING = 'stats/getting'
     static READY = 'stats/ready'
-    static NONE = 'stats/none'
 
     static ERROR = 'stats/error'
 }
 
 class StatsActions {
-    static fetch = (uid, mid, role) => {
+    static fetch = (uid, mid) => {
         return (dispatch, getState) => {
             dispatch(InternalActions.getting())
 
-            getStats(uid, mid, role)
+            StatsInteractor.getStats(uid, mid)
                 .then(stats => dispatch(InternalActions.ready(stats)))
                 .catch(error => dispatch(InternalActions.error(error)))
         }
+    }
+
+    static incrementConvos = (uid, mid) => dispatch => {
+        StatsInteractor.incrementConvos(uid, mid)
+            .then(newStats => dispatch(InternalActions.ready(newStats)))
+            .catch(error => dispatch(InternalActions.error(error)))
+    }
+
+    static incrementConversions = (uid, mid) => dispatch => {
+        StatsInteractor.incrementConversions(uid, mid)
+            .then(newStats => dispatch(InternalActions.ready(newStats)))
+            .catch(error => dispatch(InternalActions.error(error)))
     }
 }
 
 class InternalActions {
     static getting = () => actionCreator(StatsStatus.GETTING)
-    static ready = statsArray => actionCreator(StatsStatus.READY, statsArray)
-    static none = () => actionCreator(StatsStatus.NONE, [])
+    static ready = stats => actionCreator(StatsStatus.READY, stats)
+
     static error = error => actionCreator(StatsStatus.ERROR, error)
 }
 

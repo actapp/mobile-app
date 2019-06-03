@@ -11,11 +11,11 @@ class StatsPage extends Component {
     componentDidMount = () => {
         if (this.props.stats.status == StatsStatus.NOT_READY) {
             // Fetch stats
-            this.props.fetch(this.props.accountData)
+            this.props.fetch(this.props.account.data.id, this.props.account.data.ministryId)
         }
     }
 
-    render = () => renderStatsContent(this.props.stats)
+    render = () => renderStatsContent(this.props.stats, this.props.ministry.data.name)
 }
 
 // Wrap the component in 'withNavigation' so that navigation can be used, then redux-connect it

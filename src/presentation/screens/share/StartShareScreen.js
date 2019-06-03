@@ -23,7 +23,10 @@ class StartShareScreen extends Component {
             // Contact was added, start session
             // Added contact assumed to be the last in the list
             const addedContact = this.props.contacts.data[this.props.contacts.data.length - 1]
-            this.props.navigation.replace(ShareScreen.KEY, { contact: addedContact })
+            this.props.navigation.replace(ShareScreen.KEY, {
+                contact: addedContact,
+                isFirstConvo: true
+            })
             return
         }
     }
