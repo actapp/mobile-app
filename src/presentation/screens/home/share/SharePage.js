@@ -9,6 +9,8 @@ import { ContactsStatus } from '../../../redux/Contacts';
 import StartShareScreen from '../../share/StartShareScreen';
 import ShareScreen from '../../share/ShareScreen';
 
+import { sendMessage } from '../../../../core/MessagingInteractor'
+
 class SharePage extends Component {
     static ON_FOOTER_BUTTON_PRESSED = (navigation) => {
         navigation.navigate(StartShareScreen.KEY)
@@ -26,14 +28,14 @@ class SharePage extends Component {
         onContactMessageClicked: this.onContactMessageClicked
     })
 
-    onContactClicked = (contact) => {
+    onContactClicked = contact => {
         this.props.navigation.navigate(ShareScreen.KEY, {
             contact
         })
     }
 
-    onContactMessageClicked = (contact) => {
-        // TODO
+    onContactMessageClicked = contact => {
+        sendMessage(contact.phone)
     }
 }
 
