@@ -3,7 +3,7 @@ import ShareConnect from './ShareConnect';
 import renderContent from './ShareRenderer';
 import { ShareStatus } from '../../redux/Share';
 
-import { confirm } from '../../alerts/Alerts'
+import { confirm, alert } from '../../alerts/Alerts'
 
 class ShareScreen extends Component {
     static KEY = 'ShareScreen'

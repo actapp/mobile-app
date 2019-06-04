@@ -9,7 +9,7 @@ export default function renderContent({
     const inviteMessage = 'Invite others to join ' + ministryName + ' on MySharePal.'
 
     return (
-        <View style={{ flexWrap: 1, height: '100%', justifyContent: 'center', alignItems: 'center', paddingTop: 20 }}>
+        <View style={{ flexGrow: 1, height: '100%', justifyContent: 'center', alignItems: 'center', padding: 20 }}>
             <Text style={{ color: 'white', marginBottom: 20, fontSize: 24, fontWeight: '200', textAlign: 'center' }}>
                 {inviteMessage}
             </Text>

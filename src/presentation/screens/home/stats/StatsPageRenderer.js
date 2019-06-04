@@ -56,13 +56,19 @@ function renderCharts(statsData, ministryName) {
 
     statsDataForCharts.push(createChartDataObject('Me', statsData.user))
 
-    return statsDataForCharts
+    const chartCards = statsDataForCharts
         .map(statDataForChart => {
             return renderChartCard(
                 statDataForChart.label,
                 renderChart(statDataForChart.data, chartWidth)
             )
         })
+
+    return (
+        <View style={{ padding: 10 }}>
+            {chartCards}
+        </View>
+    )
 }
 
 function createChartDataObject(label, statData) {
@@ -81,13 +87,13 @@ function createChartData(statData) {
     return [
         {
             name: 'Spiritual convos',
-            data: statData.convos,
+            data: statData.convos <= 0 ? 1 : statData.convos,
             color: '#7a7cff',
             ...baseStyling
         },
         {
             name: 'Accepted Christ',
-            data: statData.conversions,
+            data: statData.conversions <= 0 ? 0 : statData.conversions,
             color: '#0026ca',
             ...baseStyling
         }
