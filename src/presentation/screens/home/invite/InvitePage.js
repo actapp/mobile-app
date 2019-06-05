@@ -15,9 +15,7 @@ class InvitePage extends Component {
         sendMessageWithBody('', ministryId)
     }
 
-    render = () => renderContent({
-        ministry: this.props.ministry
-    })
+    render = () => renderContent(this.props.ministry)
 }
 
 export default InvitePageConnect.connect(withNavigation(InvitePage))
