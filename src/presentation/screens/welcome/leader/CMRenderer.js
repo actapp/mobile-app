@@ -34,11 +34,11 @@ function contentAndSubtitle({ ministryStatus, ministryData, accountStatus, onMin
         return { subtitle: 'Creating ministry...', body: loading() }
     }
 
-    if (accountStatus == AccountStatus.ASSOCIATING) {
+    if (accountStatus == AccountStatus.SETTING_ASSOCIATION) {
         return { subtitle: 'Setting up your account...', body: loading() }
     }
 
-    if (ministryStatus == MinistryStatus.CREATED && AccountStatus.isAssociated(accountStatus)) {
+    if (ministryStatus == MinistryStatus.CREATED && !AccountStatus.isUnassociated(accountStatus)) {
         return {
             subtitle: 'This is your ministry code. Share it with anyone you want to be a member of your ministry (like a referral code).\n\nFeel free to copy it or write it down. But don\'t worry: you can view it in MySharePal at any time.',
             body: ministryIdView(ministryData.id, onDonePressed)

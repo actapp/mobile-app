@@ -2,7 +2,7 @@ import { getDocAndRefs, isEmptyOrNonExistentDoc } from '../util/DocManagement'
 
 const COLLECTION_NAME = 'users'
 
-async function createAccount(uid, account) {
+async function createUnassociatedAccount(uid, account) {
     const { doc, docRef } = await getDocAndRefs(COLLECTION_NAME, uid)
 
     if (isEmptyOrNonExistentDoc(doc)) {
@@ -42,7 +42,7 @@ async function deleteAccount(uid) {
 }
 
 export default {
-    createAccount: createAccount,
+    createUnassociatedAccount: createUnassociatedAccount,
     getAccount: getAccount,
     updateAccount: updateAccount,
     deleteAccount: deleteAccount

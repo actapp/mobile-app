@@ -15,7 +15,7 @@ class StatsPage extends Component {
         }
     }
 
-    render = () => renderStatsContent(this.props.stats, this.props.ministry.data.name)
+    render = () => renderStatsContent(this.props.stats, this.props.ministry)
 }
 
 // Wrap the component in 'withNavigation' so that navigation can be used, then redux-connect it

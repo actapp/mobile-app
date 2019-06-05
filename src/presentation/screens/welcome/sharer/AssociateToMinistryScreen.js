@@ -30,12 +30,17 @@ class AssociateToMinistryScreen extends Component {
         return renderContent({
             accountStatus: this.props.accountStatus,
             ministryStatus: this.props.ministryStatus,
-            onMinistryIdSubmitted: this.onMinistryIdSubmitted
+            onMinistryIdSubmitted: this.onMinistryIdSubmitted,
+            onSkipPressed: this.onSkipPressed
         })
     }
 
     onMinistryIdSubmitted = (mid) => {
         this.props.associateAccount(this.props.uid, mid)
+    }
+
+    onSkipPressed = () => {
+        this.props.dissociateAccount(this.props.uid)
     }
 
     handleState = () => {
@@ -49,12 +54,19 @@ class AssociateToMinistryScreen extends Component {
             alertError(this.props.ministry.error.message)
         }
 
-        if (this.props.accountStatus == AccountStatus.ASSOCIATED) {
-            this.handleAccountAssociated()
+        if (this.props.accountStatus == AccountStatus.READY_ASSOCIATED) {
+            this.handleAccountAssociated(false)
+        } else if (this.props.accountStatus == AccountStatus.READY_DISSOCIATED) {
+            this.handleAccountAssociated(true)
         }
     }
 
-    handleAccountAssociated = () => {
+    handleAccountAssociated = (isDissociated) => {
+        if(isDissociated) {
+            this.props.navigation.dispatch(buildResetToRouteAction(DashboardScreen.KEY))
+            return
+        }
+
         // Account now associated--fetch the ministry data
         switch (this.props.ministryStatus) {
             case MinistryStatus.NOT_READY:

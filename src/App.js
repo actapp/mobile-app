@@ -24,6 +24,7 @@ import { AccountStatus } from './presentation/redux/Account';
 
 import { MinistryStatus } from './presentation/redux/Ministry';
 import DashboardScreen from './presentation/screens/home/DashboardScreen';
+import { isAccountDissociated } from './core/account/AccountInteractor';
 
 class App extends Component {
     static ERROR_SOURCE = 'App'
@@ -115,10 +116,12 @@ class App extends Component {
             case AccountStatus.NOT_READY:
                 this.props.fetchAccount(auth.user.uid)
                 break
-            case AccountStatus.READY:
-                this.handleAccountReady()
+            case AccountStatus.READY_ASSOCIATED:
+            case AccountStatus.READY_DISSOCIATED:
+                this.handleAccountReady(isAccountDissociated(account.data.ministryId))
                 break
             case AccountStatus.NO_ACCOUNT:
+            case AccountStatus.READY_UNASSOCIATED:
                 // User has logged in before, but for some reason no account was created
                 this.replaceScreen(GetStartedScreen.KEY)
                 break
@@ -134,7 +137,12 @@ class App extends Component {
         }
     }
 
-    handleAccountReady = () => {
+    handleAccountReady = (isDissociated) => {
+        if (isDissociated) {
+            this.props.navigation.dispatch(buildResetToRouteAction(DashboardScreen.KEY))
+            return
+        }
+
         const { ministry, account } = this.props
 
         switch (ministry.status) {

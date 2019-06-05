@@ -19,5 +19,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     associateAccount: (uid, ministryId) => dispatch(AccountActions.associateAccount(uid, ministryId)),
+    dissociateAccount: uid => dispatch(AccountActions.dissociateAccount(uid)),
     fetchMinistry: mid => dispatch(MinistryActions.fetch(mid))
 })

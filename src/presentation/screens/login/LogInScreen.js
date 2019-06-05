@@ -11,7 +11,7 @@ import { alertError } from '../../alerts/Alerts'
 import { AuthStatus } from '../../redux/Auth';
 import { AccountStatus } from '../../redux/Account';
 
-import { Roles } from '../../../core/account/AccountInteractor';
+import { Roles, isAccountDissociated } from '../../../core/account/AccountInteractor';
 
 
 import AssociateToMinistryScreen from '../welcome/sharer/AssociateToMinistryScreen';
@@ -80,9 +80,9 @@ class LogInScreen extends Component {
                 // If account is not associated, now associate
                 this.goToMinistryAssociationByRole(this.props.account.data.role)
                 break
-            case AccountStatus.READY:
-            case AccountStatus.CREATED:
-                this.handleAccountReady()
+            case AccountStatus.READY_ASSOCIATED:
+            case AccountStatus.READY_DISSOCIATED:
+                this.handleAccountReady(isAccountDissociated(this.props.account.data.ministryId))
                 break
         }
     }
@@ -109,9 +109,14 @@ class LogInScreen extends Component {
         }
     }
 
-    handleAccountReady = () => {
+    handleAccountReady = (isDissociated) => {
+        if(isDissociated) {
+            this.resetTo(DashboardScreen.KEY)
+            return
+        }
+
         const { account, ministry } = this.props
-        switch(ministry.status) {
+        switch (ministry.status) {
             case MinistryStatus.NOT_READY:
                 this.props.fetchMinistry(account.data.ministryId)
                 break
@@ -134,7 +139,7 @@ class LogInScreen extends Component {
         console.log('Resetting to ' + screenKey)
 
         const resetAction = buildResetToRouteAction(screenKey)
-        
+
         this.props.navigation.dispatch(resetAction);
     }
 

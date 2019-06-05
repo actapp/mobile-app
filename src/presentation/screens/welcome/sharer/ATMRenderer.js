@@ -14,8 +14,18 @@ const inputState = {
     ministryId: null
 }
 
-export default function renderContent({ accountStatus, ministryStatus, onMinistryIdSubmitted }) {
-    const content = contentAndSubtitle({ accountStatus, ministryStatus, onMinistryIdSubmitted })
+export default function renderContent({
+    accountStatus,
+    ministryStatus,
+    onMinistryIdSubmitted,
+    onSkipPressed
+}) {
+    const content = contentAndSubtitle({
+        accountStatus,
+        ministryStatus,
+        onMinistryIdSubmitted,
+        onSkipPressed
+    })
 
     return (
         <HeaderlessRootContainer style={{ paddingTop: 80, paddingLeft: 50, paddingRight: 50 }}>
@@ -26,13 +36,21 @@ export default function renderContent({ accountStatus, ministryStatus, onMinistr
     )
 }
 
-function contentAndSubtitle({ accountStatus, ministryStatus, onMinistryIdSubmitted }) {
-    if (accountStatus == AccountStatus.ASSOCIATING
+function contentAndSubtitle({
+    accountStatus,
+    ministryStatus,
+    onMinistryIdSubmitted,
+    onSkipPressed
+}) {
+    if (accountStatus == AccountStatus.SETTING_ASSOCIATION
         || ministryStatus == MinistryStatus.GETTING) {
         return { subtitle: 'Please wait...', body: loading() }
     }
 
-    return { subtitle: 'Enter the 5-digit ministry code given to you by your ministry leader. It should look something like \"AB001\".', body: ministryIdForm(onMinistryIdSubmitted) }
+    return {
+        subtitle: 'Enter the 5-digit ministry code given to you by your ministry leader. It should look something like \"AB001\".',
+        body: ministryIdForm(onMinistryIdSubmitted, onSkipPressed)
+    }
 }
 
 function loading() {
@@ -41,11 +59,12 @@ function loading() {
     )
 }
 
-function ministryIdForm(onMinistryIdSubmitted) {
+function ministryIdForm(onMinistryIdSubmitted, onSkipPressed) {
     return (
         <Form style={{ width: '100%' }}>
             {ministryIdInput(onMinistryIdSubmitted)}
             {nextButton(onMinistryIdSubmitted)}
+            {skipButton(onSkipPressed, { marginTop: 15 })}
         </Form>
     )
 }
@@ -84,6 +103,21 @@ function nextButton(onMinistryIdSubmitted) {
                 Next
             </Text>
             <Icon name={PlatformIcons.name('arrow-forward')} color='white' size={25} />
+        </Button>
+    )
+}
+
+function skipButton(onSkipPressed, additionalStyling) {
+    return (
+        <Button
+            full
+            primary
+            bordered
+            style={additionalStyling}
+            onPress={onSkipPressed}>
+            <Text style={{ color: 'white' }}>
+                Skip
+            </Text>
         </Button>
     )
 }

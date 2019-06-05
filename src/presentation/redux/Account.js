@@ -1,4 +1,4 @@
-import { createAccount, getAccount, updateAccount, associateAccount, createAccountWithMinistryId } from '../../core/account/AccountInteractor'
+import { createUnassociatedAccount, getAccount, updateAccount, associateAccount, dissociateAccount, isAccountDissociated } from '../../core/account/AccountInteractor'
 
 import { actionCreator } from './util/Util'
 
@@ -66,12 +66,11 @@ function reduceStatusAction(newState, action) {
     newState['status'] = action.type
 
     switch (action.type) {
-        case AccountStatus.CREATED:
-        case AccountStatus.UPDATED:
-        case AccountStatus.ASSOCIATED:
-        case AccountStatus.READY:
         case AccountStatus.CREATED_UNASSOCIATED:
         case AccountStatus.READY_UNASSOCIATED:
+        case AccountStatus.READY_ASSOCIATED:
+        case AccountStatus.READY_DISSOCIATED:
+        case AccountStatus.UPDATED:
             newState['data'] = action.payload
             break
         case AccountStatus.NO_ACCOUNT:
@@ -93,25 +92,22 @@ class AccountStatus {
     static CREATING = 'account/status/creating'
     static GETTING = 'account/status/getting'
     static UPDATING = 'account/status/updating'
-    static ASSOCIATING = 'account/status/associating'
+    static SETTING_ASSOCIATION = 'account/status/associating'
 
-    static CREATED = 'account/status/created'
     static CREATED_UNASSOCIATED = 'account/status/created_unassociated'
-    static UPDATED = 'account/status/updated'
-    static ASSOCIATED = 'account/status/associated'
-    static READY = 'account/status/ready'
     static READY_UNASSOCIATED = 'account/status/ready_unassociated'
+    static READY_ASSOCIATED = 'account/status/ready_associated'
+    static READY_DISSOCIATED = 'account/status/ready_dissociated'
+    static UPDATED = 'account/status/updated'
 
     static NO_ACCOUNT = 'account/status/none'
 
     static ERROR = 'account/status/error'
 
-    static isAssociated = (status) => {
+    static isUnassociated = (status) => {
         switch (status) {
-            case AccountStatus.CREATED:
-            case AccountStatus.UPDATED:
-            case AccountStatus.ASSOCIATED:
-            case AccountStatus.READY:
+            case AccountStatus.CREATED_UNASSOCIATED:
+            case AccountStatus.READY_UNASSOCIATED:
                 return true
             default:
                 return false
@@ -127,26 +123,14 @@ class AccountActions {
         return (dispatch, getState) => {
             dispatch(InternalActions.creating())
 
-            createAccount(uid, role)
+            createUnassociatedAccount(uid, role)
                 .then(createdAccount => {
-                    onAccountCreated(dispatch, createdAccount)
+                    dispatch(InternalActions.readyUnassociated(createdAccount))
                 })
                 .catch(error => {
                     dispatch(InternalActions.error(error))
                 })
         }
-    }
-
-    static createAccountWithMinistryId = (uid, role, mid) => {
-        dispatch(InternalActions.creating())
-
-        createAccountWithMinistryId(uid, role, mid)
-            .then(createdAccount => {
-                onAccountCreated(dispatch, createdAccount)
-            })
-            .catch(error => {
-                dispatch(InternalActions.error(error))
-            })
     }
 
     static getAccount = (uid) => {
@@ -155,14 +139,16 @@ class AccountActions {
 
             getAccount(uid)
                 .then(account => {
-                    if (account != null) {
+                    if (account) {
                         // An account w/ this UID exists
                         dispatch(InternalActions.clearRoleIntended())
 
-                        if (isAccountAssociated(account)) {
-                            dispatch(InternalActions.ready(account))
-                        } else {
+                        if (!account.ministryId) {
                             dispatch(InternalActions.readyUnassociated(account))
+                        } else if (isAccountDissociated(account)) {
+                            dispatch(InternalActions.readyDissociated(account))
+                        } else {
+                            dispatch(InternalActions.readyAssociated(account))
                         }
                     } else {
                         // We need to create an account; don't clear intended role yet because it is used in creating account
@@ -191,15 +177,27 @@ class AccountActions {
 
     static associateAccount = (uid, ministryId) => {
         return (dispatch, getState) => {
-            dispatch(InternalActions.associating())
+            dispatch(InternalActions.settingAssociation())
 
             associateAccount(uid, ministryId)
                 .then(associateAccount => {
-                    dispatch(InternalActions.associated(associateAccount))
+                    dispatch(InternalActions.readyAssociated(associateAccount))
                 })
                 .catch(error => {
                     dispatch(InternalActions.error(error))
                 })
+        }
+    }
+
+    static dissociateAccount = uid => {
+        return (dispatch, getState) => {
+            dispatch(InternalActions.settingAssociation())
+
+            dissociateAccount(uid)
+                .then(dissociatedAccount => {
+                    dispatch(InternalActions.readyDissociated(dissociatedAccount))
+                })
+                .catch(error => dispatch(InternalActions.error(error)))
         }
     }
 }
@@ -208,14 +206,14 @@ class InternalActions {
     static creating = () => actionCreator(AccountStatus.CREATING)
     static getting = () => actionCreator(AccountStatus.GETTING)
     static updating = () => actionCreator(AccountStatus.UPDATING)
-    static associating = () => actionCreator(AccountStatus.ASSOCIATING)
+    static settingAssociation = () => actionCreator(AccountStatus.SETTING_ASSOCIATION)
 
-    static created = (newAccount) => actionCreator(AccountStatus.CREATED, newAccount)
     static createdUnassociated = (newAccount) => actionCreator(AccountStatus.CREATED_UNASSOCIATED, newAccount)
-    static updated = (updatedAccount) => actionCreator(AccountStatus.UPDATED, updatedAccount)
-    static associated = (associatedAccount) => actionCreator(AccountStatus.ASSOCIATED, associatedAccount)
-    static ready = (account) => actionCreator(AccountStatus.READY, account)
     static readyUnassociated = (account) => actionCreator(AccountStatus.READY_UNASSOCIATED, account)
+    static readyAssociated = (account) => actionCreator(AccountStatus.READY_ASSOCIATED, account)
+    static readyDissociated = account => actionCreator(AccountStatus.READY_DISSOCIATED, account)
+    
+    static updated = (updatedAccount) => actionCreator(AccountStatus.UPDATED, updatedAccount)
     static noAccount = () => actionCreator(AccountStatus.NO_ACCOUNT)
 
     static clearRoleIntended = () => actionCreator(ActionTypes.CLEAR_ROLE_INTENDED)
@@ -226,24 +224,6 @@ class InternalActions {
 class ActionTypes {
     static ROLE_INTENDED = 'account/role_intended'
     static CLEAR_ROLE_INTENDED = 'account/clear_role_intended'
-}
-
-function onAccountCreated(dispatch, createdAccount) {
-    dispatch(InternalActions.clearRoleIntended())
-
-    if (isAccountAssociated(createdAccount)) {
-        dispatch(InternalActions.created(createdAccount))
-    } else {
-        dispatch(InternalActions.createdUnassociated(createdAccount))
-    }
-}
-
-function isAccountAssociated(account) {
-    if (!account) {
-        return false
-    }
-
-    return account.ministryId && account.ministryId.length
 }
 
 export { AccountStatus, AccountActions, accountReducer }

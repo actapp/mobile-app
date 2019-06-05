@@ -16,8 +16,7 @@ class InvitePage extends Component {
     }
 
     render = () => renderContent({
-        ministryId: this.props.ministry.data.id,
-        ministryName: this.props.ministry.data.name
+        ministry: this.props.ministry
     })
 }
 

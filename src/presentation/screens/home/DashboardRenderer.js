@@ -51,13 +51,20 @@ export default function renderContent({
     // Should be an array of objects, with two properties: name and action
     options
 }) {
+    // Default to app name for title,
+    // Use ministry name if it's available
+    let ministryName = 'MySharePal'
+    if(ministry.data) {
+        ministryName = ministry.data.name
+    }
+
     const activeTab = component.state.activeTabIndex
     const content = renderTab(activeTab)
 
     return (
         <HeaderlessRootContainer
-            headerContent={header(ministry.data.name, options)}
-            footerContent={footer(activeTab, component, renderAdditionalFooterContent(activeTab, component.props.navigation, ministry.data.id))}
+            headerContent={header(ministryName, options)}
+            footerContent={footer(activeTab, component, renderAdditionalFooterContent(activeTab, component.props.navigation, ministry.data))}
             style={{ alignItems: null }}>
             {content}
         </HeaderlessRootContainer>
@@ -72,11 +79,15 @@ function renderTab(activeTabIndex) {
 /**
  * Will appear on top of tab bar
  */
-function renderAdditionalFooterContent(activeTabIndex, navigation, ministryId) {
+function renderAdditionalFooterContent(activeTabIndex, navigation, ministryData) {
     if (activeTabIndex == TABS.SHARE.index) {
         return topFooterButton('Share now', () => { SharePage.ON_FOOTER_BUTTON_PRESSED(navigation) }, <Icon name={PlatformIcons.name('arrow-forward')} size={20} color='white' />)
     } else if (activeTabIndex == TABS.INVITE.index) {
-        return topFooterButton('Send code', () => { InvitePage.ON_FOOTER_BUTTON_PRESSED(ministryId) })
+        // TODO
+        let mid = ''
+        if(ministryData) mid = ministryData.id
+
+        return topFooterButton('Invite a friend', () => { InvitePage.ON_FOOTER_BUTTON_PRESSED(mid) })
     }
 
     return null

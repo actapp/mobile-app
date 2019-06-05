@@ -16,7 +16,7 @@ import renderChart from './ChartRenderer';
 // TODO - find a better way to handle this
 const chartWidth = Dimensions.get('window').width - 20
 
-export default function renderStatsContent(stats, ministryName) {
+export default function renderStatsContent(stats, ministry) {
     const statsStatus = stats.status
     const statsData = stats.data
 
@@ -27,7 +27,7 @@ export default function renderStatsContent(stats, ministryName) {
         case StatsStatus.GETTING:
             return loading()
         case StatsStatus.READY:
-            return renderCharts(statsData, ministryName)
+            return renderCharts(statsData, ministry)
         case StatsStatus.NONE:
             // TODO
             return loading()
@@ -45,13 +45,13 @@ function loading() {
     )
 }
 
-function renderCharts(statsData, ministryName) {
+function renderCharts(statsData, ministry) {
     const statsDataForCharts = [
         createChartDataObject('MySharePal Community', statsData.global)
     ]
 
-    if (statsData.ministry) {
-        statsDataForCharts.push(createChartDataObject(ministryName, statsData.ministry))
+    if (statsData.ministry && ministry.data) {
+        statsDataForCharts.push(createChartDataObject(ministry.data.name, statsData.ministry))
     }
 
     statsDataForCharts.push(createChartDataObject('Me', statsData.user))

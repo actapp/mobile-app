@@ -10,10 +10,10 @@ export default AppConfig = {
 
             auth: {
                 // User to have logged in upon start
-                loggedInUser: {
-                    uid: '123',
-                    phoneNumber: '+15555555555'
-                },
+                // loggedInUser: {
+                //     uid: '123',
+                //     phoneNumber: '+15555555555'
+                // },
 
                 // User that exists on the 'back end', but is not logged in locally
                 // existingUser: {
@@ -25,95 +25,95 @@ export default AppConfig = {
                 collections: {
                     // Existing users in "back end"
                     users: {
-                        '123': {
-                            account: {
-                                id: '123',
-                                role: 'SHARER',
-                                ministryId: 'AA000'
-                            },
-                            contacts: [
-                                {
-                                    name: 'Joe',
-                                    phone: '5134033455',
-                                    currentStepIndex: 0,
-                                    currentStepDesc: 'Spiritual beliefs',
-                                    id: '456'
-                                },
-                                {
-                                    name: 'Joe',
-                                    phone: '5134033455',
-                                    currentStepIndex: 0,
-                                    currentStepDesc: 'Spiritual beliefs',
-                                    id: '456'
-                                },
-                                {
-                                    name: 'Joe',
-                                    phone: '5134033455',
-                                    currentStepIndex: 0,
-                                    currentStepDesc: 'Spiritual beliefs',
-                                    id: '456'
-                                },
-                                {
-                                    name: 'Joe',
-                                    phone: '5134033455',
-                                    currentStepIndex: 0,
-                                    currentStepDesc: 'Spiritual beliefs',
-                                    id: '456'
-                                },
-                                {
-                                    name: 'Joe',
-                                    phone: '5134033455',
-                                    currentStepIndex: 0,
-                                    currentStepDesc: 'Spiritual beliefs',
-                                    id: '456'
-                                },
-                                {
-                                    name: 'Joe',
-                                    phone: '5134033455',
-                                    currentStepIndex: 0,
-                                    currentStepDesc: 'Spiritual beliefs',
-                                    id: '456'
-                                },
-                                {
-                                    name: 'Joe',
-                                    phone: '5134033455',
-                                    currentStepIndex: 0,
-                                    currentStepDesc: 'Spiritual beliefs',
-                                    id: '456'
-                                },
-                                {
-                                    name: 'Joe',
-                                    phone: '5134033455',
-                                    currentStepIndex: 0,
-                                    currentStepDesc: 'Spiritual beliefs',
-                                    id: '456'
-                                },
-                                {
-                                    name: 'Joe',
-                                    phone: '5134033455',
-                                    currentStepIndex: 0,
-                                    currentStepDesc: 'Spiritual beliefs',
-                                    id: '456'
-                                },
-                                {
-                                    name: 'Joe',
-                                    phone: '5134033455',
-                                    currentStepIndex: 0,
-                                    currentStepDesc: 'Spiritual beliefs',
-                                    id: '456'
-                                },
-                            ]
-                        }
+                        // '123': {
+                        //     account: {
+                        //         id: '123',
+                        //         role: 'SHARER',
+                        //         ministryId: 'AA000'
+                        //     },
+                        //     contacts: [
+                        //         {
+                        //             name: 'Joe',
+                        //             phone: '5134033455',
+                        //             currentStepIndex: 0,
+                        //             currentStepDesc: 'Spiritual beliefs',
+                        //             id: '456'
+                        //         },
+                        //         {
+                        //             name: 'Joe',
+                        //             phone: '5134033455',
+                        //             currentStepIndex: 0,
+                        //             currentStepDesc: 'Spiritual beliefs',
+                        //             id: '456'
+                        //         },
+                        //         {
+                        //             name: 'Joe',
+                        //             phone: '5134033455',
+                        //             currentStepIndex: 0,
+                        //             currentStepDesc: 'Spiritual beliefs',
+                        //             id: '456'
+                        //         },
+                        //         {
+                        //             name: 'Joe',
+                        //             phone: '5134033455',
+                        //             currentStepIndex: 0,
+                        //             currentStepDesc: 'Spiritual beliefs',
+                        //             id: '456'
+                        //         },
+                        //         {
+                        //             name: 'Joe',
+                        //             phone: '5134033455',
+                        //             currentStepIndex: 0,
+                        //             currentStepDesc: 'Spiritual beliefs',
+                        //             id: '456'
+                        //         },
+                        //         {
+                        //             name: 'Joe',
+                        //             phone: '5134033455',
+                        //             currentStepIndex: 0,
+                        //             currentStepDesc: 'Spiritual beliefs',
+                        //             id: '456'
+                        //         },
+                        //         {
+                        //             name: 'Joe',
+                        //             phone: '5134033455',
+                        //             currentStepIndex: 0,
+                        //             currentStepDesc: 'Spiritual beliefs',
+                        //             id: '456'
+                        //         },
+                        //         {
+                        //             name: 'Joe',
+                        //             phone: '5134033455',
+                        //             currentStepIndex: 0,
+                        //             currentStepDesc: 'Spiritual beliefs',
+                        //             id: '456'
+                        //         },
+                        //         {
+                        //             name: 'Joe',
+                        //             phone: '5134033455',
+                        //             currentStepIndex: 0,
+                        //             currentStepDesc: 'Spiritual beliefs',
+                        //             id: '456'
+                        //         },
+                        //         {
+                        //             name: 'Joe',
+                        //             phone: '5134033455',
+                        //             currentStepIndex: 0,
+                        //             currentStepDesc: 'Spiritual beliefs',
+                        //             id: '456'
+                        //         },
+                        //     ]
+                        // }
                     },
 
                     // Existing ministries in "back end"
-                    ministries: {
-                        'AA000': {
-                            name: 'My Cool Ministry',
-                            id: 'AA000',
-                            data: {}
-                        }
-                    }
+                    // ministries: {
+                    //     'AA000': {
+                    //         name: 'My Cool Ministry',
+                    //         id: 'AA000',
+                    //         data: {}
+                    //     }
+                    // }
                 }
             }
         },

@@ -1,4 +1,5 @@
 import StatsService from './StatsService'
+import { isAccountDissociated } from '../account/AccountInteractor';
 
 /**
  * Get the stats of:
@@ -13,7 +14,7 @@ export async function getStats(uid, mid) {
 
 
     let minStats = null
-    if (mid) {
+    if (!isAccountDissociated(mid)) {
         minStats = await StatsService.getOrCreateAllStatsForMinistry(mid)
     }
 
@@ -39,7 +40,7 @@ export async function incrementConvos(uid, mid) {
     const newUserStats = await StatsService.incrementConvosForUser(uid)
 
     let newMinStats = null
-    if (mid) {
+    if (!isAccountDissociated(mid)) {
         newMinStats = await StatsService.incrementConvosForMinistry(mid)
     }
 
@@ -64,7 +65,7 @@ export async function incrementConversions(uid, mid) {
     const newUserStats = await StatsService.incrementConversionsForUser(uid)
 
     let newMinStats = null
-    if (mid) {
+    if (!isAccountDissociated(mid)) {
         newMinStats = await StatsService.incrementConversionsForMinistry(mid)
     }
 
