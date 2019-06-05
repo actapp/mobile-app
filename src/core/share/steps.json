@@ -1,0 +1,209 @@
+[
+    {
+        "key": "Step1",
+        "title": "Spiritual beliefs",
+        "alignment": "center",
+        "lineItems": [
+            "Do you have any kind of spiritual beliefs?"
+        ],
+        "comments": "These questions act as a funnel.  Be careful to listen and not offer correction to answers given.  If your friend says no to being interested, do nothing.  You have been obedient to share the gospel, and the results belong to God.",
+        "desc": "Spiritual beliefs",
+        "nextKey": "Step2"
+    },
+    {
+        "key": "Step2",
+        "title": "Spiritual beliefs",
+        "alignment": "center",
+        "lineItems": [
+            "To you, who is Jesus?"
+        ],
+        "comments": "These questions act as a funnel.  Be careful to listen and not offer correction to answers given.  If your friend says no to being interested, do nothing.  You have been obedient to share the gospel, and the results belong to God.",
+        "desc": "Spiritual beliefs",
+        "nextKey": "Step3"
+    },
+    {
+        "key": "Step3",
+        "title": "Spiritual beliefs",
+        "alignment": "center",
+        "lineItems": [
+            "Do you think there is a heaven or hell?"
+        ],
+        "comments": "These questions act as a funnel.  Be careful to listen and not offer correction to answers given.  If your friend says no to being interested, do nothing.  You have been obedient to share the gospel, and the results belong to God.",
+        "desc": "Spiritual beliefs",
+        "nextKey": "Step4"
+    },
+    {
+        "key": "Step4",
+        "title": "Spiritual beliefs",
+        "alignment": "center",
+        "lineItems": [
+            "If you died, where would you go? If heaven, why?"
+        ],
+        "comments": "These questions act as a funnel.  Be careful to listen and not offer correction to answers given.  If your friend says no to being interested, do nothing.  You have been obedient to share the gospel, and the results belong to God.",
+        "desc": "Spiritual beliefs",
+        "nextKey": "Step5"
+    },
+    {
+        "key": "Step5",
+        "title": "Spiritual beliefs",
+        "alignment": "center",
+        "lineItems": [
+            "If there was an easier way to know how to get to heaven, would you want to know?"
+        ],
+        "comments": "These questions act as a funnel.  Be careful to listen and not offer correction to answers given.  If your friend says no to being interested, do nothing.  You have been obedient to share the gospel, and the results belong to God.",
+        "desc": "Spiritual beliefs",
+        "nextKey": "Step6"
+    },
+    {
+        "key": "Step6",
+        "title": "Read aloud",
+        "lineItems": [
+            "\"For all have sinned and fallen short of the glory of God\"  --Romans 3:23 (NIV)",
+            "What does this say to you?"
+        ],
+        "comments": "Why did I have my friend read it out loud?  Because faith comes from hearing. When people read Scripture aloud, you will be suprised how quickly they become convinced of their need to trust Jesus as Lord and Saviour.  Watch God work as you continue to guide others to read these Scriptures.  You are looking for an answer like: Everyone has sinned",
+        "desc": "Romans 3:23",
+        "nextKey": "Step7"
+    },
+    {
+        "key": "Step7",
+        "title": "Read aloud",
+        "lineItems": [
+            "\"For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord\" --Romans 6:23 (NIV)",
+            "What does this say to you?"
+        ],
+        "comments": "You are looking for an answer like: The result of sin is death, but God gives life through Jesus.",
+        "desc": "Romans 6:23",
+        "nextKey": "Step8"
+    },
+    {
+        "key": "Step8",
+        "title": "Read aloud",
+        "lineItems": [
+            "\"Jesus answered, 'I am the way and the truth and the life. No one comes to the Father except through me.'\" --John 14:6 (NIV)",
+            "What does this say to you?"
+        ],
+        "comments": "You are looking for an answer like: There is no other way to be with God except through Jesus.",
+        "desc": "John 14:6",
+        "nextKey": "Step9"
+    },
+    {
+        "key": "Step9",
+        "title": "Read aloud",
+        "lineItems": [
+            "\"But God demonstrates his own love for us in this: While we were still sinners, Christ died for us.\" --Romans 5:8 (NIV)",
+            "What does this say to you?"
+        ],
+        "comments": "Jesus died for me even though I'm a sinner",
+        "desc": "Romans 5:8",
+        "nextKey": "Step10"
+    },
+    {
+        "key": "Step10",
+        "title": "Read aloud",
+        "lineItems": [
+            "\"If you declare with your mouth, 'Jesus is Lord,' and believe in your heart that God raised him from the dead, you will be saved. For it is with your heart that you believe and are justified, and it is with your mouth that you profess your faith and are saved. As Scripture says, 'Anyone who believes in him will never be put to shame.' For, 'Everyone who calls on the name of the Lord will be saved.'\" --Romans 10:9-11,13 (NIV)",
+            "What does this say to you?"
+        ],
+        "comments": "You are looking for an answer like: If I believe God raised Jesus from the dead, I can be saved.",
+        "desc": "Romans 10:9-11",
+        "nextKey": "Step11"
+    },
+    {
+        "key": "Step11",
+        "title": "Read aloud",
+        "lineItems": [
+            "\"For by grace you have been saved through faith. And this is not your own doing; it is the gift of God, not a result of works, so that no one may boast.\" --Ephesians 2:8-9 (NIV)",
+            "What does this say to you?"
+        ],
+        "comments": "I can't do anything (work) to be saved. It is a gift.",
+        "desc": "Ephesians 2:8-9",
+        "nextKey": "Step12"
+    },
+    {
+        "key": "Step12",
+        "title": "Read aloud",
+        "lineItems": [
+            "\"And he died for all, that those who live should no longer live for themselves but for him who died for them and was raised again.\"  --2 Corinthians 5:15 (NIV)",
+            "What does this say to you?"
+        ],
+        "comments": "You are looking for an answer like: We should live for Christ",
+        "desc": "2 Cor. 5:15",
+        "nextKey": "Step13"
+    },
+    {
+        "key": "Step13",
+        "title": "Read aloud",
+        "lineItems": [
+            "\"'Here I am! I stand at the door and knock. If anyone hears my voice and opens the door, I will come in and eat with that person, and they with me.'\" --Revelation 3:20 (NIV)",
+            "What does this say to you?"
+        ],
+        "comments": "You are looking for an answer like: If I ask Jesus to come into my life, he will",
+        "desc": "Revelation 3:20",
+        "nextKey": "Step14"
+    },
+    {
+        "key": "Step14",
+        "title": "What's next?",
+        "alignment": "center",
+        "lineItems": [
+            "Are you a sinner?"
+        ],
+        "comments": "",
+        "desc": "Invitation to accept",
+        "nextKey": "Step15"
+    },
+    {
+        "key": "Step15",
+        "title": "What's next?",
+        "alignment": "center",
+        "lineItems": [
+            "Do you want forgiveness for your sins?"
+        ],
+        "comments": "",
+        "desc": "Invitation to accept",
+        "nextKey": "Step16"
+    },
+    {
+        "key": "Step16",
+        "title": "What's next?",
+        "alignment": "center",
+        "lineItems": [
+            "Do you believe Jesus died on the cross for you and rose again?"
+        ],
+        "comments": "",
+        "desc": "Invitation to accept",
+        "nextKey": "Step17"
+    },
+    {
+        "key": "Step17",
+        "title": "What's next?",
+        "alignment": "center",
+        "lineItems": [
+            "Are you willing to surrender your life to Jesus Christ?"
+        ],
+        "comments": "",
+        "desc": "Invitation to accept",
+        "nextKey": "Step18"
+    },
+    {
+        "key": "Step18",
+        "title": "What's next?",
+        "alignment": "center",
+        "lineItems": [
+            "Are you ready to invite Jesus into your life and into your heart?"
+        ],
+        "comments": "",
+        "desc": "Invitation to accept",
+        "nextKey": "Step19"
+    },
+    {
+       "key": "Step19",
+        "title": "Prayer",
+        "lineItems": [
+            "Heavenly Father, I have sinned against You. I want forgiveness of all my sins. I believe Jesus died on the cross for me and rose again. Father, I give You my life to do with as You wish.  I want Jesus Christ to come into my life and into my heart. I ask this in Jesus' name. Amen."
+        ],
+        "desc": "Prayer",
+        "comments": "If your friend accepted Christ please:\n\n1. Congratulate and welcome in their relationship with Jesus as their Lord and Savior.\n\n2. Let them know they will be receiving a text message with an invitation to learn more about their faith through MySharePal."
+    }
+]
