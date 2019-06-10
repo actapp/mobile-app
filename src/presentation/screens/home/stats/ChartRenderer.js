@@ -6,6 +6,7 @@
 
 import React from 'react'
 
+import { View, Text } from 'react-native'
 import { PieChart } from 'react-native-chart-kit'
 
 const chartConfig = {
@@ -17,7 +18,47 @@ const chartConfig = {
 }
 
 export default function renderChart(data, width) {
-    return renderPie(data, width)
+    return renderCounters(data)
+}
+
+function renderCounters(data) {
+    const counters = data.map(dataItem => renderCounter(dataItem))
+
+    return (
+        <View style={{
+            flex: 1,
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly'
+        }}>
+            {counters}
+        </View>
+    )
+}
+
+function renderCounter(dataItem) {
+    return (
+        <View
+            key={dataItem.name + dataItem.data}
+            style={{
+                flex: 1,
+                alignItems: 'center'
+            }}>
+            <Text style={{
+                color: dataItem.color,
+                fontSize: 34,
+                marginBottom: 15
+            }}>
+                {dataItem.data}
+            </Text>
+            <Text style={{
+                color: 'white',
+                fontSize: 14
+            }}>
+                {dataItem.name}
+            </Text>
+        </View>
+    )
 }
 
 function renderPie(data, width) {

@@ -6,14 +6,14 @@ export default AppConfig = {
 
     MOCK_SERVICES: {
         'react-native-firebase': {
-            shouldUse: false,
+            shouldUse: true,
 
             auth: {
                 // User to have logged in upon start
-                // loggedInUser: {
-                //     uid: '123',
-                //     phoneNumber: '+15555555555'
-                // },
+                loggedInUser: {
+                    uid: '123',
+                    phoneNumber: '+15555555555'
+                },
 
                 // User that exists on the 'back end', but is not logged in locally
                 // existingUser: {
@@ -25,12 +25,14 @@ export default AppConfig = {
                 collections: {
                     // Existing users in "back end"
                     users: {
-                        // '123': {
-                        //     account: {
-                        //         id: '123',
-                        //         role: 'SHARER',
-                        //         ministryId: 'AA000'
-                        //     },
+                        '123': {
+                            account: {
+                                id: '123',
+                                role: 'SHARER',
+                                ministryId: 'AA000'
+                            },
+                            convos: 22,
+                            conversions: 13 
                         //     contacts: [
                         //         {
                         //             name: 'Joe',
@@ -103,77 +105,30 @@ export default AppConfig = {
                         //             id: '456'
                         //         },
                         //     ]
-                        // }
+                        }
                     },
 
                     // Existing ministries in "back end"
-                    // ministries: {
-                    //     'AA000': {
-                    //         name: 'My Cool Ministry',
-                    //         id: 'AA000',
-                    //         data: {}
-                    //     }
-                    // }
+                    ministries: {
+                        'AA000': {
+                            name: 'Tree of Life Ministry',
+                            id: 'AA000',
+                            data: {},
+                            convos: 150,
+                            conversions: 98
+
+                        }
+                    },
+
+                    global: {
+                        global: {
+                            convos: 307,
+                            conversions: 124
+                        }
+                    }
                 }
             }
-        },
-        'stats': {
-            shouldUse: true,
-
-            leader: {
-
-            },
-
-            sharer: {
-                charts: [
-                    {
-                        label: 'MySharePal Community',
-                        data: [
-                            {
-                                label: 'Spiritual convos',
-                                data: 423,
-                                color: '#7a7cff'
-                            },
-                            {
-                                label: 'Accepted Christ',
-                                data: 315,
-                                color: '#0026ca'
-                            }
-                        ]
-                    },
-                    {
-                        label: 'My Cool Ministry',
-                        data: [
-                            {
-                                label: 'Spiritual convos',
-                                data: 115,
-                                color: '#7a7cff'
-                            },
-                            {
-                                label: 'Saved',
-                                data: 50,
-                                color: '#0026ca'
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Me',
-                        data: [
-                            {
-                                label: 'Spiritual convos',
-                                data: 33,
-                                color: '#7a7cff'
-                            },
-                            {
-                                label: 'Saved',
-                                data: 10,
-                                color: '#0026ca'
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
+        },        
     },
 
     // Mock delay for loading (i.e. when using mock firestore)

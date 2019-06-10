@@ -88,7 +88,7 @@ function createChartData(statData) {
         {
             name: 'Spiritual convos',
             data: statData.convos <= 0 ? 1 : statData.convos,
-            color: '#7a7cff',
+            color: '#b39ddb',
             ...baseStyling
         },
         {
@@ -107,7 +107,7 @@ function renderChartCard(label, chart) {
                 <Text style={{ color: 'white' }}>{label}</Text>
             </CardItem>
             <CardItem>
-                <Body>
+                <Body style={{padding: 10}}>
                     {chart}
                 </Body>
             </CardItem>
