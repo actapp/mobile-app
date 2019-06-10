@@ -111,7 +111,7 @@ export default AppConfig = {
                     // Existing ministries in "back end"
                     ministries: {
                         'AA000': {
-                            name: 'My Cool Ministry',
+                            name: 'Tree of Life Ministry',
                             id: 'AA000',
                             data: {},
                             convos: 150,
