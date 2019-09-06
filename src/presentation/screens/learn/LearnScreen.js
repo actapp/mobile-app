@@ -4,7 +4,9 @@
 
 import React, { Component } from 'react';
 
-import { View, WebView, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import { WebView } from 'react-native-webview';
+
 
 import { Content, Button, Text } from 'native-base'
 import ThemedContainer from '../../components/ThemedContainer'
@@ -81,6 +83,7 @@ export default class LearnScreen extends Component {
                         transparent
                         light
                         full
+                        onPress={ this.nextVideo }
                         iconRight>
                             <Text style={{color: 'white'}}>{buttonText}</Text>
                             <Icon name={buttonIcon} size={25} color='white' />
