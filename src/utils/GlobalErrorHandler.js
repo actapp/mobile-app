@@ -1,6 +1,6 @@
-import { Platform } from 'react-native'
+// import { Platform } from 'react-native'
 import StackTrace from 'stacktrace-js'
-import Analytics from 'appcenter-analytics';
+// import Analytics from 'appcenter-analytics';
 
 export const GENERIC_ERROR = 'GENERIC_ERROR'
 export const TIMEOUT_ERROR = 'TIMEOUT_ERROR'
@@ -47,16 +47,16 @@ function qualifiedErrorName(errorName, source) {
 }
 
 function reportError(name, message, errorId, stack, breadcrumbs) {
-    Analytics.trackEvent(
-        name,
-        {
-            errorId: errorId,
-            platform: Platform.OS,
-            message: message,
-            stack: stack,
-            breadcrumbs: breadcrumbs
-        }
-    )
+    // Analytics.trackEvent(
+    //     name,
+    //     {
+    //         errorId: errorId,
+    //         platform: Platform.OS,
+    //         message: message,
+    //         stack: stack,
+    //         breadcrumbs: breadcrumbs
+    //     }
+    // )
 }
 
 /**

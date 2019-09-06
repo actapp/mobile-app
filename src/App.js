@@ -8,8 +8,6 @@ import { AuthStatus } from './presentation/redux/Auth'
 import { createAppContainer, StackActions } from 'react-navigation'
 import createAppNavigator, { buildResetToRouteAction } from './AppNavigator'
 
-import codePush from 'react-native-code-push'
-
 import AppConnect from './AppConnect'
 
 import GetStartedScreen from './presentation/screens/welcome/GetStartedScreen';
@@ -176,6 +174,4 @@ const appNavigator = createAppNavigator(
 
 const appContainer = createAppContainer(appNavigator);
 
-const codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_START };
-
-export default codePush(codePushOptions)(appContainer)
+export default appContainer
