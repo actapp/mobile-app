@@ -32,9 +32,11 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>101020</string>
+	<string>101022</string>
 	<key>CodePushDeploymentKey</key>
 	<string>Pv_GxxWEqv3M4kuDwg5pw9uWNmqpr1W2klevE</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>

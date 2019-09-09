@@ -18,7 +18,7 @@
 {
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
-                                                   moduleName:@"AwesomeProject"
+                                                   moduleName:@"MySharePal"
                                             initialProperties:nil];
 
   rootView.backgroundColor = [UIColor blackColor];
