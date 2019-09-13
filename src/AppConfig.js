@@ -6,7 +6,7 @@ export default AppConfig = {
 
     MOCK_SERVICES: {
         'react-native-firebase': {
-            shouldUse: true,
+            shouldUse: false,
 
             auth: {
                 // User to have logged in upon start

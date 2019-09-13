@@ -1,4 +1,4 @@
-package com.mysharepal;
+package com.mysharepal2;
 
 import com.facebook.react.ReactActivity;
 

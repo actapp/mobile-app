@@ -46,8 +46,8 @@ export default function renderContent({
 function renderRootView(subtitleView, startOptionsView, onSubtitleReady) {
     return (
         <StyleProvider style={getTheme()}>
-            <Container>
-                <Content contentContainerStyle={{ ...Styles.rootContainer, paddingTop: 80, width: '100%' }}>
+            <Container style={{ backgroundColor: Colors.rootBackgroundColor}}>
+                <Content contentContainerStyle={{ ...Styles.rootContainer, paddingTop: 80, width: '100%', flexWrap: 'nowrap' }}>
                     {Subcomponents.renderHeaderImage(onSubtitleReady)}
                     {Subcomponents.renderHeaderTitle()}
                     <View style={Styles.horizontallyCenteredContentContainer}>

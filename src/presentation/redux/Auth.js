@@ -101,6 +101,12 @@ class AuthActions {
                 })
         }
     }
+
+    static logOut = () => {
+        return function (dispatch, getState) {
+            dispatch(InternalActions.loggedOut())            
+        }
+    }
 }
 
 let unsubscribeFromAuth = null

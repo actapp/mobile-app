@@ -13,7 +13,88 @@
           "package_name": "com.mysharepal"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "452879613368-nm6ijhcece90l6ktmp9fitimq8licn0j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mysharepal",
+            "certificate_hash": "3efb6ed59dfaf20e8ac35fd9548eb110def98b30"
+          }
+        },
+        {
+          "client_id": "452879613368-b22g9d9qlj5ctsclbdgckl4hje7gpvqo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mysharepal",
+            "certificate_hash": "6240d7304a0a6b09923b74ac3700b744b93edd50"
+          }
+        },
+        {
+          "client_id": "452879613368-ftgoau3q1bu6t38ac0ntvjgntbncdkuk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mysharepal",
+            "certificate_hash": "26ab26ce51ef805105af35fc128bebf3ddda2e30"
+          }
+        },
+        {
+          "client_id": "452879613368-2og5fh5ipdb205t7gurl9diaf5lsepo6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo-tE59iLGeZROL6VGnoIjeebs-jhFLmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452879613368-2og5fh5ipdb205t7gurl9diaf5lsepo6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "452879613368-2ic7rmrineopuiidrm2npml5cj9vbtvh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mysharepal"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452879613368:android:47bc53f5a397c60af1a34d",
+        "android_client_info": {
+          "package_name": "com.mysharepal2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452879613368-s6n6n2akql07u5q0npdpn6vvamnlbm4a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mysharepal2",
+            "certificate_hash": "7f63ba65418bf5b22db6234ed91bc34232e047d5"
+          }
+        },
+        {
+          "client_id": "452879613368-otstgvc65e90rfs2kn6d5apj5l4ip8dl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mysharepal2",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "452879613368-2og5fh5ipdb205t7gurl9diaf5lsepo6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAo-tE59iLGeZROL6VGnoIjeebs-jhFLmY"

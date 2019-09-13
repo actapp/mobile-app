@@ -121,12 +121,12 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.mysharepal"
+        applicationId "com.mysharepal2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 101020
         versionName "1.1.2"
-//        multiDexEnabled true
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -137,6 +137,12 @@ android {
         }
     }
     signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storePassword 'android'
+        }
         release {
             if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
                 storeFile file(MYAPP_RELEASE_STORE_FILE)
@@ -183,8 +189,13 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-firebase')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
+
+    implementation "com.google.firebase:firebase-core:17.2.0"
+    implementation "com.google.firebase:firebase-auth:19.0.0"
+    implementation "com.google.firebase:firebase-firestore:21.0.0"
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermesvm/android/";

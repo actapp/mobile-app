@@ -18,7 +18,8 @@ export default {
     rootContainer: rootContainer,
     centeredRootContainer: {
         ...rootContainer,
-        justifyContent: 'center'
+        justifyContent: 'center',       
+        flexWrap: 'nowrap' 
     },
     horizontallyCenteredContentContainer: {
         flex: 1,

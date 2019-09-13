@@ -3,9 +3,10 @@ import React, { Component } from 'react'
 import DashboardConnect from './DashboardConnect'
 
 import { alert } from '../../alerts/Alerts'
+import { logOut } from '../../../core/LogInInteractor'
 
 import renderContent, { TABS } from './DashboardRenderer'
-
+import GetStartedScreen from '../welcome/GetStartedScreen';
 import LearnScreen from '../learn/LearnScreen'
 import showAbout from '../utils/AboutPopup'
 
@@ -27,6 +28,14 @@ class DashboardScreen extends Component {
                         this.props.navigation.navigate(LearnScreen.KEY)
                      }
                 },
+                // {
+                //     name: 'Logout',
+                //     action: () => {                        
+                //         logOut();
+                //         this.props.logOut();
+                //         this.props.navigation.replace(GetStartedScreen.KEY)
+                //     }
+                // },
                 {
                     name: 'About',
                     action: showAbout

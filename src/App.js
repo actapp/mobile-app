@@ -56,7 +56,7 @@ class App extends Component {
     render() {
         return (
             <View style={Styles.centeredRootContainer}>
-                <LoadingIndicator />
+                <LoadingIndicator style={{ flex: 1, justifyContent: 'center' }} />
             </View>
         )
     }

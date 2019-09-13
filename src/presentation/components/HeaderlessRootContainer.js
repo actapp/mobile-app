@@ -3,6 +3,7 @@ import { Container, Content, StyleProvider } from 'native-base';
 import getTheme from '../../../native-base-theme/components'
 
 import Styles from '../style/Styles'
+import Colors from '../style/Colors';
 
 export default class HeaderlessRootContainer extends Component {
     render() {
@@ -15,7 +16,7 @@ export default class HeaderlessRootContainer extends Component {
 
         return (
             <StyleProvider style={getTheme()}>
-                <Container>
+                <Container style={{ backgroundColor: Colors.rootBackgroundColor}}>
                     {headerContent}
                     <Content
                         contentContainerStyle={{ alignItems: 'center', ...containerStyle }}
