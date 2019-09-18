@@ -3,12 +3,11 @@ package com.mysharepal2;
 import android.app.Application;
 import android.util.Log;
 
-
 import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
-import io.invertase.firebase.RNFirebasePackage;
+//import io.invertase.firebase.RNFirebasePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -16,9 +15,9 @@ import com.facebook.soloader.SoLoader;
 
 import java.util.List;
 
-import io.invertase.firebase.RNFirebasePackage;
-import io.invertase.firebase.auth.RNFirebaseAuthPackage;
-import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
+//import io.invertase.firebase.RNFirebasePackage;
+//import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+//import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
 //import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 //import com.oblador.vectoricons.VectorIconsPackage;
 
@@ -40,8 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
       // packages.add(new MyReactNativePackage());
 
 //      packages.add(new RNFirebasePackage());
-      packages.add(new RNFirebaseAuthPackage());
-      packages.add(new RNFirebaseFirestorePackage());
+//      packages.add(new RNFirebaseAuthPackage());
+//      packages.add(new RNFirebaseFirestorePackage());
 
 
       return packages;

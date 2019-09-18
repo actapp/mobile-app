@@ -1,4 +1,5 @@
-import firebase from 'react-native-firebase'
+// import firebase from 'react-native-firebase';
+import firestore from '@react-native-firebase/firestore';
 
 import getDoc from '../util/DocManagement'
 
@@ -59,7 +60,7 @@ export default class MinistryService {
 function docRef(mid) {
     console.log('Getting doc for MID: ' + mid)
 
-    return firebase.firestore().collection('ministries').doc(mid)
+    return firestore().collection('ministries').doc(mid)
 }
 
 function adminChartsRef(mid) {

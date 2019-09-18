@@ -1,11 +1,11 @@
-import { firebase } from '../../AppDI'
+import { firestore } from '../../AppDI'
 
 /**
  * Utility method
  * @param {Name of the collection being referenced} collectionName 
  */
 export function getCollectionRef(collectionName) {
-    return firebase.firestore().collection(collectionName)
+    return firestore().collection(collectionName)
 }
 
 /**

@@ -75,7 +75,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "452879613368-s6n6n2akql07u5q0npdpn6vvamnlbm4a.apps.googleusercontent.com",
+          "client_id": "452879613368-6426ihr3evd536u3vdlfdukd527ses6m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mysharepal2",
+            "certificate_hash": "047c2cd6ae849e45a6463ed9fa8223f490146b1e"
+          }
+        },
+        {
+          "client_id": "452879613368-r9qt5mgd2a3jvgfeh9tttf95ckedg9o6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.mysharepal2",
@@ -83,11 +91,11 @@
           }
         },
         {
-          "client_id": "452879613368-otstgvc65e90rfs2kn6d5apj5l4ip8dl.apps.googleusercontent.com",
+          "client_id": "452879613368-1vkmodbg23b8hr9r7oprajo2cfnrhrp2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.mysharepal2",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+            "certificate_hash": "65ad50680ea639d85194835c59b5e195032470f2"
           }
         },
         {

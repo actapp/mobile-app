@@ -1,4 +1,4 @@
-import { firebase } from '../AppDI'
+import { auth } from '../AppDI'
 
 /**
  * Start a phone auth process
@@ -8,7 +8,7 @@ import { firebase } from '../AppDI'
  * TODO: PREFIXES "+1" to the number (assumes this is a U.S. phone number--Firebase needs a country code)
  */
 export async function startPhoneLogIn(mdn) {
-    return await firebase.auth().signInWithPhoneNumber('+1' + mdn)
+    return await auth().signInWithPhoneNumber('+1' + mdn)
 }
 
 /**
@@ -28,13 +28,13 @@ export async function verifyCode(code, confirmation) {
  * Returns a function that can be invoked to stop listening (i.e. in componentWillUnmount)
  */
 export function setAuthenticationListener(listener) {
-    return firebase.auth().onAuthStateChanged(listener)
+    return auth().onAuthStateChanged(listener)
 }
 
 export function getCurrentUser() {
-    return firebase.auth().currentUser
+    return auth().currentUser
 }
 
 export async function logOut() {
-    return await firebase.auth().signOut()
+    return await auth().signOut()
 }

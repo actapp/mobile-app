@@ -28,14 +28,14 @@ class DashboardScreen extends Component {
                         this.props.navigation.navigate(LearnScreen.KEY)
                      }
                 },
-                // {
-                //     name: 'Logout',
-                //     action: () => {                        
-                //         logOut();
-                //         this.props.logOut();
-                //         this.props.navigation.replace(GetStartedScreen.KEY)
-                //     }
-                // },
+                {
+                    name: 'Logout',
+                    action: () => {                        
+                        logOut();
+                        this.props.logOut();
+                        this.props.navigation.replace(GetStartedScreen.KEY)
+                    }
+                },
                 {
                     name: 'About',
                     action: showAbout
